@@ -1,0 +1,68 @@
+[0.027s] Invoking command in '/home/namqn_/git/RS1Group31/build/dummy_drone': /usr/bin/cmake /home/namqn_/git/RS1Group31/src/dummy_drone -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/namqn_/git/RS1Group31/install/dummy_drone
+[0.255s] -- The C compiler identification is GNU 11.4.0
+[0.686s] -- The CXX compiler identification is GNU 11.4.0
+[0.944s] -- Detecting C compiler ABI info
+[1.170s] -- Detecting C compiler ABI info - done
+[1.182s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.182s] -- Detecting C compile features
+[1.182s] -- Detecting C compile features - done
+[1.186s] -- Detecting CXX compiler ABI info
+[1.325s] -- Detecting CXX compiler ABI info - done
+[1.333s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.334s] -- Detecting CXX compile features
+[1.334s] -- Detecting CXX compile features - done
+[1.336s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.550s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.697s] -- Found rclcpp: 16.0.14 (/opt/ros/humble/share/rclcpp/cmake)
+[1.862s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.874s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.904s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.931s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.959s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.070s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.075s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.742s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[5.368s] -- Found FastRTPS: /opt/ros/humble/include  
+[8.286s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[8.329s] -- Looking for pthread.h
+[8.498s] -- Looking for pthread.h - found
+[8.499s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[8.652s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[8.654s] -- Found Threads: TRUE  
+[8.768s] -- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[8.860s] -- Configuring done
+[8.874s] -- Generating done
+[8.875s] [33mCMake Warning:
+[8.876s]   Manually-specified variables were not used by the project:
+[8.876s] 
+[8.876s]     CATKIN_INSTALL_INTO_PREFIX_ROOT
+[8.876s]     CATKIN_SYMLINK_INSTALL
+[8.876s] 
+[8.876s] [0m
+[8.878s] -- Build files have been written to: /home/namqn_/git/RS1Group31/build/dummy_drone
+[8.892s] Invoked command in '/home/namqn_/git/RS1Group31/build/dummy_drone' returned '0': /usr/bin/cmake /home/namqn_/git/RS1Group31/src/dummy_drone -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/namqn_/git/RS1Group31/install/dummy_drone
+[8.894s] Invoking command in '/home/namqn_/git/RS1Group31/build/dummy_drone': /usr/bin/cmake --build /home/namqn_/git/RS1Group31/build/dummy_drone -- -j12 -l12
+[8.940s] [ 50%] [32mBuilding CXX object CMakeFiles/dummy_drone_controller.dir/src/dummy_drone_controller.cpp.o[0m
+[179.067s] [100%] [32m[1mLinking CXX executable dummy_drone_controller[0m
+[179.431s] [100%] Built target dummy_drone_controller
+[179.457s] Invoked command in '/home/namqn_/git/RS1Group31/build/dummy_drone' returned '0': /usr/bin/cmake --build /home/namqn_/git/RS1Group31/build/dummy_drone -- -j12 -l12
+[179.461s] Invoking command in '/home/namqn_/git/RS1Group31/build/dummy_drone': /usr/bin/cmake --install /home/namqn_/git/RS1Group31/build/dummy_drone
+[179.471s] -- Install configuration: ""
+[179.474s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/lib/dummy_drone/dummy_drone_controller
+[179.475s] -- Set runtime path of "/home/namqn_/git/RS1Group31/install/dummy_drone/lib/dummy_drone/dummy_drone_controller" to ""
+[179.477s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/ament_index/resource_index/package_run_dependencies/dummy_drone
+[179.479s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/ament_index/resource_index/parent_prefix_path/dummy_drone
+[179.482s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/ament_prefix_path.sh
+[179.483s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/ament_prefix_path.dsv
+[179.483s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/path.sh
+[179.483s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/path.dsv
+[179.484s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.bash
+[179.484s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.sh
+[179.484s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.zsh
+[179.485s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.dsv
+[179.485s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/package.dsv
+[179.486s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/ament_index/resource_index/packages/dummy_drone
+[179.486s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/cmake/dummy_droneConfig.cmake
+[179.487s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/cmake/dummy_droneConfig-version.cmake
+[179.488s] -- Installing: /home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/package.xml
+[179.490s] Invoked command in '/home/namqn_/git/RS1Group31/build/dummy_drone' returned '0': /usr/bin/cmake --install /home/namqn_/git/RS1Group31/build/dummy_drone
