@@ -1,0 +1,1 @@
+/home/namqn_/git/RS1Group31/build/41068_ignition_bringup/ament_cmake_environment_hooks/local_setup.bash

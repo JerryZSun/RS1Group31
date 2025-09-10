@@ -1,0 +1,110 @@
+[0.052s] Invoking command in '/home/namqn_/git/RS1Group31/build/41068_ignition_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/namqn_/git/RS1Group31/src/41068_ignition_bringup -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/namqn_/git/RS1Group31/install/41068_ignition_bringup
+[0.291s] -- The C compiler identification is GNU 11.4.0
+[0.726s] -- The CXX compiler identification is GNU 11.4.0
+[0.980s] -- Detecting C compiler ABI info
+[1.195s] -- Detecting C compiler ABI info - done
+[1.203s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.204s] -- Detecting C compile features
+[1.205s] -- Detecting C compile features - done
+[1.209s] -- Detecting CXX compiler ABI info
+[1.355s] -- Detecting CXX compiler ABI info - done
+[1.364s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.364s] -- Detecting CXX compile features
+[1.365s] -- Detecting CXX compile features - done
+[1.370s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.593s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.684s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.731s] -- Found ros_ign_interfaces: 0.244.20 (/opt/ros/humble/share/ros_ign_interfaces/cmake)
+[1.898s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.910s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.941s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.967s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.996s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.139s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[2.217s] WARNING: Package name "41068_ignition_bringup" does not follow the naming conventions. It should start with a lower case letter and only contain lower case letters, digits, underscores, and dashes.
+[2.300s] -- Added test 'copyright' to check source files copyright and LICENSE
+[2.315s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[2.316s] -- Configured cppcheck include dirs: 
+[2.316s] -- Configured cppcheck exclude dirs and/or files: 
+[2.325s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[2.326s] -- Configured cpplint exclude dirs and/or files: 
+[2.329s] -- Added test 'flake8' to check Python code syntax and style conventions
+[2.332s] -- Added test 'lint_cmake' to check CMake code style
+[2.334s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[2.342s] -- Added test 'uncrustify' to check C / C++ code style
+[2.343s] -- Configured uncrustify additional arguments: 
+[2.345s] -- Added test 'xmllint' to check XML markup files
+[2.349s] -- Configuring done
+[2.355s] -- Generating done
+[2.357s] -- Build files have been written to: /home/namqn_/git/RS1Group31/build/41068_ignition_bringup
+[2.371s] Invoked command in '/home/namqn_/git/RS1Group31/build/41068_ignition_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/namqn_/git/RS1Group31/src/41068_ignition_bringup -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/namqn_/git/RS1Group31/install/41068_ignition_bringup
+[2.374s] Invoking command in '/home/namqn_/git/RS1Group31/build/41068_ignition_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/namqn_/git/RS1Group31/build/41068_ignition_bringup -- -j12 -l12
+[2.424s] Invoked command in '/home/namqn_/git/RS1Group31/build/41068_ignition_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/namqn_/git/RS1Group31/build/41068_ignition_bringup -- -j12 -l12
+[2.437s] Invoking command in '/home/namqn_/git/RS1Group31/build/41068_ignition_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/namqn_/git/RS1Group31/build/41068_ignition_bringup
+[2.443s] -- Install configuration: ""
+[2.443s] -- Execute custom install script
+[2.446s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/config/41068.rviz
+[2.456s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/config/gazebo_bridge.yaml
+[2.468s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/config/nav2_params.yaml
+[2.478s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/config/robot_localization.yaml
+[2.489s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/config/slam_params.yaml
+[2.500s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/launch/41068_ignition.launch.py
+[2.509s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/launch/41068_ignition_drone.launch.py
+[2.522s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/launch/41068_navigation.launch.py
+[2.532s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/Test file.txt
+[2.543s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_plane/materials/textures/empty_grass.png
+[2.550s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_plane/materials/textures/forest_overhead.png
+[2.562s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_plane/materials/textures/leaf_litter.png
+[2.570s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_plane/model.config
+[2.579s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_plane/model.sdf
+[2.589s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_wall/materials/textures/forest_wall.png
+[2.600s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_wall/materials/textures/forest_wall_transparent.png
+[2.607s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_wall/materials/textures/forest_wall_transparent_small.png
+[2.618s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_wall/model.config
+[2.628s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/forest_wall/model.sdf
+[2.638s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/grass_plane/materials/textures/empty_grass.png
+[2.649s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/grass_plane/model.config
+[2.663s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/models/grass_plane/model.sdf
+[2.677s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/common_properties.urdf.xacro
+[2.708s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/husky.gazebo.xacro
+[2.724s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/husky.urdf.xacro
+[2.742s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/meshes/base_link.dae
+[2.753s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/meshes/bumper.dae
+[2.766s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/meshes/jpl04_arch_nosensor.stl
+[2.776s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/meshes/top_chassis.dae
+[2.786s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/meshes/top_plate.dae
+[2.796s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/meshes/wheel.dae
+[2.806s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf/wheel.urdf.xacro
+[2.817s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/worlds/large_demo.sdf
+[2.827s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/worlds/simple_trees.sdf
+[2.836s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/common_properties.urdf.xacro
+[2.847s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/meshes/hull.dae
+[2.857s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/meshes/propeller_fl.dae
+[2.866s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/meshes/propeller_fr.dae
+[2.875s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/meshes/propeller_rl.dae
+[2.886s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/meshes/propeller_rr.dae
+[2.899s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/model.config
+[2.908s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/model.sdf
+[2.917s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/parrot.gazebo.xacro
+[2.926s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/parrot.urdf.xacro
+[2.936s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/thumbnails/1.png
+[2.945s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/thumbnails/2.png
+[2.957s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/thumbnails/3.png
+[2.965s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/thumbnails/4.png
+[2.974s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/urdf_drone/thumbnails/5.png
+[2.985s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/ament_index/resource_index/package_run_dependencies/41068_ignition_bringup
+[2.996s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/ament_index/resource_index/parent_prefix_path/41068_ignition_bringup
+[3.006s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/environment/ament_prefix_path.sh
+[3.015s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/environment/ament_prefix_path.dsv
+[3.027s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/environment/path.sh
+[3.042s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/environment/path.dsv
+[3.055s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/local_setup.bash
+[3.072s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/local_setup.sh
+[3.098s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/local_setup.zsh
+[3.123s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/local_setup.dsv
+[3.134s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/package.dsv
+[3.143s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/ament_index/resource_index/packages/41068_ignition_bringup
+[3.154s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/cmake/41068_ignition_bringupConfig.cmake
+[3.167s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/cmake/41068_ignition_bringupConfig-version.cmake
+[3.177s] -- Symlinking: /home/namqn_/git/RS1Group31/install/41068_ignition_bringup/share/41068_ignition_bringup/package.xml
+[3.190s] Invoked command in '/home/namqn_/git/RS1Group31/build/41068_ignition_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/namqn_/git/RS1Group31/build/41068_ignition_bringup

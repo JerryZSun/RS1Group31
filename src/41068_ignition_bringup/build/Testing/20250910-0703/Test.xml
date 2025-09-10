@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20250910-0703-Experimental"
+	Name="NamsPC"
+	Generator="ctest-3.22.1"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="11.4.0"
+	OSName="Linux"
+	Hostname="NamsPC"
+	OSRelease="5.15.167.4-microsoft-standard-WSL2"
+	OSVersion="#1 SMP Tue Nov 5 00:21:55 UTC 2024"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="165"
+	ProcessorCacheSize="12288"
+	NumberOfLogicalCPU="12"
+	NumberOfPhysicalCPU="6"
+	TotalVirtualMemory="2048"
+	TotalPhysicalMemory="7907"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2904"
+	>
+	<Testing>
+		<StartDateTime>Sep 10 17:21 AEST</StartDateTime>
+		<StartTestTime>1757488880</StartTestTime>
+		<TestList/>
+		<EndDateTime>Sep 10 17:21 AEST</EndDateTime>
+		<EndTestTime>1757488880</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

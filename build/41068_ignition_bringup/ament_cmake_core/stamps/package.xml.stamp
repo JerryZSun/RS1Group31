@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>41068_ignition_bringup</name>
+  <version>1.0.3</version>
+  <description>TurtleBot 4 Ignition Simulator bringup</description>
+  <maintainer email="rkreinin@clearpathrobotics.com">rkreinin</maintainer>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ROS IGN -->
+  <depend>ros_ign_interfaces</depend>
+  <depend>ros_ign_gazebo</depend>
+  <depend>ros_ign_bridge</depend>
+
+  <!-- Other -->
+  <depend>robot_localization</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+    <gazebo_ros gazebo_media_path="${prefix}/worlds"/>
+  </export>
+</package>

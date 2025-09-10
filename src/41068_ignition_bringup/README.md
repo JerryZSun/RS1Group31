@@ -1,0 +1,122 @@
+# 41068 Ignition Bringup
+
+Bringup for *41068 Robotics Studio I*. Launches a Husky robot in a custom simulation world with trees and grass. We use **ROS2 Humble** and **Ignition Gazebo Fortress**.
+
+Added 05/09/2025: Also included a drone robot ("parrot"). Scroll down for instructions specifically for the drone.
+
+Worlds are build from [Gazebo Fuel](https://app.gazebosim.org/fuel/models).
+
+## Installation
+
+First install some dependencies:
+
+* If you haven't already, install ROS2 Humble. Follow the instructions here: https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html
+* Install Gazebo
+  ```bash
+  sudo apt-get update && sudo apt-get install wget
+  sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+  wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+  sudo apt-get update && sudo apt-get install ignition-fortress
+  ```
+* Install development tools and robot localisation
+  ```bash
+  sudo apt install ros-dev-tools ros-humble-robot-localization
+  sudo apt install ros-humble-ros-ign ros-humble-ros-ign-interfaces
+  sudo apt install ros-humble-turtlebot4-simulator ros-humble-irobot-create-nodes
+  ```
+* Make sure that your installation is up to date. This is particularly important if you installed ROS a long time ago, such as in another subject. If you get errors here, make sure to resolve these before continuing.
+  ```bash
+  sudo apt upgrade
+  sudo apt update
+  ```  
+
+Now install this package:
+* Create a new colcon workspace
+  ```bash
+  mkdir -p 41068_ws/src
+  ```
+* Copy this package to the `src` directory in this workspace
+* Build package. If you get an error suggesting a missing dependency, make sure you have followed all of the above installation instructions correctly.
+  ```bash
+  source /opt/ros/humble/setup.bash
+  cd 41068_ws
+  colcon build --symlink-install
+  ```
+* Source workspace (if you add this to your ~/.bashrc, then you don't need to do this each time)
+  ```bash
+  source ~/41068_ws/install/setup.bash
+  ```
+* Launch basic trees world. It might take a little while to load the first time you run it since it is downloading world model resources. If it crashes the first time, try running it again.
+  ```bash
+  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py
+  ```
+* As above with SLAM and autonomous navigation
+  ```bash
+  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py slam:=true nav2:=true rviz:=true
+  ```
+* Change world with `world` argument. Must be the name of a `.sdf` file in `worlds`, but without file extension. Note this might also take a while the first time you run it since it is downloading extra model resources.
+  ```bash
+  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py world:=large_demo
+  ```
+* And similarly, the larger world, and with SLAM and navigation:
+  ```bash
+  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
+  ```
+* When launching with rviz, you can send a waypoint to the robot by clicking the "2D Goal pose" and then a location in the map. The robot is navigating using the nav2 package. If it gets stuck, you can try the buttons in the Navigation 2 panel in the top right of RVIZ.
+
+* You can also drive the robot using keyboard teleoperation by running the following in a separate terminal, then use the keys listed in the instructions to move the robot:
+  ```bash
+  ros2 run teleop_twist_keyboard teleop_twist_keyboard
+  ```
+
+## Drone (added 05/09/2025)
+
+By popular request, I've added a simple drone to the package, which requires a few modifications to get running:
+
+* In the world file (large_demo.sdf or simple_trees.sdf, etc.), set the gravity to 0, so the drone doesn't fall out of the sky. I'll let you work out how to do that.
+
+* I've created a separate launch file for the drone, which is almost the same, except spawns a "parrot" drone instead of the husky:
+  ```bash
+  ros2 launch 41068_ignition_bringup 41068_ignition_drone.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
+  ```
+
+* At the moment, the drone will just fly at a fixed altitude. You can change the altitude in 41068_ignition_drone.launch.py. Find the `robot_spawner` node, and change change the `z` parameter, which is height above the ground where it is spawned.
+
+* The drone's camera is setup to tilt 45 degrees downwards (looking slightly down towards the ground). You can change this in `urdf_drone/parrot.urdf.xacro`, find the `camera_joint` and change the "pitch" (you'll need to workout how to do this exactly).
+
+* Since the drone has a very hard time navigating through the leaves of the trees, I've disabled the collisions of the drones. So at the moment, it is allowed to fly through objects. You can enable collisions by uncommenting the `collision` field in `urdf_drone/parrot.urdf.xacro`. Note that the default navigation stack doesn't work well in this situation, so you will need to further develop the collision avoidance planners for this new challenge!
+
+* At the moment, you can only run the drone or the husky, not both. If you wish to spawn both at the same time, then you'll need to figure out how :)
+
+
+
+
+## Errors
+
+If you are getting errors, first check you are following the instructions correctly. Otherwise, read the error messages carefully and google it or discuss with your team or the teaching staff. Here's two errors I came across and fixes.
+
+### Jump back in time
+
+If you continuously get an error like:
+
+```bash
+Detected jump back in time. Clearing TF buffer
+```
+
+and you probably see things flashing in rviz, then this is probably due to the simulation clock time being reset constantly. This is likely caused by multiple gazebo instances running, perhaps a crashed gazebo in the background that didn't close properly. 
+
+To fix this, I suggest restarting the computer. 
+
+### Ogre Exception
+
+If you get an error like:
+
+```bash
+[Ogre2RenderEngine.cc:989]  Unable to create the rendering window: OGRE EXCEPTION(3:RenderingAPIException): currentGLContext was specified with no current GL context in GLXWindow::create at /build/ogre-next-UFfg83/ogre-next-2.2.5+dfsg3/RenderSystems/GL3Plus/src/windowing/GLX/OgreGLXWindow.cpp (line 163)
+```
+
+I found [this thread](https://robotics.stackexchange.com/questions/111547/gazebo-crashes-immediately-segmentation-fault-address-not-mapped-to-object-0) which suggests to set a bash variable before launching Gazebo:
+
+```bash
+export QT_QPA_PLATFORM=xcb
+```

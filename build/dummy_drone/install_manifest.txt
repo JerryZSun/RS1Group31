@@ -1,0 +1,16 @@
+/home/namqn_/git/RS1Group31/install/dummy_drone/lib/dummy_drone/dummy_drone_controller
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/ament_index/resource_index/package_run_dependencies/dummy_drone
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/ament_index/resource_index/parent_prefix_path/dummy_drone
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/ament_prefix_path.sh
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/ament_prefix_path.dsv
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/path.sh
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/environment/path.dsv
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.bash
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.sh
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.zsh
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/local_setup.dsv
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/package.dsv
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/ament_index/resource_index/packages/dummy_drone
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/cmake/dummy_droneConfig.cmake
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/cmake/dummy_droneConfig-version.cmake
+/home/namqn_/git/RS1Group31/install/dummy_drone/share/dummy_drone/package.xml
