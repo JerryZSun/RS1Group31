@@ -1,6 +1,0 @@
-Invoking command in '/home/namqn_/git/RS1Group31/build/dummy_drone': /usr/bin/cmake /home/namqn_/git/RS1Group31/src/dummy_drone -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/namqn_/git/RS1Group31/install/dummy_drone
-Invoked command in '/home/namqn_/git/RS1Group31/build/dummy_drone' returned '0': /usr/bin/cmake /home/namqn_/git/RS1Group31/src/dummy_drone -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/namqn_/git/RS1Group31/install/dummy_drone
-Invoking command in '/home/namqn_/git/RS1Group31/build/dummy_drone': /usr/bin/cmake --build /home/namqn_/git/RS1Group31/build/dummy_drone -- -j12 -l12
-Invoked command in '/home/namqn_/git/RS1Group31/build/dummy_drone' returned '0': /usr/bin/cmake --build /home/namqn_/git/RS1Group31/build/dummy_drone -- -j12 -l12
-Invoking command in '/home/namqn_/git/RS1Group31/build/dummy_drone': /usr/bin/cmake --install /home/namqn_/git/RS1Group31/build/dummy_drone
-Invoked command in '/home/namqn_/git/RS1Group31/build/dummy_drone' returned '0': /usr/bin/cmake --install /home/namqn_/git/RS1Group31/build/dummy_drone

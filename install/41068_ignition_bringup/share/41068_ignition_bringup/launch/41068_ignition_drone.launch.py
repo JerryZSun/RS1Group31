@@ -1,1 +1,0 @@
-/home/namqn_/git/RS1Group31/src/41068_ignition_bringup/launch/41068_ignition_drone.launch.py
