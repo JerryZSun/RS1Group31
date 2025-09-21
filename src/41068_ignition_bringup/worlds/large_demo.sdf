@@ -145,101 +145,151 @@
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak1</name>
-      <pose>-4.77393 12.2995 -0.3 0 -0 0</pose>
+      <pose>1 -7 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak2</name>
-      <pose>2.99444 -4.95498 -0.3 0 -0 0.8</pose>
+      <pose>-6 5 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak3</name>
-      <pose>-9.12426 -11.2689 -0.3 0 -0 0.3</pose>
+      <pose>-8 -8 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak4</name>
-      <pose>4.21788 -1.41417 -0.3 0 -0 0.1</pose>
+      <pose>-7 0 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak5</name>
-      <pose>-6.26553 5.00575 -0.3 0 -0 0.4</pose>
+      <pose>-2 8 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak6</name>
-      <pose>-4.33701 1.32854 -0.3 0 -0 0</pose>
+      <pose>-8 -8 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak7</name>
-      <pose>-0.620372 10 -0.3 0 -0 0.5</pose>
+      <pose>7 0 0 0 0 0</pose>
     </include>
     <include>
       <uri>
         https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
       </uri>
       <name>oak8</name>
-      <pose>3.54698 5 -0.3 0 -0 0.1</pose>
+      <pose>10 -3 0 0 0 0</pose>
+    </include>
+        <include>
+      <uri>
+        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Oak%20tree
+      </uri>
+      <name>oak9</name>
+      <pose>10 4 0 0 0 0</pose>
     </include>
     
-    <!-- Pine trees -->
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree
-      </uri>
-      <name>pine1</name>
-      <pose>6.05721 9.78933 0 0 -0 0.1</pose>
-    </include>
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree
-      </uri>
-      <name>pine2</name>
-      <pose>-10.0184 8.85188 0 0 -0 0.3</pose>
-    </include>
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree
-      </uri>
-      <name>pine3</name>
-      <pose>-4.62343 -12.5618 0 0 -0 0.2</pose>
-    </include>
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree
-      </uri>
-      <name>pine4</name>
-      <pose>7.08738 1.33612 0 0 -0 0</pose>
-    </include>
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree
-      </uri>
-      <name>pine5</name>
-      <pose>-4.64898 -3.0329 0 0 -0 0.5</pose>
-    </include>
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree
-      </uri>
-      <name>pine6</name>
-      <pose>-2.27195 -8.68441 0 0 -0 0.9</pose>
-    </include>
+<!-- Pine trees -->
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine1</name>
+  <pose>3 0 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine2</name>
+  <pose>4 2 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine3</name>
+  <pose>7 5 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine4</name>
+  <pose>8 6 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine5</name>
+  <pose>9 7 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine6</name>
+  <pose>10 8 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine7</name>
+  <pose>2 -1 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine8</name>
+  <pose>3 -2 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine9</name>
+  <pose>4 -3 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine10</name>
+  <pose>5 -4 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine11</name>
+  <pose>6 -5 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine12</name>
+  <pose>7 -6 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine13</name>
+  <pose>8 -7 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine14</name>
+  <pose>9 -8 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine15</name>
+  <pose>10 -9 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine16</name>
+  <pose>11 -10 0 0 0 0</pose>
+</include>
+<include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Pine%20tree</uri>
+  <name>pine17</name>
+  <pose>2 3 0.5 2 1 2</pose>
+</include>
 
     <!-- Platypus -->
     <include>
@@ -293,6 +343,12 @@
       <name>rock6</name>
       <pose>-14 -12 0 0 0 0</pose>
     </include>
+
+  <include>
+  <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/crocodile</uri>
+  <name>crocodile1</name>
+  <pose>-2 10 0 0 0 0</pose>
+</include>
 
   </world>
 </sdf>
