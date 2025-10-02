@@ -7,11 +7,30 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-
+find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(ros_ign_interfaces REQUIRED)
 
+# Create executable
+add_executable(mission src/mission.cpp)
+
+# Link dependencies
+ament_target_dependencies(mission
+  rclcpp
+  geometry_msgs
+  nav_msgs
+)
+
+# Install executableS
+install(TARGETS
+  mission
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+# Install other directories
 install(
-  DIRECTORY config launch models urdf worlds
+  DIRECTORY config launch models urdf worlds urdf_drone
   DESTINATION share/${PROJECT_NAME}
 )
 

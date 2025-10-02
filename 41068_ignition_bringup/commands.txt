@@ -1,0 +1,28 @@
+my assignment folder is :
+/home/jsunne/git/rs1group31/41068_ignition_bringup
+
+Permanent source and graphic fix and link support file:
+
+echo 'if [ -f ~/41068_ws/install/setup.bash ]; then source ~/41068_ws/install/setup.bash; fi' >> ~/.bashrc
+echo 'export LIBGL_ALWAYS_SOFTWARE=true' >> ~/.bashrc
+
+Build:
+
+cd ~/41068_ws
+rm -rf build install log
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+
+Start Simulation:
+
+source ~/41068_ws/install/setup.bash
+ros2 launch 41068_ignition_bringup 41068_ignition_drone.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
+
+Move Drone:
+
+ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
+
+Run Mission:
+
+source ~/41068_ws/install/setup.bash
+ros2 run 41068_ignition_bringup mission
