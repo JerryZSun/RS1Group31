@@ -120,3 +120,159 @@ I found [this thread](https://robotics.stackexchange.com/questions/111547/gazebo
 ```bash
 export QT_QPA_PLATFORM=xcb
 ```
+
+Starting Cmake:
+
+cmake_minimum_required(VERSION 3.8)
+project(41068_ignition_bringup)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+
+find_package(ros_ign_interfaces REQUIRED)
+
+install(
+  DIRECTORY config launch models urdf worlds urdf_drone
+  DESTINATION share/${PROJECT_NAME}
+)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+a
+ament_package()
+
+Usefull Commands:
+
+ros2 topic list -t
+ros2 node list
+ros2 node info /robot_localization
+
+
+Result:
+
+jsunne@DESKTOP-AO6197G:~/git/RS1Group31/41068_ignition_bringup$ ros2 topic list -t
+ros2 node list
+ros2 node info /robot_localization
+/behavior_server/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/behavior_tree_log [nav2_msgs/msg/BehaviorTreeLog]
+/bond [bond/msg/Status]
+/bt_navigator/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/camera/depth/image [sensor_msgs/msg/Image]
+/camera/depth/points [sensor_msgs/msg/PointCloud2]
+/camera/image [sensor_msgs/msg/Image]
+/clicked_point [geometry_msgs/msg/PointStamped]
+/clock [rosgraph_msgs/msg/Clock]
+/cmd_vel [geometry_msgs/msg/Twist]
+/cmd_vel_nav [geometry_msgs/msg/Twist]
+/cmd_vel_teleop [geometry_msgs/msg/Twist]
+/controller_server/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/cost_cloud [sensor_msgs/msg/PointCloud2]
+/diagnostics [diagnostic_msgs/msg/DiagnosticArray]
+/evaluation [dwb_msgs/msg/LocalPlanEvaluation]
+/global_costmap/costmap [nav_msgs/msg/OccupancyGrid]
+/global_costmap/costmap_raw [nav2_msgs/msg/Costmap]
+/global_costmap/costmap_updates [map_msgs/msg/OccupancyGridUpdate]
+/global_costmap/footprint [geometry_msgs/msg/Polygon]
+/global_costmap/global_costmap/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/global_costmap/published_footprint [geometry_msgs/msg/PolygonStamped]
+/goal_pose [geometry_msgs/msg/PoseStamped]
+/imu [sensor_msgs/msg/Imu]
+/initialpose [geometry_msgs/msg/PoseWithCovarianceStamped]
+/joint_states [sensor_msgs/msg/JointState]
+/local_costmap/costmap [nav_msgs/msg/OccupancyGrid]
+/local_costmap/costmap_raw [nav2_msgs/msg/Costmap]
+/local_costmap/costmap_updates [map_msgs/msg/OccupancyGridUpdate]
+/local_costmap/footprint [geometry_msgs/msg/Polygon]
+/local_costmap/local_costmap/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/local_costmap/published_footprint [geometry_msgs/msg/PolygonStamped]
+/local_plan [nav_msgs/msg/Path]
+/map [nav_msgs/msg/OccupancyGrid]
+/map_metadata [nav_msgs/msg/MapMetaData]
+/map_updates [map_msgs/msg/OccupancyGridUpdate]
+/marker [visualization_msgs/msg/MarkerArray]
+/odom [nav_msgs/msg/Odometry]
+/odometry [nav_msgs/msg/Odometry]
+/odometry/filtered [nav_msgs/msg/Odometry]
+/parameter_events [rcl_interfaces/msg/ParameterEvent]
+/plan [nav_msgs/msg/Path]
+/plan_smoothed [nav_msgs/msg/Path]
+/planner_server/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/pose [geometry_msgs/msg/PoseWithCovarianceStamped]
+/preempt_teleop [std_msgs/msg/Empty]
+/received_global_plan [nav_msgs/msg/Path]
+/robot_description [std_msgs/msg/String]
+/rosout [rcl_interfaces/msg/Log]
+/scan [sensor_msgs/msg/LaserScan]
+/scan/points [sensor_msgs/msg/PointCloud2]
+/set_pose [geometry_msgs/msg/PoseWithCovarianceStamped]
+/slam_toolbox/feedback [visualization_msgs/msg/InteractiveMarkerFeedback]
+/slam_toolbox/graph_visualization [visualization_msgs/msg/MarkerArray]
+/slam_toolbox/scan_visualization [sensor_msgs/msg/LaserScan]
+/slam_toolbox/update [visualization_msgs/msg/InteractiveMarkerUpdate]
+/smoother_server/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/speed_limit [nav2_msgs/msg/SpeedLimit]
+/tf [tf2_msgs/msg/TFMessage]
+/tf_static [tf2_msgs/msg/TFMessage]
+/transformed_global_plan [nav_msgs/msg/Path]
+/velocity_smoother/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/waypoint_follower/transition_event [lifecycle_msgs/msg/TransitionEvent]
+/waypoints [visualization_msgs/msg/MarkerArray]
+/behavior_server
+/bt_navigator
+/bt_navigator_navigate_through_poses_rclcpp_node
+/bt_navigator_navigate_to_pose_rclcpp_node
+/controller_server
+/global_costmap/global_costmap
+/lifecycle_manager_navigation
+/local_costmap/local_costmap
+/planner_server
+/robot_localization
+/robot_state_publisher
+/ros_gz_bridge
+/rviz
+/rviz_navigation_dialog_action_client
+/slam_toolbox
+/smoother_server
+/transform_listener_impl_559709feab70
+/transform_listener_impl_560d5e3ddd70
+/transform_listener_impl_56436da55010
+/transform_listener_impl_5aa7244b3150
+/transform_listener_impl_5f401027f2b0
+/transform_listener_impl_6094ca4111a0
+/transform_listener_impl_62139a9a4ab0
+/velocity_smoother
+/waypoint_follower
+/robot_localization
+  Subscribers:
+    /clock: rosgraph_msgs/msg/Clock
+    /imu: sensor_msgs/msg/Imu
+    /odometry: nav_msgs/msg/Odometry
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /set_pose: geometry_msgs/msg/PoseWithCovarianceStamped
+  Publishers:
+    /diagnostics: diagnostic_msgs/msg/DiagnosticArray
+    /odometry/filtered: nav_msgs/msg/Odometry
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+    /tf: tf2_msgs/msg/TFMessage
+  Service Servers:
+    /enable: std_srvs/srv/Empty
+    /robot_localization/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /robot_localization/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /robot_localization/get_parameters: rcl_interfaces/srv/GetParameters
+    /robot_localization/list_parameters: rcl_interfaces/srv/ListParameters
+    /robot_localization/set_parameters: rcl_interfaces/srv/SetParameters
+    /robot_localization/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+    /set_pose: robot_localization/srv/SetPose
+    /toggle: robot_localization/srv/ToggleFilterProcessing
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
