@@ -34,27 +34,16 @@ public:
         );
         
         // Initialize waypoints - modify these as needed
-        // NOTE: Set z to match your drone spawn height (2.0) to maintain altitude
+        // NOTE: Set z to match your drone spawn height (1.25) to maintain altitude
+
         waypoints_ = {
-            {7.75, -10.28, 0.15}, 
-            {6.31, -8.95, 0.15}, 
-            {2.38, -4.99, 0.15}, 
-            {0.82, -2.83, 0.15}, 
-            {3, -5.5, 0.15}, 
-            {-0.14, -1.20, 0.15}, 
-            {1.28, 0.88, 0.15}, 
-            {2.48, 2.17, 0.15}, 
-            {4.63, 4.89, 0.15}, 
-            {6.08, 6.08, 0.15}, 
-            {7.30, 7.19, 0.15}, 
-            {8.44, 8.63, 0.15}, 
-            {11.0, 10.5, 0.15}
+            {9.5, -12, 1.25},
         };
         
         // Initialize state
         current_position_ = {0.0, 0.0, 0.0};
         current_yaw_ = 0.0;
-        position_tolerance_ = 0.5; // 50cm tolerance for position
+        position_tolerance_ = 0.5; //  50cm tolerance for position
         turning_threshold_degrees_ = 30.0; // Stop to turn if angle > 30 degrees
         heading_tolerance_degrees_ = 5.0; // Face waypoint within 5 degrees
         
@@ -106,10 +95,9 @@ private:
         
         // Use 2D distance for navigation logic (ignore vertical)
         double horizontal_distance = std::sqrt(dx*dx + dy*dy);
-        double distance_3d = std::sqrt(dx*dx + dy*dy + dz*dz);
         
-        // Check if waypoint reached (using 3D distance)
-        if (distance_3d <= position_tolerance_) {
+        // Check if waypoint reached (using horizontal distance)
+        if (horizontal_distance <= position_tolerance_) {
             RCLCPP_INFO(this->get_logger(), 
                 "Waypoint %zu reached! Moving to next.", 
                 current_waypoint_index_ + 1);
@@ -168,7 +156,8 @@ private:
                         static int turn_log_counter = 0;
                         if (++turn_log_counter % 10 == 0) { // Log every second
                             RCLCPP_INFO(this->get_logger(), 
-                                "TURNING: Yaw error: %.1f°", 
+                                "TURNING: Current position: (%.2f, %.2f, %.2f), Yaw error: %.1f°", 
+                                current_position_.x, current_position_.y, current_position_.z,
                                 yaw_error_degrees);
                         }
                     }
@@ -195,11 +184,11 @@ private:
                         double base_speed = 0.5; // Base speed
                         double min_speed = 0.08; // Minimum speed
                         
-                        // Slow down when approaching waypoint (use 3D distance for speed control)
+                        // Slow down when approaching waypoint
                         double speed_factor = 1.0;
-                        if (distance_3d < 5.0) {
+                        if (horizontal_distance < 5.0) {
                             speed_factor = std::max(min_speed / base_speed, 
-                                                   std::pow(distance_3d / 5.0, 0.7));
+                                                   std::pow(horizontal_distance / 5.0, 0.7));
                         }
                         
                         // Further reduce speed when very close
@@ -233,11 +222,12 @@ private:
                         static int move_log_counter = 0;
                         if (++move_log_counter % 20 == 0) { // Log every 2 seconds
                             RCLCPP_INFO(this->get_logger(), 
-                                "MOVING: Target waypoint %zu: (%.1f, %.1f, %.1f), "
-                                "Distance: %.2f m, H-Distance: %.2f m, Heading error: %.1f°", 
+                                "MOVING: Current position: (%.2f, %.2f, %.2f), "
+                                "Target waypoint %zu: (%.1f, %.1f, %.1f), Distance: %.2f m, Heading error: %.1f°", 
+                                current_position_.x, current_position_.y, current_position_.z,
                                 current_waypoint_index_ + 1, 
                                 target.x, target.y, target.z, 
-                                distance_3d, horizontal_distance, yaw_error_degrees);
+                                horizontal_distance, yaw_error_degrees);
                         }
                     }
                 }
