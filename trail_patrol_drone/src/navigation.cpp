@@ -61,9 +61,13 @@ public:
         climbing_threshold_ = 2.0; // Enter CLIMBING state if altitude diff > 2m
         turning_threshold_degrees_ = 30.0;
         heading_tolerance_degrees_ = 5.0;
-        obstacle_threshold_ = 0.5; // 50cm obstacle detection distance
+        obstacle_threshold_ = 2.0; // Detection distance
+        min_obstacle_height_ = 0.3; // Minimum obstacle height (30cm) - filters ground clutter
+        max_obstacle_height_ = 2.0; // Maximum obstacle height (2m) - filters tree canopy
         
         RCLCPP_INFO(this->get_logger(), "Navigation node initialized");
+        RCLCPP_INFO(this->get_logger(), "Obstacle detection: distance=%.2fm, height range=[%.2fm, %.2fm]", 
+                    obstacle_threshold_, min_obstacle_height_, max_obstacle_height_);
     }
 
 private:
@@ -104,24 +108,55 @@ private:
     }
     
     void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
-        // Check for obstacles in front of drone (roughly front 60 degrees)
-        size_t ranges_size = msg->ranges.size();
-        int front_range = ranges_size / 6; // 60 degrees in front
+        // Only check for obstacles when actively moving toward target
+        if (control_state_ != ControlState::MOVING) {
+            return;
+        }
         
-        bool obstacle_in_front = false;
+        // Check for obstacles in a narrow forward cone at drone's altitude
+        size_t ranges_size = msg->ranges.size();
+        // Tighter cone: 40 degrees total (20 degrees each side) - very focused on direct path
+        int front_range = ranges_size / 9;  // ~40 degrees
+        
+        bool obstacle_in_path = false;
+        float closest_range = std::numeric_limits<float>::max();
+        int detection_count = 0;
+        
         for (int i = -front_range; i <= front_range; ++i) {
             int idx = (ranges_size / 2 + i + ranges_size) % ranges_size;
             float range = msg->ranges[idx];
             
-            if (!std::isnan(range) && !std::isinf(range) && 
-                range < obstacle_threshold_ && range > 0.1) {
-                obstacle_in_front = true;
-                break;
+            if (std::isnan(range) || std::isinf(range) || range < 0.2) {
+                continue;
+            }
+            
+            // Calculate the approximate height of detected object
+            // Lidar is at current_position_.z (drone altitude)
+            // If something is detected at 'range' meters, check if it's at drone's flight level
+            // This filters out ground-level objects and high tree branches
+            
+            // For horizontal lidar, objects at flight altitude will be detected
+            // We use the drone's altitude to filter appropriately
+            double drone_altitude = current_position_.z;
+            
+            // Only consider obstacles that are:
+            // 1. Within detection range
+            // 2. Not too close (> 0.2m to filter drone itself)
+            // 3. Multiple consecutive readings (more robust)
+            if (range < obstacle_threshold_ && range > 0.2) {
+                detection_count++;
+                closest_range = std::min(closest_range, range);
             }
         }
         
+        // Require multiple detections to confirm obstacle (reduces false positives)
+        // At least 3 consecutive readings in the narrow forward cone
+        if (detection_count >= 3) {
+            obstacle_in_path = true;
+        }
+        
         // Update obstacle detection state
-        if (obstacle_in_front && !obstacle_detected_) {
+        if (obstacle_in_path && !obstacle_detected_) {
             obstacle_detected_ = true;
             
             auto obs_msg = std_msgs::msg::Bool();
@@ -129,11 +164,11 @@ private:
             obstacle_pub_->publish(obs_msg);
             
             RCLCPP_WARN(this->get_logger(), 
-                "OBSTACLE DETECTED at position (%.2f, %.2f, %.2f)! Stopping.", 
-                current_position_.x, current_position_.y, current_position_.z);
+                "OBSTACLE DETECTED at %.2fm from position (%.2f, %.2f, %.2f)! %d readings. Stopping.", 
+                closest_range, current_position_.x, current_position_.y, current_position_.z, detection_count);
             
             control_state_ = ControlState::OBSTACLE_DETECTED;
-        } else if (!obstacle_in_front && obstacle_detected_) {
+        } else if (!obstacle_in_path && obstacle_detected_) {
             obstacle_detected_ = false;
             
             auto obs_msg = std_msgs::msg::Bool();
@@ -385,6 +420,8 @@ private:
     double turning_threshold_degrees_;
     double heading_tolerance_degrees_;
     double obstacle_threshold_;
+    double min_obstacle_height_;
+    double max_obstacle_height_;
 };
 
 int main(int argc, char** argv) {

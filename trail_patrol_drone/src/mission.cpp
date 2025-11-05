@@ -135,18 +135,6 @@ private:
                 publish_current_waypoint();
             }
         }
-        
-        // Periodically republish current waypoint to ensure navigation has it
-        // This helps if navigation node restarts or misses a message
-        static int republish_counter = 0;
-        if (++republish_counter % 20 == 0) { // Every 10 seconds
-            if (waypoint_pub_->get_subscription_count() > 0) {
-                RCLCPP_DEBUG(this->get_logger(), 
-                    "Re-publishing current waypoint %zu (periodic refresh)", 
-                    current_waypoint_index_ + 1);
-                publish_current_waypoint();
-            }
-        }
     }
     
     void publish_current_waypoint() {

@@ -119,7 +119,7 @@
       <pose relative_to='base_scan'>0 0 0 0 0 0</pose>
       <visualize>$(arg laser_visual)</visualize>
       <topic>model/husky/scan</topic>
-      <update_rate>3</update_rate>
+      <update_rate>10</update_rate>
       <gz_frame_id>base_scan</gz_frame_id>
       <ray>
         <scan>
