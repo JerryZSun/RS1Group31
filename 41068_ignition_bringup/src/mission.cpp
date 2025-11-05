@@ -14,7 +14,8 @@ public:
     Mission() : Node("mission"), 
                 current_waypoint_index_(0), 
                 mission_complete_(false),
-                waypoint_reached_(false) {
+                waypoint_reached_(false),
+                first_waypoint_published_(false) {
         
         // Publishers
         waypoint_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>(
@@ -41,19 +42,19 @@ public:
         
         // Initialize waypoints - climb up, survey trail, return home
         waypoints_ = {
-            {0, 0, 1},
+            {0, 0, 0.1},
             {0, 0, 7},
             {9.5, -12, 7},
-            {9.5, -12, 1},
-            {7, -9.5, 1},
-            {4, -8.5, 1},
-            {2, -7.5, 1},
-            {0, -1.5, 1},
-            {3, 2.5, 1},
-            {4, 3, 1},
-            {6, 5, 1},
-            {8, 7.5, 1},
-            {11, 10.5, 1},
+            {9.5, -12, 0.6},
+            {7, -9.5, 0.6},
+            {4, -8.5, 0.6},
+            {2, -7.5, 0.6},
+            {0, -1.5, 0.6},
+            {3, 2.5, 0.6},
+            {4, 3, 0.6},
+            {6, 5, 0.6},
+            {8, 7.5, 0.6},
+            {11, 10.5, 0.6},
             {11, 10.5, 7},
             {0, 0, 7},
             {0, 0, 0.1},
@@ -64,8 +65,9 @@ public:
         RCLCPP_INFO(this->get_logger(), 
             "Mission node initialized with %zu waypoints", waypoints_.size());
         
-        // Publish first waypoint
-        publish_current_waypoint();
+        // Don't publish first waypoint immediately - let subscribers connect first
+        RCLCPP_INFO(this->get_logger(), 
+            "Waiting for navigation node to connect...");
     }
 
 private:
@@ -85,6 +87,25 @@ private:
     }
     
     void mission_loop() {
+        // Publish first waypoint once we have subscribers
+        if (!first_waypoint_published_) {
+            if (waypoint_pub_->get_subscription_count() > 0) {
+                RCLCPP_INFO(this->get_logger(), 
+                    "Navigation node connected! Publishing first waypoint...");
+                publish_current_waypoint();
+                first_waypoint_published_ = true;
+            } else {
+                // Still waiting for subscribers
+                static int wait_counter = 0;
+                if (++wait_counter % 4 == 0) { // Log every 2 seconds
+                    RCLCPP_INFO(this->get_logger(), 
+                        "Still waiting for navigation node... (%d subscribers)", 
+                        waypoint_pub_->get_subscription_count());
+                }
+            }
+            return; // Don't process mission until first waypoint is sent
+        }
+        
         // Check if mission complete
         if (current_waypoint_index_ >= waypoints_.size()) {
             if (!mission_complete_) {
@@ -115,11 +136,17 @@ private:
             }
         }
         
-        // Periodically republish current waypoint (in case navigation node restarts)
-        static int republish_counter = 0;
-        if (++republish_counter % 20 == 0) { // Every 10 seconds
-            publish_current_waypoint();
-        }
+        // Periodically republish current waypoint to ensure navigation has it
+        // This helps if navigation node restarts or misses a message
+        // static int republish_counter = 0;
+        // if (++republish_counter % 20 == 0) { // Every 10 seconds
+        //     if (waypoint_pub_->get_subscription_count() > 0) {
+        //         RCLCPP_DEBUG(this->get_logger(), 
+        //             "Re-publishing current waypoint %zu (periodic refresh)", 
+        //             current_waypoint_index_ + 1);
+        //         publish_current_waypoint();
+        //     }
+        // }
     }
     
     void publish_current_waypoint() {
@@ -158,6 +185,7 @@ private:
     size_t current_waypoint_index_;
     bool mission_complete_;
     bool waypoint_reached_;
+    bool first_waypoint_published_;
     
     Waypoint current_position_;
     double position_tolerance_;
