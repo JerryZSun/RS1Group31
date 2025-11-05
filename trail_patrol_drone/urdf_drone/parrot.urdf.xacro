@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot name="parrot" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:include filename="$(find 41068_ignition_bringup)/urdf_drone/common_properties.urdf.xacro"/>
-  <xacro:include filename="$(find 41068_ignition_bringup)/urdf_drone/parrot.gazebo.xacro"/>
+  <xacro:include filename="$(find trail_patrol_drone)/urdf_drone/common_properties.urdf.xacro"/>
+  <xacro:include filename="$(find trail_patrol_drone)/urdf_drone/parrot.gazebo.xacro"/>
 
   <xacro:property name="r200_cam_rgb_px" value="0.005"/>
   <xacro:property name="r200_cam_rgb_py" value="0.018"/>
@@ -26,31 +26,31 @@
     </collision> -->
     <visual name="hull">
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf_drone/meshes/hull.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf_drone/meshes/hull.dae"/>
       </geometry>
     </visual>
     <visual name="propeller_rr">
       <origin xyz="-0.09035 -0.11423 -0.00501" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf_drone/meshes/propeller_rr.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf_drone/meshes/propeller_rr.dae"/>
       </geometry>
     </visual>
     <visual name="propeller_rl">
       <origin xyz="0.09035 0.11452 -0.00501" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf_drone/meshes/propeller_rl.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf_drone/meshes/propeller_rl.dae"/>
       </geometry>
     </visual>
     <visual name="propeller_fr">
       <origin xyz="0.08456 -0.11435 -0.00501" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf_drone/meshes/propeller_fr.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf_drone/meshes/propeller_fr.dae"/>
       </geometry>
     </visual>
     <visual name="propeller_fl">
       <origin xyz="0.08456 0.11463 -0.00501" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf_drone/meshes/propeller_fl.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf_drone/meshes/propeller_fl.dae"/>
       </geometry>
     </visual>
   </link>

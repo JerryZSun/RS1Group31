@@ -4,7 +4,7 @@
   <xacro:arg name="camera_visual" default="false"/>
   <xacro:arg name="imu_visual"    default="false"/>
 
-  <xacro:include filename="$(find 41068_ignition_bringup)/urdf/wheel.urdf.xacro"/>
+  <xacro:include filename="$(find trail_patrol_drone)/urdf/wheel.urdf.xacro"/>
 
   <gazebo reference="imu_link">
     <sensor type="imu" name="imu">

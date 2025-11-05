@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <robot name="husky" xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:include filename="$(find 41068_ignition_bringup)/urdf/common_properties.urdf.xacro"/>
-  <xacro:include filename="$(find 41068_ignition_bringup)/urdf/husky.gazebo.xacro"/>
-  <xacro:include filename="$(find 41068_ignition_bringup)/urdf/wheel.urdf.xacro"/>
+  <xacro:include filename="$(find trail_patrol_drone)/urdf/common_properties.urdf.xacro"/>
+  <xacro:include filename="$(find trail_patrol_drone)/urdf/husky.gazebo.xacro"/>
+  <xacro:include filename="$(find trail_patrol_drone)/urdf/wheel.urdf.xacro"/>
 
   <xacro:property name="r200_cam_rgb_px" value="0.005"/>
   <xacro:property name="r200_cam_rgb_py" value="0.018"/>
@@ -13,41 +13,41 @@
     <visual>
       <origin xyz="0 0 0.0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/base_link.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/base_link.dae"/>
       </geometry>
       <material name="black"/>
     </visual>
     <visual name="base_link_fixed_joint_lump__front_bumper_link_visual_3">
       <origin xyz="0.48 0 0.091" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/bumper.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/bumper.dae"/>
       </geometry>
       <material name="black"/>
     </visual>
     <visual name="base_link_fixed_joint_lump__rear_bumper_link_visual_4">
       <origin xyz="-0.48 0 0.091" rpy="0 0 3.14159"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/bumper.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/bumper.dae"/>
       </geometry>
       <material name="black"/>
     </visual>
     <visual name="base_link_fixed_joint_lump__top_chassis_link_visual_5">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/top_chassis.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/top_chassis.dae"/>
       </geometry>
     </visual>
     <visual name="base_link_fixed_joint_lump__top_plate_link_visual_6">
       <origin xyz="0.0812 0 0.245" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/top_plate.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/top_plate.dae"/>
       </geometry>
       <material name="black"/>
     </visual>
     <visual name="base_link_fixed_joint_lump__arch_visual_7">
       <origin xyz="0.0012 0 0.251" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/jpl04_arch_nosensor.stl"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/jpl04_arch_nosensor.stl"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -73,7 +73,7 @@
     <collision name="base_link_fixed_joint_lump__top_plate_link_collision_3">
       <origin xyz="0.0812 0 0.245" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find 41068_ignition_bringup)/urdf/meshes/top_plate.dae"/>
+        <mesh filename="file://$(find trail_patrol_drone)/urdf/meshes/top_plate.dae"/>
       </geometry>
     </collision>
     <collision name="base_link_fixed_joint_lump__top_plate_link_collision_4">

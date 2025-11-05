@@ -13,7 +13,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     # Get paths to directories
-    pkg_path = FindPackageShare('41068_ignition_bringup')
+    pkg_path = FindPackageShare('trail_patrol_drone')
     config_path = PathJoinSubstitution([pkg_path,
                                        'config'])
 
@@ -42,8 +42,8 @@ def generate_launch_description():
     robot_description_content = ParameterValue(
         Command(['xacro ',
                  PathJoinSubstitution([pkg_path,
-                                       'urdf',
-                                       'husky.urdf.xacro'])]),
+                                       'urdf_drone',
+                                       'parrot.urdf.xacro'])]),
         value_type=str)
     robot_state_publisher_node = Node(package='robot_state_publisher',
                                       executable='robot_state_publisher',
@@ -90,7 +90,7 @@ def generate_launch_description():
         executable='create',
         output='screen',
         parameters=[{'use_sim_time': use_sim_time}],
-        arguments=['-topic', '/robot_description', '-z', '0.4']
+        arguments=['-topic', '/robot_description', '-x', '0', '-y', '0', '-z', '0.1'] # z is height above ground
     )
     ld.add_action(robot_spawner)
 
@@ -111,7 +111,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{'use_sim_time': use_sim_time}],
         arguments=['-d', PathJoinSubstitution([config_path,
-                                               '41068.rviz'])],
+                                               'trail_patrol_drone.rviz'])],
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
     ld.add_action(rviz_node)
@@ -120,7 +120,7 @@ def generate_launch_description():
     nav2 = IncludeLaunchDescription(
         PathJoinSubstitution([pkg_path,
                               'launch',
-                              '41068_navigation.launch.py']),
+                              'trail_patrol_navigation.launch.py']),
         launch_arguments={
             'use_sim_time': use_sim_time
         }.items(),

@@ -1,0 +1,26 @@
+# Trail Patrol Drone Commands
+
+# Assignment folder:
+# /home/jsunne/git/rs1group31/trail_patrol_drone
+
+# Permanent source and graphic fix and link support file:
+echo 'if [ -f ~/trail_patrol_ws/install/setup.bash ]; then source ~/trail_patrol_ws/install/setup.bash; fi' >> ~/.bashrc
+echo 'export LIBGL_ALWAYS_SOFTWARE=true' >> ~/.bashrc
+
+# Build:
+cd ~/trail_patrol_ws
+rm -rf build install log
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+
+# Start Simulation:
+source ~/trail_patrol_ws/install/setup.bash
+ros2 launch trail_patrol_drone trail_patrol_drone.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
+
+# Run Navigation:
+source ~/trail_patrol_ws/install/setup.bash
+ros2 run trail_patrol_drone navigation
+
+# Run Mission:
+source ~/trail_patrol_ws/install/setup.bash
+ros2 run trail_patrol_drone mission

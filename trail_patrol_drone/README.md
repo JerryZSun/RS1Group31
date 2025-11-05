@@ -48,19 +48,19 @@ Now install this package:
   ```
 * Launch basic trees world. It might take a little while to load the first time you run it since it is downloading world model resources. If it crashes the first time, try running it again.
   ```bash
-  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py
+  ros2 launch trail_patrol_drone 41068_ignition.launch.py
   ```
 * As above with SLAM and autonomous navigation
   ```bash
-  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py slam:=true nav2:=true rviz:=true
+  ros2 launch trail_patrol_drone 41068_ignition.launch.py slam:=true nav2:=true rviz:=true
   ```
 * Change world with `world` argument. Must be the name of a `.sdf` file in `worlds`, but without file extension. Note this might also take a while the first time you run it since it is downloading extra model resources.
   ```bash
-  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py world:=large_demo
+  ros2 launch trail_patrol_drone 41068_ignition.launch.py world:=large_demo
   ```
 * And similarly, the larger world, and with SLAM and navigation:
   ```bash
-  ros2 launch 41068_ignition_bringup 41068_ignition.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
+  ros2 launch trail_patrol_drone 41068_ignition.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
   ```
 * When launching with rviz, you can send a waypoint to the robot by clicking the "2D Goal pose" and then a location in the map. The robot is navigating using the nav2 package. If it gets stuck, you can try the buttons in the Navigation 2 panel in the top right of RVIZ.
 
@@ -77,7 +77,7 @@ By popular request, I've added a simple drone to the package, which requires a f
 
 * I've created a separate launch file for the drone, which is almost the same, except spawns a "parrot" drone instead of the husky:
   ```bash
-  ros2 launch 41068_ignition_bringup 41068_ignition_drone.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
+  ros2 launch trail_patrol_drone 41068_ignition_drone.launch.py slam:=true nav2:=true rviz:=true world:=large_demo
   ```
 
 * At the moment, the drone will just fly at a fixed altitude. You can change the altitude in 41068_ignition_drone.launch.py. Find the `robot_spawner` node, and change change the `z` parameter, which is height above the ground where it is spawned.
@@ -124,7 +124,7 @@ export QT_QPA_PLATFORM=xcb
 Starting Cmake:
 
 cmake_minimum_required(VERSION 3.8)
-project(41068_ignition_bringup)
+project(trail_patrol_drone)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -156,7 +156,7 @@ ros2 node info /robot_localization
 
 Result:
 
-jsunne@DESKTOP-AO6197G:~/git/RS1Group31/41068_ignition_bringup$ ros2 topic list -t
+jsunne@DESKTOP-AO6197G:~/git/RS1Group31/trail_patrol_drone$ ros2 topic list -t
 ros2 node list
 ros2 node info /robot_localization
 /behavior_server/transition_event [lifecycle_msgs/msg/TransitionEvent]
