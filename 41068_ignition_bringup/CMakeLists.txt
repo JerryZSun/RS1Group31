@@ -10,21 +10,33 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(ros_ign_interfaces REQUIRED)
 
-# Create executable
+# Create mission executable
 add_executable(mission src/mission.cpp)
-
-# Link dependencies
 ament_target_dependencies(mission
   rclcpp
   geometry_msgs
   nav_msgs
+  std_msgs
 )
 
-# Install executableS
+# Create navigation executable
+add_executable(navigation src/navigation.cpp)
+ament_target_dependencies(navigation
+  rclcpp
+  geometry_msgs
+  nav_msgs
+  std_msgs
+  sensor_msgs
+)
+
+# Install executables
 install(TARGETS
   mission
+  navigation
   DESTINATION lib/${PROJECT_NAME}
 )
 
