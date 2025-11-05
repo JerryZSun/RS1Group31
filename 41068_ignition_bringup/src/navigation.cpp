@@ -9,6 +9,7 @@
 
 enum class ControlState {
     IDLE,
+    CLIMBING,
     TURNING,
     MOVING,
     OBSTACLE_DETECTED
@@ -56,9 +57,11 @@ public:
         current_yaw_ = 0.0;
         
         position_tolerance_ = 0.5; // 50cm tolerance
+        altitude_tolerance_ = 0.3; // 30cm altitude tolerance
+        climbing_threshold_ = 2.0; // Enter CLIMBING state if altitude diff > 2m
         turning_threshold_degrees_ = 30.0;
         heading_tolerance_degrees_ = 5.0;
-        obstacle_threshold_ = 0.5; // 2m obstacle detection distance
+        obstacle_threshold_ = 0.5; // 50cm obstacle detection distance
         
         RCLCPP_INFO(this->get_logger(), "Navigation node initialized");
     }
@@ -70,12 +73,21 @@ private:
         target_position_.z = msg->pose.position.z;
         
         has_target_ = true;
-        control_state_ = ControlState::TURNING;
         obstacle_detected_ = false;
         
-        RCLCPP_INFO(this->get_logger(), 
-            "New waypoint received: (%.2f, %.2f, %.2f)", 
-            target_position_.x, target_position_.y, target_position_.z);
+        // Determine initial state based on altitude difference
+        double altitude_error = std::abs(target_position_.z - current_position_.z);
+        if (altitude_error > climbing_threshold_) {
+            control_state_ = ControlState::CLIMBING;
+            RCLCPP_INFO(this->get_logger(), 
+                "New waypoint received: (%.2f, %.2f, %.2f) - Large altitude change, entering CLIMBING state", 
+                target_position_.x, target_position_.y, target_position_.z);
+        } else {
+            control_state_ = ControlState::TURNING;
+            RCLCPP_INFO(this->get_logger(), 
+                "New waypoint received: (%.2f, %.2f, %.2f)", 
+                target_position_.x, target_position_.y, target_position_.z);
+        }
     }
     
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
@@ -131,7 +143,13 @@ private:
             RCLCPP_INFO(this->get_logger(), "Obstacle cleared, resuming navigation");
             
             if (has_target_) {
-                control_state_ = ControlState::TURNING;
+                // Re-evaluate state based on altitude
+                double altitude_error = std::abs(target_position_.z - current_position_.z);
+                if (altitude_error > climbing_threshold_) {
+                    control_state_ = ControlState::CLIMBING;
+                } else {
+                    control_state_ = ControlState::TURNING;
+                }
             }
         }
     }
@@ -154,10 +172,13 @@ private:
         // Calculate distance to target
         double dx = target_position_.x - current_position_.x;
         double dy = target_position_.y - current_position_.y;
+        double dz = target_position_.z - current_position_.z;
         double horizontal_distance = std::sqrt(dx*dx + dy*dy);
+        double altitude_error = dz;
         
-        // Check if waypoint reached
-        if (horizontal_distance <= position_tolerance_) {
+        // Check if waypoint reached (both horizontal and altitude)
+        if (horizontal_distance <= position_tolerance_ && 
+            std::abs(altitude_error) <= altitude_tolerance_) {
             RCLCPP_INFO(this->get_logger(), 
                 "Waypoint reached at (%.2f, %.2f, %.2f)", 
                 current_position_.x, current_position_.y, current_position_.z);
@@ -174,7 +195,8 @@ private:
         
         // Handle obstacle state
         if (control_state_ == ControlState::OBSTACLE_DETECTED) {
-            // Stop and wait
+            // Stop and wait, but maintain altitude
+            cmd.linear.z = calculate_altitude_control(altitude_error);
             cmd_pub_->publish(cmd);
             return;
         }
@@ -189,8 +211,43 @@ private:
             yaw_error_degrees = std::abs(yaw_error) * 180.0 / M_PI;
         }
         
+        // Always apply gentle altitude correction (to fight gravity when enabled)
+        cmd.linear.z = calculate_altitude_control(altitude_error);
+        
+        // Check if we need to prioritize climbing
+        if (std::abs(altitude_error) > climbing_threshold_ && 
+            control_state_ != ControlState::CLIMBING) {
+            control_state_ = ControlState::CLIMBING;
+            RCLCPP_INFO(this->get_logger(), 
+                "Large altitude error (%.2fm), entering CLIMBING state", altitude_error);
+        }
+        
         // State machine for control
         switch (control_state_) {
+            case ControlState::CLIMBING:
+                {
+                    // Focus on altitude correction first
+                    if (std::abs(altitude_error) <= altitude_tolerance_) {
+                        // Altitude reached, transition to turning
+                        control_state_ = ControlState::TURNING;
+                        RCLCPP_INFO(this->get_logger(), 
+                            "Target altitude reached, transitioning to TURNING");
+                    } else {
+                        // Pure vertical movement (cmd.linear.z already set above)
+                        cmd.linear.x = 0.0;
+                        cmd.linear.y = 0.0;
+                        cmd.angular.z = 0.0;
+                        
+                        static int climb_log_counter = 0;
+                        if (++climb_log_counter % 10 == 0) {
+                            RCLCPP_INFO(this->get_logger(), 
+                                "CLIMBING: Current altitude: %.2fm, Target: %.2fm, Error: %.2fm", 
+                                current_position_.z, target_position_.z, altitude_error);
+                        }
+                    }
+                }
+                break;
+                
             case ControlState::TURNING:
                 {
                     if (yaw_error_degrees <= heading_tolerance_degrees_) {
@@ -199,17 +256,20 @@ private:
                             "Heading aligned (%.1f°), moving forward", 
                             yaw_error_degrees);
                     } else {
-                        // Pure turning
+                        // Pure turning (altitude control still active via cmd.linear.z)
                         double turn_speed = 0.5; // rad/s
                         double turn_gain = std::min(1.0, std::abs(yaw_error) / (M_PI / 4));
                         turn_gain = std::max(0.3, turn_gain);
                         
                         cmd.angular.z = turn_gain * turn_speed * (yaw_error > 0 ? 1.0 : -1.0);
+                        cmd.linear.x = 0.0;
+                        cmd.linear.y = 0.0;
                         
                         static int turn_log_counter = 0;
                         if (++turn_log_counter % 10 == 0) {
                             RCLCPP_INFO(this->get_logger(), 
-                                "TURNING: Yaw error: %.1f°", yaw_error_degrees);
+                                "TURNING: Yaw error: %.1f°, Altitude: %.2fm", 
+                                yaw_error_degrees, current_position_.z);
                         }
                     }
                 }
@@ -217,6 +277,15 @@ private:
                 
             case ControlState::MOVING:
                 {
+                    // Check if altitude error became large again
+                    if (std::abs(altitude_error) > climbing_threshold_) {
+                        control_state_ = ControlState::CLIMBING;
+                        RCLCPP_INFO(this->get_logger(), 
+                            "Altitude error increased, re-entering CLIMBING state");
+                        cmd.linear.x = 0.0;
+                        break;
+                    }
+                    
                     // Check if need to turn again
                     if (horizontal_distance > 1.0 && yaw_error_degrees > turning_threshold_degrees_) {
                         control_state_ = ControlState::TURNING;
@@ -246,13 +315,15 @@ private:
                             double correction_gain = 0.15;
                             cmd.angular.z = yaw_error * correction_gain;
                             cmd.angular.z = std::max(-0.2, std::min(0.2, cmd.angular.z));
+                        } else {
+                            cmd.angular.z = 0.0;
                         }
                         
                         static int move_log_counter = 0;
                         if (++move_log_counter % 20 == 0) {
                             RCLCPP_INFO(this->get_logger(), 
-                                "MOVING: Distance: %.2fm, Heading: %.1f°", 
-                                horizontal_distance, yaw_error_degrees);
+                                "MOVING: Distance: %.2fm, Altitude: %.2fm (error: %.2fm), Heading: %.1f°", 
+                                horizontal_distance, current_position_.z, altitude_error, yaw_error_degrees);
                         }
                     }
                 }
@@ -265,6 +336,24 @@ private:
         }
         
         cmd_pub_->publish(cmd);
+    }
+    
+    double calculate_altitude_control(double altitude_error) {
+        // Gentle proportional control for altitude
+        // This fights gravity and provides smooth altitude adjustments
+        double kp_altitude = 0.3; // Proportional gain
+        double max_climb_speed = 0.5; // Max vertical speed (m/s)
+        
+        double climb_speed = kp_altitude * altitude_error;
+        
+        // Clamp to max speed
+        climb_speed = std::max(-max_climb_speed, std::min(max_climb_speed, climb_speed));
+        
+        // Add small constant to fight gravity (when gravity is enabled)
+        // You can tune this value when you turn gravity on
+        double gravity_compensation = 0.0; // Set to ~0.1-0.2 when gravity enabled
+        
+        return climb_speed + gravity_compensation;
     }
     
     // Member variables
@@ -291,6 +380,8 @@ private:
     bool obstacle_detected_;
     
     double position_tolerance_;
+    double altitude_tolerance_;
+    double climbing_threshold_;
     double turning_threshold_degrees_;
     double heading_tolerance_degrees_;
     double obstacle_threshold_;

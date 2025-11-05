@@ -2,7 +2,7 @@
 robot_localization:
     ros__parameters:
         frequency: 30.0
-        two_d_mode: true
+        two_d_mode: false  # MUST be false for 3D navigation with altitude control
         publish_acceleration: false
         publish_tf: true
         map_frame: map
@@ -13,13 +13,13 @@ robot_localization:
         odom0: odometry
         odom0_config: [false, false, false,
                       false, false, false,
-                      true, true, false,
-                      false, false, true,
+                      true, true, true,     # X, Y, Z velocity all enabled
+                      false, false, true,   # Yaw velocity enabled
                       false, false, false]
 
         imu0: imu
         imu0_config: [false, false, false,
                       false, false, false,
                       false, false, false,
-                      false, false, true,
+                      false, false, true,   # Only yaw velocity from IMU
                       false, false, false]

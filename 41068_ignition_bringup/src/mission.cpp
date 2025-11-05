@@ -39,12 +39,11 @@ public:
             std::bind(&Mission::mission_loop, this)
         );
         
-        // Initialize waypoints - modify these as needed for your trail
+        // Initialize waypoints - climb up, survey trail, return home
         waypoints_ = {
             {0, 0, 1},
-            {2, -7.5, 1},
-            {4, -8.5, 1},
-            {7, -9.5, 1},
+            {0, 0, 7},
+            {9.5, -12, 7},
             {9.5, -12, 1},
             {7, -9.5, 1},
             {4, -8.5, 1},
@@ -55,11 +54,9 @@ public:
             {6, 5, 1},
             {8, 7.5, 1},
             {11, 10.5, 1},
-            {8, 7.5, 1},
-            {6, 5, 1},
-            {4, 3, 1},
-            {3, 2.5, 1},
-            {0, 0, 1},
+            {11, 10.5, 7},
+            {0, 0, 7},
+            {0, 0, 0.1},
         };
         
         position_tolerance_ = 0.5; // 50cm tolerance

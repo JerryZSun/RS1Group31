@@ -89,10 +89,11 @@
     <plugin
       filename="ignition-gazebo-odometry-publisher-system"
       name="ignition::gazebo::systems::OdometryPublisher">
-      <topic>model/husky/odometry</topic>
+      <topic>model/parrot/odometry</topic>
       <odom_publish_frequency>20</odom_publish_frequency>
       <odom_frame>odom</odom_frame>
       <robot_base_frame>base_link</robot_base_frame>
+      <dimensions>3</dimensions>                
     </plugin>
   </gazebo>
 
