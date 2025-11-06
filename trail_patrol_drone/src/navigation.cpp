@@ -20,7 +20,9 @@ public:
     Navigation() : Node("navigation"),
                    control_state_(ControlState::IDLE),
                    has_target_(false),
-                   obstacle_detected_(false) {
+                   obstacle_detected_(false),
+                   last_detection_time_(this->now()),
+                   first_stop_logged_(true) {
         
         // Publishers
         cmd_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
@@ -64,8 +66,9 @@ public:
         obstacle_threshold_ = 2.0; // Detection distance - 2m gives ~1.5m buffer at 0.5m/s speed
         
         RCLCPP_INFO(this->get_logger(), "Navigation node initialized");
-        RCLCPP_INFO(this->get_logger(), "Obstacle detection: distance=%.2fm, cone=±20°, ONLY when MOVING and aligned", 
+        RCLCPP_INFO(this->get_logger(), "Obstacle detection: distance=%.2fm, cone=±20° FORWARD, ONLY when MOVING and aligned", 
                     obstacle_threshold_);
+        RCLCPP_INFO(this->get_logger(), "DEBUG MODE: Comprehensive logging enabled");
     }
 
 private:
@@ -106,8 +109,17 @@ private:
     }
     
     void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
+        // DEBUG: Log scan callback execution
+        static int scan_callback_counter = 0;
+        scan_callback_counter++;
+        
         // CRITICAL: Only check for obstacles when MOVING and well-aligned toward target
         if (control_state_ != ControlState::MOVING) {
+            if (scan_callback_counter % 20 == 0) {
+                RCLCPP_DEBUG(this->get_logger(), 
+                    "Scan callback: Not in MOVING state (state=%d), skipping obstacle check", 
+                    static_cast<int>(control_state_));
+            }
             return;
         }
         
@@ -118,33 +130,71 @@ private:
         double yaw_error = normalize_angle(target_yaw - current_yaw_);
         double yaw_error_degrees = std::abs(yaw_error) * 180.0 / M_PI;
         
+        // Calculate distance to target
+        double dist_to_target = std::sqrt(dx*dx + dy*dy);
+        
+        // DEBUG: Log alignment status periodically
+        if (scan_callback_counter % 20 == 0) {
+            RCLCPP_INFO(this->get_logger(), 
+                "Scan callback: pos=(%.2f,%.2f,%.2f), target=(%.2f,%.2f,%.2f), dist=%.2fm, yaw_err=%.1f°", 
+                current_position_.x, current_position_.y, current_position_.z,
+                target_position_.x, target_position_.y, target_position_.z,
+                dist_to_target, yaw_error_degrees);
+        }
+        
         // Only check for obstacles if heading is well-aligned (< 15 degrees off)
         if (yaw_error_degrees > 15.0) {
+            if (scan_callback_counter % 20 == 0) {
+                RCLCPP_DEBUG(this->get_logger(), 
+                    "Scan callback: Not aligned (%.1f° > 15°), skipping obstacle check", 
+                    yaw_error_degrees);
+            }
             return;
         }
         
         size_t ranges_size = msg->ranges.size();
         
-        // Narrow cone: 40 degrees (20 each side) - focused on direct path
-        int front_range = ranges_size / 9;  // 40 degrees total
+        // Narrow cone: 40 degrees (20 each side) - focused on direct path ahead
+        // FIXED: Check around index 0 (forward), not ranges_size/2 (backward)!
+        int front_range = ranges_size / 9;  // 40 degrees total (±20°)
         
         bool obstacle_in_path = false;
         float closest_range = std::numeric_limits<float>::max();
         int detection_count = 0;
+        int valid_readings = 0;
         
+        // DEBUG: Track detections in detail
+        std::vector<float> detected_ranges;
+        
+        // Check indices around 0 (forward direction)
+        // Handle wraparound for negative indices
         for (int i = -front_range; i <= front_range; ++i) {
-            int idx = (ranges_size / 2 + i + ranges_size) % ranges_size;
+            // Wrap around: -20 becomes 340, 0 stays 0, +20 stays 20
+            int idx = (i + ranges_size) % ranges_size;
             float range = msg->ranges[idx];
             
             if (std::isnan(range) || std::isinf(range) || range < 0.2) {
                 continue;
             }
             
+            valid_readings++;
+            
             // Check if within detection threshold
             if (range < obstacle_threshold_ && range > 0.2) {
                 detection_count++;
                 closest_range = std::min(closest_range, range);
+                detected_ranges.push_back(range);
             }
+        }
+        
+        // DEBUG: Log detection details every scan
+        if (detection_count > 0 || scan_callback_counter % 20 == 0) {
+            RCLCPP_INFO(this->get_logger(), 
+                "SCAN ANALYSIS: pos=(%.2f,%.2f,%.2f), detections=%d/%d, closest=%.2fm, thresh=%.2fm", 
+                current_position_.x, current_position_.y, current_position_.z,
+                detection_count, valid_readings, 
+                closest_range == std::numeric_limits<float>::max() ? 999.0f : closest_range,
+                obstacle_threshold_);
         }
         
         // Require at least 5 detections in the cone
@@ -155,15 +205,58 @@ private:
         // Update obstacle detection state
         if (obstacle_in_path && !obstacle_detected_) {
             obstacle_detected_ = true;
+            last_detection_time_ = this->now();
+            first_stop_logged_ = false;  // Reset for new detection
             
             auto obs_msg = std_msgs::msg::Bool();
             obs_msg.data = true;
             obstacle_pub_->publish(obs_msg);
             
-            RCLCPP_WARN(this->get_logger(), 
-                "OBSTACLE DETECTED at %.2fm from position (%.2f, %.2f, %.2f)! %d detections, heading error: %.1f°. Stopping.", 
-                closest_range, current_position_.x, current_position_.y, current_position_.z, 
-                detection_count, yaw_error_degrees);
+            // Calculate how far we are from the obstacle (approximate)
+            double obstacle_distance = closest_range;
+            
+            // Calculate approximate obstacle position
+            double obstacle_x = current_position_.x + obstacle_distance * std::cos(current_yaw_);
+            double obstacle_y = current_position_.y + obstacle_distance * std::sin(current_yaw_);
+            
+            // Calculate time to impact at current speed (assuming 0.5 m/s average)
+            double estimated_speed = 0.5;  // m/s
+            double time_to_impact = obstacle_distance / estimated_speed;
+            
+            RCLCPP_ERROR(this->get_logger(), 
+                "╔═══════════════════════════════════════════════════════════════════════╗");
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ OBSTACLE DETECTED!                                                    ║");
+            RCLCPP_ERROR(this->get_logger(), 
+                "╠═══════════════════════════════════════════════════════════════════════╣");
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Drone position:     (%.2f, %.2f, %.2f)                          ║", 
+                current_position_.x, current_position_.y, current_position_.z);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Target position:    (%.2f, %.2f, %.2f)                          ║", 
+                target_position_.x, target_position_.y, target_position_.z);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Obstacle distance:  %.2f meters                                        ║", 
+                obstacle_distance);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Time to impact:     ~%.2f seconds (at 0.5m/s)                          ║", 
+                time_to_impact);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Obstacle position:  (~%.2f, ~%.2f, ~%.2f)                       ║", 
+                obstacle_x, obstacle_y, current_position_.z);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Detections:         %d points                                          ║", 
+                detection_count);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Heading error:      %.1f degrees                                       ║", 
+                yaw_error_degrees);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ Distance to target: %.2f meters                                        ║", 
+                dist_to_target);
+            RCLCPP_ERROR(this->get_logger(), 
+                "║ STATE CHANGE:       MOVING → OBSTACLE_DETECTED                        ║");
+            RCLCPP_ERROR(this->get_logger(), 
+                "╚═══════════════════════════════════════════════════════════════════════╝");
             
             control_state_ = ControlState::OBSTACLE_DETECTED;
         } else if (!obstacle_in_path && obstacle_detected_) {
@@ -196,6 +289,10 @@ private:
     void control_loop() {
         auto cmd = geometry_msgs::msg::Twist();
         
+        // DEBUG: Track control loop execution
+        static int control_loop_counter = 0;
+        control_loop_counter++;
+        
         if (!has_target_) {
             // No target, remain idle
             cmd_pub_->publish(cmd);
@@ -208,6 +305,16 @@ private:
         double dz = target_position_.z - current_position_.z;
         double horizontal_distance = std::sqrt(dx*dx + dy*dy);
         double altitude_error = dz;
+        
+        // DEBUG: Log control state periodically
+        if (control_loop_counter % 20 == 0) {
+            RCLCPP_INFO(this->get_logger(), 
+                "CONTROL LOOP: state=%d, pos=(%.2f,%.2f,%.2f), target=(%.2f,%.2f,%.2f), dist=%.2fm", 
+                static_cast<int>(control_state_),
+                current_position_.x, current_position_.y, current_position_.z,
+                target_position_.x, target_position_.y, target_position_.z,
+                horizontal_distance);
+        }
         
         // Check if waypoint reached (both horizontal and altitude)
         if (horizontal_distance <= position_tolerance_ && 
@@ -230,6 +337,23 @@ private:
         if (control_state_ == ControlState::OBSTACLE_DETECTED) {
             // Stop and wait, but maintain altitude
             cmd.linear.z = calculate_altitude_control(altitude_error);
+            
+            // DEBUG: Log that we're stopped due to obstacle
+            static int obstacle_log_counter = 0;
+            if (!first_stop_logged_) {
+                double reaction_time = (this->now() - last_detection_time_).seconds();
+                RCLCPP_ERROR(this->get_logger(), 
+                    "STOPPED! Position: (%.2f, %.2f, %.2f), Reaction time: %.3f seconds", 
+                    current_position_.x, current_position_.y, current_position_.z, reaction_time);
+                first_stop_logged_ = true;
+            }
+            
+            if (++obstacle_log_counter % 10 == 0) {
+                RCLCPP_WARN(this->get_logger(), 
+                    "HOLDING POSITION: Obstacle detected, stopped at (%.2f, %.2f, %.2f)", 
+                    current_position_.x, current_position_.y, current_position_.z);
+            }
+            
             cmd_pub_->publish(cmd);
             return;
         }
@@ -355,8 +479,9 @@ private:
                         static int move_log_counter = 0;
                         if (++move_log_counter % 20 == 0) {
                             RCLCPP_INFO(this->get_logger(), 
-                                "MOVING: Distance: %.2fm, Altitude: %.2fm (error: %.2fm), Heading: %.1f°", 
-                                horizontal_distance, current_position_.z, altitude_error, yaw_error_degrees);
+                                "MOVING: pos=(%.2f,%.2f,%.2f), dist=%.2fm, alt_err=%.2fm, heading=%.1f°, cmd.x=%.2f", 
+                                current_position_.x, current_position_.y, current_position_.z,
+                                horizontal_distance, altitude_error, yaw_error_degrees, cmd.linear.x);
                         }
                     }
                 }
@@ -411,6 +536,8 @@ private:
     ControlState control_state_;
     bool has_target_;
     bool obstacle_detected_;
+    rclcpp::Time last_detection_time_;
+    bool first_stop_logged_;
     
     double position_tolerance_;
     double altitude_tolerance_;
