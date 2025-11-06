@@ -25,6 +25,10 @@ ros2 launch trail_patrol_drone trail_patrol_drone.launch.py slam:=true rviz:=tru
 source ~/trail_patrol_ws/install/setup.bash
 ros2 launch trail_patrol_drone trail_patrol_drone_obstacle.launch.py slam:=true rviz:=true
 
+# Option 3: World WITH WALL obstacle (forces fly-over protocol)
+source ~/trail_patrol_ws/install/setup.bash
+ros2 launch trail_patrol_drone trail_patrol_drone_wall_obstacle.launch.py slam:=true rviz:=true
+
 # ===== RUN NODES (in separate terminals) =====
 
 # Terminal 1: Run Navigation Node

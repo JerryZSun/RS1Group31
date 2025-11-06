@@ -16,7 +16,9 @@ enum class MissionState {
     FLY_AROUND_LEFT,
     FLY_AROUND_RETURN,
     FLY_OVER_UP,
-    FLY_OVER_ACROSS
+    FLY_OVER_ACROSS,
+    EMERGENCY_FLY_OVER_UP,
+    EMERGENCY_FLY_OVER_ACROSS
 };
 
 class Mission : public rclcpp::Node {
@@ -28,7 +30,8 @@ public:
                 first_waypoint_published_(false),
                 mission_state_(MissionState::NORMAL),
                 interrupted_waypoint_index_(0),
-                avoidance_direction_(0) {
+                avoidance_direction_(0),
+                emergency_mode_(false) {
         
         // Publishers
         waypoint_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>(
@@ -67,14 +70,14 @@ public:
         
         // Initialize waypoints
         waypoints_ = {
-            {0, 0, 0.1},           // Start
-            {0, 0, 7},             // Climb up
-            {9.5, -12, 7},         // Fly high to far corner
-            {9.5, -12, 0.6},       // Descend to survey altitude
-            {7, -9.5, 0.6},        // Survey waypoint
-            {4, -8.5, 0.6},        // Survey waypoint
-            {2, -7.5, 0.6},        // Survey waypoint
-            {0, -1.5, 0.6},        // Survey waypoint
+            // {0, 0, 0.1},           // Start
+            // {0, 0, 7},             // Climb up
+            // {9.5, -12, 7},         // Fly high to far corner
+            // {9.5, -12, 0.6},       // Descend to survey altitude
+            // {7, -9.5, 0.6},        // Survey waypoint
+            // {4, -8.5, 0.6},        // Survey waypoint
+            // {2, -7.5, 0.6},        // Survey waypoint
+            // {0, -1.5, 0.6},        // Survey waypoint
             {3, 2.5, 0.6},         // Survey waypoint
             {4, 3, 0.6},           // BEFORE OBSTACLE - drone should detect obstacle from here
             {8, 7.5, 0.6},         // AFTER OBSTACLE
@@ -88,6 +91,7 @@ public:
         
         RCLCPP_INFO(this->get_logger(), "Mission Node Initialized");
         RCLCPP_INFO(this->get_logger(), "Total waypoints: %zu", waypoints_.size());
+        RCLCPP_INFO(this->get_logger(), "Emergency protocol: Always active at 0.5m → FLY-OVER");
         RCLCPP_INFO(this->get_logger(), "Waiting for navigation node...");
     }
 
@@ -122,15 +126,55 @@ private:
     void avoidance_direction_callback(const std_msgs::msg::Int32::SharedPtr msg) {
         avoidance_direction_ = msg->data;
         
-        if (mission_state_ == MissionState::NORMAL) {
-            if (avoidance_direction_ == 0) {
-                activate_fly_over_protocol();
-            } else if (avoidance_direction_ == 1) {
-                activate_fly_around_protocol(true);
+        // Check if this is an emergency (direction = 0 indicates emergency or fly-over)
+        if (avoidance_direction_ == 0) {
+            // Emergency fly-over to CURRENT waypoint
+            activate_emergency_fly_over();
+        } else if (mission_state_ == MissionState::NORMAL) {
+            // Normal avoidance protocols
+            if (avoidance_direction_ == 1) {
+                activate_fly_around_protocol(true);  // Right
             } else if (avoidance_direction_ == 2) {
-                activate_fly_around_protocol(false);
+                activate_fly_around_protocol(false); // Left
             }
         }
+    }
+    
+    void activate_emergency_fly_over() {
+        emergency_mode_ = true;
+        mission_state_ = MissionState::EMERGENCY_FLY_OVER_UP;
+        
+        // Cancel any existing avoidance mode
+        auto mode_msg = std_msgs::msg::Bool();
+        mode_msg.data = false;
+        avoidance_mode_pub_->publish(mode_msg);
+        
+        // Store current waypoint as target (not interrupted)
+        interrupted_waypoint_index_ = current_waypoint_index_;
+        
+        double up_x = current_position_.x;
+        double up_y = current_position_.y;
+        double up_z = 7.0;
+        
+        RCLCPP_ERROR(this->get_logger(), 
+            "🚨 EMERGENCY FLY-OVER: Step 1 - Climbing to (%.2f, %.2f, %.2f)", 
+            up_x, up_y, up_z);
+        RCLCPP_ERROR(this->get_logger(), 
+            "Target: Waypoint %zu (%.2f, %.2f, %.2f)", 
+            current_waypoint_index_ + 1,
+            waypoints_[current_waypoint_index_].x,
+            waypoints_[current_waypoint_index_].y,
+            waypoints_[current_waypoint_index_].z);
+        
+        auto waypoint_msg = geometry_msgs::msg::PoseStamped();
+        waypoint_msg.header.stamp = this->now();
+        waypoint_msg.header.frame_id = "map";
+        waypoint_msg.pose.position.x = up_x;
+        waypoint_msg.pose.position.y = up_y;
+        waypoint_msg.pose.position.z = up_z;
+        waypoint_msg.pose.orientation.w = 1.0;
+        
+        waypoint_pub_->publish(waypoint_msg);
     }
     
     void activate_fly_around_protocol(bool go_right) {
@@ -283,6 +327,40 @@ private:
                     current_waypoint_index_ = interrupted_waypoint_index_;
                     publish_current_waypoint();
                     break;
+                    
+                case MissionState::EMERGENCY_FLY_OVER_UP:
+                    RCLCPP_ERROR(this->get_logger(), 
+                        "🚨 EMERGENCY: Step 2 - Moving to waypoint %zu at high altitude", 
+                        interrupted_waypoint_index_ + 1);
+                    mission_state_ = MissionState::EMERGENCY_FLY_OVER_ACROSS;
+                    
+                    {
+                        const Waypoint& target_wp = waypoints_[interrupted_waypoint_index_];
+                        
+                        auto waypoint_msg = geometry_msgs::msg::PoseStamped();
+                        waypoint_msg.header.stamp = this->now();
+                        waypoint_msg.header.frame_id = "map";
+                        waypoint_msg.pose.position.x = target_wp.x;
+                        waypoint_msg.pose.position.y = target_wp.y;
+                        waypoint_msg.pose.position.z = 7.0;  // Stay at high altitude
+                        waypoint_msg.pose.orientation.w = 1.0;
+                        
+                        waypoint_pub_->publish(waypoint_msg);
+                    }
+                    break;
+                    
+                case MissionState::EMERGENCY_FLY_OVER_ACROSS:
+                    RCLCPP_INFO(this->get_logger(), 
+                        "🚨 EMERGENCY FLY-OVER COMPLETE - Resuming mission at waypoint %zu", 
+                        interrupted_waypoint_index_ + 1);
+                    
+                    emergency_mode_ = false;
+                    mission_state_ = MissionState::NORMAL;
+                    
+                    // Resume from the current waypoint (descend to correct altitude)
+                    current_waypoint_index_ = interrupted_waypoint_index_;
+                    publish_current_waypoint();
+                    break;
             }
         }
     }
@@ -332,6 +410,7 @@ private:
     MissionState mission_state_;
     size_t interrupted_waypoint_index_;
     int avoidance_direction_;
+    bool emergency_mode_;
     
     Waypoint current_position_;
     double current_yaw_;

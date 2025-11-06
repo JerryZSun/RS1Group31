@@ -25,6 +25,7 @@ public:
                    has_target_(false),
                    obstacle_detected_(false),
                    in_avoidance_mode_(false),
+                   emergency_triggered_(false),
                    scan_start_time_(this->now()),
                    last_status_print_(this->now()) {
         
@@ -87,6 +88,7 @@ public:
         emergency_obstacle_threshold_ = 0.5;
         
         RCLCPP_INFO(this->get_logger(), "Navigation Node Initialized");
+        RCLCPP_INFO(this->get_logger(), "EMERGENCY STOP: Always active at 0.5m");
         RCLCPP_INFO(this->get_logger(), "Detection thresholds - Normal: 2.0m, Avoidance: 1.5m, Emergency: 0.5m");
     }
 
@@ -98,17 +100,25 @@ private:
         
         has_target_ = true;
         
-        // Only reset obstacle_detected if we're starting fresh (not in avoidance)
-        if (control_state_ != ControlState::AVOIDANCE_MANEUVER && 
-            control_state_ != ControlState::OBSTACLE_STOP) {
-            obstacle_detected_ = false;
+        // Reset flags for new waypoint (unless emergency is active)
+        if (!emergency_triggered_) {
+            if (control_state_ != ControlState::AVOIDANCE_MANEUVER && 
+                control_state_ != ControlState::OBSTACLE_STOP) {
+                obstacle_detected_ = false;
+            }
         }
         
         // If in avoidance mode, stay in AVOIDANCE_MANEUVER state
-        if (in_avoidance_mode_) {
+        if (in_avoidance_mode_ && !emergency_triggered_) {
             control_state_ = ControlState::AVOIDANCE_MANEUVER;
             RCLCPP_INFO(this->get_logger(), 
-                "Avoidance waypoint: (%.2f, %.2f, %.2f) - Detection disabled", 
+                "Avoidance waypoint: (%.2f, %.2f, %.2f) - Normal detection disabled, Emergency still active", 
+                target_position_.x, target_position_.y, target_position_.z);
+        } else if (emergency_triggered_) {
+            // Emergency fly-over waypoint - keep emergency mode
+            control_state_ = ControlState::AVOIDANCE_MANEUVER;
+            RCLCPP_INFO(this->get_logger(), 
+                "Emergency fly-over waypoint: (%.2f, %.2f, %.2f)", 
                 target_position_.x, target_position_.y, target_position_.z);
         } else {
             // Determine initial state
@@ -139,10 +149,18 @@ private:
     
     void avoidance_mode_callback(const std_msgs::msg::Bool::SharedPtr msg) {
         in_avoidance_mode_ = msg->data;
+        
+        // Emergency resets avoidance mode
+        if (emergency_triggered_ && msg->data) {
+            RCLCPP_WARN(this->get_logger(), "Emergency active - overriding avoidance mode");
+            return;
+        }
+        
         if (in_avoidance_mode_) {
-            RCLCPP_INFO(this->get_logger(), "Avoidance mode ACTIVE - Obstacle detection DISABLED");
+            RCLCPP_INFO(this->get_logger(), "Avoidance mode ACTIVE - Normal detection DISABLED, Emergency ACTIVE");
         } else {
             RCLCPP_INFO(this->get_logger(), "Avoidance mode INACTIVE - Normal detection active");
+            emergency_triggered_ = false; // Reset emergency when exiting avoidance
         }
     }
     
@@ -153,29 +171,34 @@ private:
             return;
         }
         
-        // NO DETECTION during avoidance maneuver
-        if (control_state_ == ControlState::AVOIDANCE_MANEUVER) {
-            return;
-        }
-        
-        // EMERGENCY CHECK - Always check for very close obstacles (0.5m)
+        // ========================================
+        // EMERGENCY CHECK - ALWAYS ACTIVE (0.5m)
+        // ========================================
         if (check_emergency_obstacle(msg)) {
-            if (control_state_ != ControlState::OBSTACLE_STOP) {
-                RCLCPP_ERROR(this->get_logger(), 
-                    "EMERGENCY: Obstacle within 0.5m - Activating FLY-OVER");
-                
+            // Only trigger once per obstacle
+            if (control_state_ != ControlState::OBSTACLE_STOP || !emergency_triggered_) {
+                emergency_triggered_ = true;
                 obstacle_detected_ = true;
                 control_state_ = ControlState::OBSTACLE_STOP;
                 
-                // Publish direction = 0 to trigger fly-over
+                RCLCPP_ERROR(this->get_logger(), 
+                    "🚨 EMERGENCY: Obstacle within 0.5m - Immediate FLY-OVER initiated! 🚨");
+                
+                // Immediately publish direction = 0 to trigger fly-over
                 auto direction_msg = std_msgs::msg::Int32();
                 direction_msg.data = 0;
                 avoidance_direction_pub_->publish(direction_msg);
                 
+                // Publish obstacle detected
                 auto obstacle_msg = std_msgs::msg::Bool();
                 obstacle_msg.data = true;
                 obstacle_detected_pub_->publish(obstacle_msg);
             }
+            return; // Stop all other processing
+        }
+        
+        // Skip normal detection during avoidance or emergency
+        if (control_state_ == ControlState::AVOIDANCE_MANEUVER || emergency_triggered_) {
             return;
         }
         
@@ -253,6 +276,7 @@ private:
         int front_range = ranges_size / 9; // ±20°
         
         int detection_count = 0;
+        float closest_range = std::numeric_limits<float>::max();
         
         for (int i = -front_range; i <= front_range; ++i) {
             int idx = (i + ranges_size) % ranges_size;
@@ -264,10 +288,17 @@ private:
             
             if (range < emergency_obstacle_threshold_ && range > 0.2) {
                 detection_count++;
+                closest_range = std::min(closest_range, range);
             }
         }
         
-        return detection_count >= 3;
+        if (detection_count >= 3) {
+            RCLCPP_ERROR(this->get_logger(), 
+                "Emergency: %d points at %.2fm", detection_count, closest_range);
+            return true;
+        }
+        
+        return false;
     }
     
     void scan_for_clear_path(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
@@ -358,7 +389,7 @@ private:
             case ControlState::MOVING: state_str = "MOVING"; break;
             case ControlState::OBSTACLE_SCANNING: state_str = "SCANNING"; break;
             case ControlState::OBSTACLE_STOP: state_str = "OBSTACLE_STOP"; break;
-            case ControlState::AVOIDANCE_MANEUVER: state_str = "AVOIDANCE"; break;
+            case ControlState::AVOIDANCE_MANEUVER: state_str = emergency_triggered_ ? "EMERGENCY" : "AVOIDANCE"; break;
         }
         
         RCLCPP_INFO(this->get_logger(), 
@@ -568,6 +599,7 @@ private:
     bool has_target_;
     bool obstacle_detected_;
     bool in_avoidance_mode_;
+    bool emergency_triggered_;
     
     double position_tolerance_;
     double altitude_tolerance_;
