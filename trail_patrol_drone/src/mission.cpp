@@ -14,7 +14,7 @@ enum class MissionState {
     NORMAL,
     FLY_AROUND_RIGHT,
     FLY_AROUND_LEFT,
-    FLY_AROUND_RETURN,  // New state: Returning to mission after sidestep
+    FLY_AROUND_RETURN,
     FLY_OVER_UP,
     FLY_OVER_ACROSS
 };
@@ -67,28 +67,27 @@ public:
         
         // Initialize waypoints
         waypoints_ = {
-            // {0, 0, 0.1},           // Start
-            // {0, 0, 7},             // Climb up
-            // {9.5, -12, 7},         // Fly high to far corner
-            // {9.5, -12, 0.6},       // Descend to survey altitude
-            // {7, -9.5, 0.6},        // Survey waypoint
-            // {4, -8.5, 0.6},        // Survey waypoint
-            // {2, -7.5, 0.6},        // Survey waypoint
-            // {0, -1.5, 0.6},        // Survey waypoint
+            {0, 0, 0.1},           // Start
+            {0, 0, 7},             // Climb up
+            {9.5, -12, 7},         // Fly high to far corner
+            {9.5, -12, 0.6},       // Descend to survey altitude
+            {7, -9.5, 0.6},        // Survey waypoint
+            {4, -8.5, 0.6},        // Survey waypoint
+            {2, -7.5, 0.6},        // Survey waypoint
+            {0, -1.5, 0.6},        // Survey waypoint
             {3, 2.5, 0.6},         // Survey waypoint
             {4, 3, 0.6},           // BEFORE OBSTACLE - drone should detect obstacle from here
-            {8, 7.5, 0.6},         // AFTER OBSTACLE - (7, 6.25) obstacle is between these points
-            {11, 10.5, 0.6},       // Continue survey
-            {11, 10.5, 7},         // Climb back up
+            {8, 7.5, 0.6},         // AFTER OBSTACLE
+            {10, 10.5, 0.6},       // Continue survey
+            {10, 10.5, 7},         // Climb back up
             {0, 0, 7},             // Return home high
             {0, 0, 0.1},           // Land
         };
         
         position_tolerance_ = 0.5;
         
-        RCLCPP_INFO(this->get_logger(), "=== Mission Node Initialized ===");
+        RCLCPP_INFO(this->get_logger(), "Mission Node Initialized");
         RCLCPP_INFO(this->get_logger(), "Total waypoints: %zu", waypoints_.size());
-        RCLCPP_INFO(this->get_logger(), "Protocol: FLY-AROUND (priority), FLY-OVER (fallback)");
         RCLCPP_INFO(this->get_logger(), "Waiting for navigation node...");
     }
 
@@ -98,7 +97,6 @@ private:
         current_position_.y = msg->pose.pose.position.y;
         current_position_.z = msg->pose.pose.position.z;
         
-        // Extract yaw from quaternion
         auto& q = msg->pose.pose.orientation;
         current_yaw_ = std::atan2(
             2.0 * (q.w * q.z + q.x * q.y),
@@ -115,13 +113,8 @@ private:
     void obstacle_detected_callback(const std_msgs::msg::Bool::SharedPtr msg) {
         if (msg->data && mission_state_ == MissionState::NORMAL) {
             RCLCPP_WARN(this->get_logger(), 
-                "═══════════════════════════════════════════════════════════");
-            RCLCPP_WARN(this->get_logger(), 
                 "OBSTACLE DETECTED - Waiting for avoidance direction...");
-            RCLCPP_WARN(this->get_logger(), 
-                "═══════════════════════════════════════════════════════════");
             
-            // Save current waypoint
             interrupted_waypoint_index_ = current_waypoint_index_;
         }
     }
@@ -130,59 +123,38 @@ private:
         avoidance_direction_ = msg->data;
         
         if (mission_state_ == MissionState::NORMAL) {
-            // Process avoidance protocol based on direction
             if (avoidance_direction_ == 0) {
-                // No clear path - activate FLY-OVER
                 activate_fly_over_protocol();
             } else if (avoidance_direction_ == 1) {
-                // Right side clear - activate FLY-AROUND RIGHT
                 activate_fly_around_protocol(true);
             } else if (avoidance_direction_ == 2) {
-                // Left side clear - activate FLY-AROUND LEFT
                 activate_fly_around_protocol(false);
             }
         }
     }
     
     void activate_fly_around_protocol(bool go_right) {
-        // Set avoidance mode
         mission_state_ = go_right ? MissionState::FLY_AROUND_RIGHT : MissionState::FLY_AROUND_LEFT;
         
-        // Enable avoidance mode (disables obstacle detection completely)
         auto mode_msg = std_msgs::msg::Bool();
         mode_msg.data = true;
         avoidance_mode_pub_->publish(mode_msg);
         
         // Calculate perpendicular waypoint 2m to the side
-        // Perpendicular to current heading (yaw)
         double perpendicular_angle = go_right ? 
-            (current_yaw_ - M_PI / 2.0) :  // Right: -90°
-            (current_yaw_ + M_PI / 2.0);   // Left: +90°
+            (current_yaw_ - M_PI / 2.0) : 
+            (current_yaw_ + M_PI / 2.0);
         
         double offset_distance = 2.0;
         double avoidance_x = current_position_.x + offset_distance * std::cos(perpendicular_angle);
         double avoidance_y = current_position_.y + offset_distance * std::sin(perpendicular_angle);
-        double avoidance_z = current_position_.z; // Maintain current altitude
+        double avoidance_z = current_position_.z;
         
         std::string direction_str = go_right ? "RIGHT" : "LEFT";
         RCLCPP_INFO(this->get_logger(), 
-            "╔═══════════════════════════════════════════════════════════╗");
-        RCLCPP_INFO(this->get_logger(), 
-            "║ FLY-AROUND %s: Moving 2m perpendicular              ║", 
-            direction_str.c_str());
-        RCLCPP_INFO(this->get_logger(), 
-            "║ Current: (%.2f, %.2f, %.2f)                         ║",
-            current_position_.x, current_position_.y, current_position_.z);
-        RCLCPP_INFO(this->get_logger(), 
-            "║ Target:  (%.2f, %.2f, %.2f)                         ║",
-            avoidance_x, avoidance_y, avoidance_z);
-        RCLCPP_INFO(this->get_logger(), 
-            "║ Current heading: %.2f rad (%.1f°)                    ║",
-            current_yaw_, current_yaw_ * 180.0 / M_PI);
-        RCLCPP_INFO(this->get_logger(), 
-            "╚═══════════════════════════════════════════════════════════╝");
+            "FLY-AROUND %s: Moving 2m perpendicular to (%.2f, %.2f, %.2f)", 
+            direction_str.c_str(), avoidance_x, avoidance_y, avoidance_z);
         
-        // Publish avoidance waypoint
         auto waypoint_msg = geometry_msgs::msg::PoseStamped();
         waypoint_msg.header.stamp = this->now();
         waypoint_msg.header.frame_id = "map";
@@ -197,25 +169,17 @@ private:
     void activate_fly_over_protocol() {
         mission_state_ = MissionState::FLY_OVER_UP;
         
-        // Disable avoidance mode (use normal detection for fly-over)
         auto mode_msg = std_msgs::msg::Bool();
         mode_msg.data = false;
         avoidance_mode_pub_->publish(mode_msg);
         
-        // Generate first fly-over waypoint: straight up to z=7
         double up_x = current_position_.x;
         double up_y = current_position_.y;
         double up_z = 7.0;
         
-        RCLCPP_ERROR(this->get_logger(), 
-            "╔═══════════════════════════════════════════════════════════╗");
-        RCLCPP_ERROR(this->get_logger(), 
-            "║ FLY-OVER PROTOCOL ACTIVATED                              ║");
-        RCLCPP_ERROR(this->get_logger(), 
-            "║ Step 1: Climbing to (%.2f, %.2f, %.2f)              ║", 
+        RCLCPP_WARN(this->get_logger(), 
+            "FLY-OVER PROTOCOL: Step 1 - Climbing to (%.2f, %.2f, %.2f)", 
             up_x, up_y, up_z);
-        RCLCPP_ERROR(this->get_logger(), 
-            "╚═══════════════════════════════════════════════════════════╝");
         
         auto waypoint_msg = geometry_msgs::msg::PoseStamped();
         waypoint_msg.header.stamp = this->now();
@@ -232,7 +196,7 @@ private:
         // Publish first waypoint once subscribers connect
         if (!first_waypoint_published_) {
             if (waypoint_pub_->get_subscription_count() > 0) {
-                RCLCPP_INFO(this->get_logger(), "Navigation connected! Starting mission...");
+                RCLCPP_INFO(this->get_logger(), "Navigation connected - Starting mission");
                 publish_current_waypoint();
                 first_waypoint_published_ = true;
             }
@@ -243,12 +207,7 @@ private:
         if (current_waypoint_index_ >= waypoints_.size() && mission_state_ == MissionState::NORMAL) {
             if (!mission_complete_) {
                 RCLCPP_INFO(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════════");
-                RCLCPP_INFO(this->get_logger(), 
-                    "MISSION COMPLETE: All %zu waypoints reached", 
-                    waypoints_.size());
-                RCLCPP_INFO(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════════");
+                    "MISSION COMPLETE - All %zu waypoints reached", waypoints_.size());
                 mission_complete_ = true;
                 
                 auto status_msg = std_msgs::msg::Bool();
@@ -268,7 +227,7 @@ private:
                     
                     if (current_waypoint_index_ < waypoints_.size()) {
                         RCLCPP_INFO(this->get_logger(), 
-                            "Mission waypoint %zu/%zu reached, moving to next", 
+                            "Waypoint %zu/%zu reached - Moving to next", 
                             current_waypoint_index_, waypoints_.size());
                         publish_current_waypoint();
                     }
@@ -276,38 +235,23 @@ private:
                     
                 case MissionState::FLY_AROUND_RIGHT:
                 case MissionState::FLY_AROUND_LEFT:
-                    RCLCPP_INFO(this->get_logger(), 
-                        "Sidestep complete, now returning to mission path");
-                    
-                    // Transition to RETURN state (keep avoidance active)
+                    RCLCPP_INFO(this->get_logger(), "Sidestep complete - Returning to mission path");
                     mission_state_ = MissionState::FLY_AROUND_RETURN;
-                    
-                    // Publish the interrupted waypoint (still in avoidance mode)
                     current_waypoint_index_ = interrupted_waypoint_index_;
                     publish_current_waypoint();
                     break;
                     
                 case MissionState::FLY_AROUND_RETURN:
                     RCLCPP_INFO(this->get_logger(), 
-                        "╔═══════════════════════════════════════════════════════════╗");
-                    RCLCPP_INFO(this->get_logger(), 
-                        "║ FLY-AROUND COMPLETE: Obstacle cleared                    ║");
-                    RCLCPP_INFO(this->get_logger(), 
-                        "║ Re-enabling obstacle detection, resuming mission         ║");
-                    RCLCPP_INFO(this->get_logger(), 
-                        "╚═══════════════════════════════════════════════════════════╝");
+                        "FLY-AROUND COMPLETE - Obstacle cleared, resuming mission");
                     
-                    // Disable avoidance mode - detection returns to normal
                     {
                         auto mode_msg = std_msgs::msg::Bool();
                         mode_msg.data = false;
                         avoidance_mode_pub_->publish(mode_msg);
                     }
                     
-                    // Resume normal mission
                     mission_state_ = MissionState::NORMAL;
-                    
-                    // Move to next waypoint
                     current_waypoint_index_++;
                     if (current_waypoint_index_ < waypoints_.size()) {
                         publish_current_waypoint();
@@ -315,12 +259,9 @@ private:
                     break;
                     
                 case MissionState::FLY_OVER_UP:
-                    RCLCPP_INFO(this->get_logger(), 
-                        "FLY-OVER climb complete, moving to target position");
-                    
+                    RCLCPP_INFO(this->get_logger(), "FLY-OVER: Step 2 - Moving to target position");
                     mission_state_ = MissionState::FLY_OVER_ACROSS;
                     
-                    // Generate second fly-over waypoint: over target at z=7
                     {
                         const Waypoint& target_wp = waypoints_[interrupted_waypoint_index_];
                         
@@ -333,18 +274,11 @@ private:
                         waypoint_msg.pose.orientation.w = 1.0;
                         
                         waypoint_pub_->publish(waypoint_msg);
-                        
-                        RCLCPP_INFO(this->get_logger(), 
-                            "FLY-OVER Step 2: Moving to (%.2f, %.2f, 7.00)", 
-                            target_wp.x, target_wp.y);
                     }
                     break;
                     
                 case MissionState::FLY_OVER_ACROSS:
-                    RCLCPP_INFO(this->get_logger(), 
-                        "FLY-OVER complete, resuming mission");
-                    
-                    // Resume normal mission at interrupted waypoint
+                    RCLCPP_INFO(this->get_logger(), "FLY-OVER COMPLETE - Resuming mission");
                     mission_state_ = MissionState::NORMAL;
                     current_waypoint_index_ = interrupted_waypoint_index_;
                     publish_current_waypoint();
@@ -371,17 +305,10 @@ private:
         
         waypoint_pub_->publish(msg);
         
-        if (mission_state_ == MissionState::FLY_AROUND_RETURN) {
-            RCLCPP_INFO(this->get_logger(), 
-                "Returning to mission waypoint %zu/%zu: (%.2f, %.2f, %.2f) [Detection DISABLED]", 
-                current_waypoint_index_ + 1, waypoints_.size(), 
-                wp.x, wp.y, wp.z);
-        } else {
-            RCLCPP_INFO(this->get_logger(), 
-                "Published mission waypoint %zu/%zu: (%.2f, %.2f, %.2f)", 
-                current_waypoint_index_ + 1, waypoints_.size(), 
-                wp.x, wp.y, wp.z);
-        }
+        RCLCPP_INFO(this->get_logger(), 
+            "Waypoint %zu/%zu: (%.2f, %.2f, %.2f)", 
+            current_waypoint_index_ + 1, waypoints_.size(), 
+            wp.x, wp.y, wp.z);
     }
     
     // Member variables
