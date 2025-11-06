@@ -3,6 +3,7 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 #include "std_msgs/msg/bool.hpp"
+#include "std_msgs/msg/int32.hpp"
 #include "sensor_msgs/msg/laser_scan.hpp"
 #include <cmath>
 #include <chrono>
@@ -12,7 +13,9 @@ enum class ControlState {
     CLIMBING,
     TURNING,
     MOVING,
-    OBSTACLE_STOP
+    OBSTACLE_SCANNING,
+    OBSTACLE_STOP,
+    AVOIDANCE_MANEUVER  // New state for during avoidance
 };
 
 class Navigation : public rclcpp::Node {
@@ -20,7 +23,9 @@ public:
     Navigation() : Node("navigation"),
                    control_state_(ControlState::IDLE),
                    has_target_(false),
-                   obstacle_detected_(false) {
+                   obstacle_detected_(false),
+                   in_avoidance_mode_(false),
+                   scan_start_time_(this->now()) {
         
         // Publishers
         cmd_pub_ = this->create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", 10);
@@ -28,6 +33,8 @@ public:
             "/navigation/waypoint_reached", 10);
         obstacle_detected_pub_ = this->create_publisher<std_msgs::msg::Bool>(
             "/navigation/obstacle_detected", 10);
+        avoidance_direction_pub_ = this->create_publisher<std_msgs::msg::Int32>(
+            "/navigation/avoidance_direction", 10);
         
         // Subscribers
         waypoint_sub_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
@@ -43,6 +50,11 @@ public:
         scan_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>(
             "/scan", 10,
             std::bind(&Navigation::scan_callback, this, std::placeholders::_1)
+        );
+        
+        avoidance_mode_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+            "/mission/avoidance_mode", 10,
+            std::bind(&Navigation::avoidance_mode_callback, this, std::placeholders::_1)
         );
         
         // Control timer - 10Hz
@@ -67,11 +79,17 @@ public:
         climbing_threshold_ = 2.0;
         turning_threshold_degrees_ = 30.0;
         heading_tolerance_degrees_ = 5.0;
-        obstacle_threshold_ = 2.0;
+        
+        // Obstacle detection parameters
+        normal_obstacle_threshold_ = 2.0;
+        avoidance_obstacle_threshold_ = 1.5;
+        emergency_obstacle_threshold_ = 0.5;
         
         RCLCPP_INFO(this->get_logger(), "=== Navigation Node Initialized ===");
-        RCLCPP_INFO(this->get_logger(), "Obstacle detection: 2m threshold");
-        RCLCPP_INFO(this->get_logger(), "Protocol: FLY-OVER only");
+        RCLCPP_INFO(this->get_logger(), "Normal obstacle detection: 2.0m");
+        RCLCPP_INFO(this->get_logger(), "Avoidance mode detection: 1.5m");
+        RCLCPP_INFO(this->get_logger(), "Emergency detection: 0.5m");
+        RCLCPP_INFO(this->get_logger(), "Protocol: FLY-AROUND (priority), FLY-OVER (fallback)");
     }
 
 private:
@@ -81,19 +99,32 @@ private:
         target_position_.z = msg->pose.position.z;
         
         has_target_ = true;
-        obstacle_detected_ = false;
         
-        // Determine initial state
-        double altitude_error = std::abs(target_position_.z - current_position_.z);
-        if (altitude_error > climbing_threshold_) {
-            control_state_ = ControlState::CLIMBING;
-        } else {
-            control_state_ = ControlState::TURNING;
+        // Only reset obstacle_detected if we're starting fresh (not in avoidance)
+        if (control_state_ != ControlState::AVOIDANCE_MANEUVER && 
+            control_state_ != ControlState::OBSTACLE_STOP) {
+            obstacle_detected_ = false;
         }
         
-        RCLCPP_INFO(this->get_logger(), 
-            "New waypoint received: (%.2f, %.2f, %.2f)", 
-            target_position_.x, target_position_.y, target_position_.z);
+        // If in avoidance mode, stay in AVOIDANCE_MANEUVER state
+        if (in_avoidance_mode_) {
+            control_state_ = ControlState::AVOIDANCE_MANEUVER;
+            RCLCPP_INFO(this->get_logger(), 
+                "Avoidance waypoint received: (%.2f, %.2f, %.2f) - Detection DISABLED", 
+                target_position_.x, target_position_.y, target_position_.z);
+        } else {
+            // Determine initial state
+            double altitude_error = std::abs(target_position_.z - current_position_.z);
+            if (altitude_error > climbing_threshold_) {
+                control_state_ = ControlState::CLIMBING;
+            } else {
+                control_state_ = ControlState::TURNING;
+            }
+            
+            RCLCPP_INFO(this->get_logger(), 
+                "New waypoint received: (%.2f, %.2f, %.2f)", 
+                target_position_.x, target_position_.y, target_position_.z);
+        }
     }
     
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg) {
@@ -108,13 +139,67 @@ private:
         );
     }
     
+    void avoidance_mode_callback(const std_msgs::msg::Bool::SharedPtr msg) {
+        in_avoidance_mode_ = msg->data;
+        if (in_avoidance_mode_) {
+            RCLCPP_INFO(this->get_logger(), 
+                "Avoidance mode ACTIVE - Obstacle detection DISABLED");
+        } else {
+            RCLCPP_INFO(this->get_logger(), 
+                "Avoidance mode INACTIVE - Normal detection sensitivity");
+        }
+    }
+    
     void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
-        // Skip if no target or already stopped
-        if (!has_target_ || control_state_ == ControlState::OBSTACLE_STOP) {
+        latest_scan_ = msg;
+        
+        if (!has_target_) {
             return;
         }
         
-        // Only check when MOVING
+        // NO DETECTION during avoidance maneuver
+        if (control_state_ == ControlState::AVOIDANCE_MANEUVER) {
+            return;
+        }
+        
+        // EMERGENCY CHECK - Always check for very close obstacles (0.5m) except during avoidance
+        if (check_emergency_obstacle(msg)) {
+            if (control_state_ != ControlState::OBSTACLE_STOP) {
+                RCLCPP_ERROR(this->get_logger(), 
+                    "╔═══════════════════════════════════════════════════════════╗");
+                RCLCPP_ERROR(this->get_logger(), 
+                    "║ EMERGENCY: Obstacle within 0.5m - ACTIVATING FLY-OVER   ║");
+                RCLCPP_ERROR(this->get_logger(), 
+                    "╚═══════════════════════════════════════════════════════════╝");
+                
+                obstacle_detected_ = true;
+                control_state_ = ControlState::OBSTACLE_STOP;
+                
+                // Publish direction = 0 to trigger fly-over
+                auto direction_msg = std_msgs::msg::Int32();
+                direction_msg.data = 0;
+                avoidance_direction_pub_->publish(direction_msg);
+                
+                auto obstacle_msg = std_msgs::msg::Bool();
+                obstacle_msg.data = true;
+                obstacle_detected_pub_->publish(obstacle_msg);
+            }
+            return;
+        }
+        
+        // Handle scanning state
+        if (control_state_ == ControlState::OBSTACLE_SCANNING) {
+            // Wait 1 second before scanning
+            auto current_time = this->now();
+            auto elapsed = (current_time - scan_start_time_).seconds();
+            
+            if (elapsed >= 1.0) {
+                scan_for_clear_path(msg);
+            }
+            return;
+        }
+        
+        // Normal obstacle detection (only when MOVING)
         if (control_state_ != ControlState::MOVING) {
             return;
         }
@@ -131,16 +216,16 @@ private:
             return;
         }
         
+        // Use normal detection parameters (not in avoidance mode during normal movement)
+        double obstacle_threshold = normal_obstacle_threshold_;
+        int cone_range = msg->ranges.size() / 9; // ±20°
+        
         size_t ranges_size = msg->ranges.size();
-        
-        // Check forward cone (±20° = 40° total)
-        int front_range = ranges_size / 9;
-        
         bool obstacle_in_front = false;
         float closest_range = std::numeric_limits<float>::max();
         int detection_count = 0;
         
-        for (int i = -front_range; i <= front_range; ++i) {
+        for (int i = -cone_range; i <= cone_range; ++i) {
             int idx = (i + ranges_size) % ranges_size;
             float range = msg->ranges[idx];
             
@@ -148,7 +233,7 @@ private:
                 continue;
             }
             
-            if (range < obstacle_threshold_ && range > 0.2) {
+            if (range < obstacle_threshold && range > 0.2) {
                 detection_count++;
                 closest_range = std::min(closest_range, range);
             }
@@ -161,28 +246,129 @@ private:
         // Handle obstacle detection
         if (obstacle_in_front && !obstacle_detected_) {
             obstacle_detected_ = true;
-            control_state_ = ControlState::OBSTACLE_STOP;
+            control_state_ = ControlState::OBSTACLE_SCANNING;
+            scan_start_time_ = this->now();
             
-            RCLCPP_ERROR(this->get_logger(), 
+            RCLCPP_WARN(this->get_logger(), 
                 "╔═══════════════════════════════════════════════════════════╗");
-            RCLCPP_ERROR(this->get_logger(), 
-                "║ OBSTACLE DETECTED                                         ║");
-            RCLCPP_ERROR(this->get_logger(), 
-                "║ Position: (%.2f, %.2f, %.2f)                         ║", 
-                current_position_.x, current_position_.y, current_position_.z);
-            RCLCPP_ERROR(this->get_logger(), 
-                "║ Distance: %.2fm                                            ║", 
+            RCLCPP_WARN(this->get_logger(), 
+                "║ OBSTACLE DETECTED - Starting scan protocol               ║");
+            RCLCPP_WARN(this->get_logger(), 
+                "║ Distance: %.2fm - Waiting 1 second...                     ║", 
                 closest_range);
-            RCLCPP_ERROR(this->get_logger(), 
-                "║ Requesting FLY-OVER protocol from Mission node            ║");
-            RCLCPP_ERROR(this->get_logger(), 
+            RCLCPP_WARN(this->get_logger(), 
                 "╚═══════════════════════════════════════════════════════════╝");
             
-            // Notify mission node
-            auto msg = std_msgs::msg::Bool();
-            msg.data = true;
-            obstacle_detected_pub_->publish(msg);
+            auto obstacle_msg = std_msgs::msg::Bool();
+            obstacle_msg.data = true;
+            obstacle_detected_pub_->publish(obstacle_msg);
         }
+    }
+    
+    bool check_emergency_obstacle(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
+        size_t ranges_size = msg->ranges.size();
+        int front_range = ranges_size / 9; // ±20°
+        
+        int detection_count = 0;
+        
+        for (int i = -front_range; i <= front_range; ++i) {
+            int idx = (i + ranges_size) % ranges_size;
+            float range = msg->ranges[idx];
+            
+            if (std::isnan(range) || std::isinf(range) || range < 0.2) {
+                continue;
+            }
+            
+            if (range < emergency_obstacle_threshold_ && range > 0.2) {
+                detection_count++;
+            }
+        }
+        
+        return detection_count >= 3;
+    }
+    
+    void scan_for_clear_path(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
+        size_t ranges_size = msg->ranges.size();
+        
+        // Check 30° segments: right (±15°) and left (±15°)
+        // Right is at 270° (or -90°), Left is at 90°
+        
+        // Calculate indices for right side (-90° ± 15°)
+        int right_center = ranges_size * 3 / 4; // 270°
+        int segment_width = ranges_size / 12; // ±15°
+        
+        // Calculate indices for left side (90° ± 15°)
+        int left_center = ranges_size / 4; // 90°
+        
+        bool right_clear = check_segment_clear(msg, right_center, segment_width, 3.0);
+        bool left_clear = check_segment_clear(msg, left_center, segment_width, 3.0);
+        
+        int avoidance_direction = 0;
+        if (right_clear) {
+            avoidance_direction = 1; // Right has priority
+            RCLCPP_INFO(this->get_logger(), 
+                "╔═══════════════════════════════════════════════════════════╗");
+            RCLCPP_INFO(this->get_logger(), 
+                "║ Scan complete: RIGHT SIDE CLEAR                          ║");
+            RCLCPP_INFO(this->get_logger(), 
+                "║ Initiating FLY-AROUND (RIGHT)                            ║");
+            RCLCPP_INFO(this->get_logger(), 
+                "╚═══════════════════════════════════════════════════════════╝");
+        } else if (left_clear) {
+            avoidance_direction = 2; // Left is alternative
+            RCLCPP_INFO(this->get_logger(), 
+                "╔═══════════════════════════════════════════════════════════╗");
+            RCLCPP_INFO(this->get_logger(), 
+                "║ Scan complete: LEFT SIDE CLEAR                           ║");
+            RCLCPP_INFO(this->get_logger(), 
+                "║ Initiating FLY-AROUND (LEFT)                             ║");
+            RCLCPP_INFO(this->get_logger(), 
+                "╚═══════════════════════════════════════════════════════════╝");
+        } else {
+            avoidance_direction = 0; // No clear path - fly over
+            RCLCPP_WARN(this->get_logger(), 
+                "╔═══════════════════════════════════════════════════════════╗");
+            RCLCPP_WARN(this->get_logger(), 
+                "║ Scan complete: NO CLEAR PATH                             ║");
+            RCLCPP_WARN(this->get_logger(), 
+                "║ Defaulting to FLY-OVER protocol                          ║");
+            RCLCPP_WARN(this->get_logger(), 
+                "╚═══════════════════════════════════════════════════════════╝");
+        }
+        
+        // Publish direction
+        auto direction_msg = std_msgs::msg::Int32();
+        direction_msg.data = avoidance_direction;
+        avoidance_direction_pub_->publish(direction_msg);
+        
+        // Transition to STOP state and wait for mission node instructions
+        control_state_ = ControlState::OBSTACLE_STOP;
+    }
+    
+    bool check_segment_clear(const sensor_msgs::msg::LaserScan::SharedPtr msg, 
+                             int center_idx, int half_width, double max_distance) {
+        size_t ranges_size = msg->ranges.size();
+        int clear_count = 0;
+        int total_count = 0;
+        
+        for (int i = -half_width; i <= half_width; ++i) {
+            int idx = (center_idx + i + ranges_size) % ranges_size;
+            float range = msg->ranges[idx];
+            
+            if (std::isnan(range) || std::isinf(range)) {
+                clear_count++; // No detection = clear
+                total_count++;
+                continue;
+            }
+            
+            if (range > max_distance || range < 0.2) {
+                clear_count++;
+            }
+            total_count++;
+        }
+        
+        // Require 80% of segment to be clear
+        return (static_cast<double>(clear_count) / total_count) >= 0.8;
     }
     
     double normalize_angle(double angle) {
@@ -209,12 +395,16 @@ private:
             case ControlState::CLIMBING: state_str = "CLIMBING"; break;
             case ControlState::TURNING: state_str = "TURNING"; break;
             case ControlState::MOVING: state_str = "MOVING"; break;
+            case ControlState::OBSTACLE_SCANNING: state_str = "SCANNING"; break;
             case ControlState::OBSTACLE_STOP: state_str = "OBSTACLE_STOP"; break;
+            case ControlState::AVOIDANCE_MANEUVER: state_str = "AVOIDANCE"; break;
         }
         
+        std::string mode_str = in_avoidance_mode_ ? "ACTIVE" : "INACTIVE";
+        
         RCLCPP_INFO(this->get_logger(), 
-            "STATUS | State: %s | Pos: (%.2f, %.2f, %.2f) | Target: (%.2f, %.2f, %.2f) | Dist: %.2fm | Alt Error: %.2fm | Yaw Error: %.1f°",
-            state_str.c_str(),
+            "STATUS | State: %s | Avoidance: %s | Pos: (%.2f, %.2f, %.2f) | Target: (%.2f, %.2f, %.2f) | Dist: %.2fm | Alt Error: %.2fm | Yaw Error: %.1f°",
+            state_str.c_str(), mode_str.c_str(),
             current_position_.x, current_position_.y, current_position_.z,
             target_position_.x, target_position_.y, target_position_.z,
             distance, dz, yaw_error_degrees);
@@ -252,8 +442,9 @@ private:
             return;
         }
         
-        // Handle obstacle stop state
-        if (control_state_ == ControlState::OBSTACLE_STOP) {
+        // Handle special states
+        if (control_state_ == ControlState::OBSTACLE_STOP || 
+            control_state_ == ControlState::OBSTACLE_SCANNING) {
             // Stop and maintain altitude
             cmd.linear.z = calculate_altitude_control(altitude_error);
             cmd_pub_->publish(cmd);
@@ -274,7 +465,8 @@ private:
         
         // Check if need to prioritize climbing
         if (std::abs(altitude_error) > climbing_threshold_ && 
-            control_state_ != ControlState::CLIMBING) {
+            control_state_ != ControlState::CLIMBING &&
+            control_state_ != ControlState::AVOIDANCE_MANEUVER) {
             control_state_ = ControlState::CLIMBING;
         }
         
@@ -338,6 +530,45 @@ private:
                 }
                 break;
                 
+            case ControlState::AVOIDANCE_MANEUVER:
+                // Same movement logic as MOVING but with detection disabled
+                if (std::abs(altitude_error) > climbing_threshold_) {
+                    cmd.linear.x = 0.0;
+                    break;
+                }
+                
+                if (horizontal_distance > 1.0 && yaw_error_degrees > turning_threshold_degrees_) {
+                    cmd.linear.x = 0.0;
+                    double turn_speed = 0.5;
+                    double turn_gain = std::min(1.0, std::abs(yaw_error) / (M_PI / 4));
+                    turn_gain = std::max(0.3, turn_gain);
+                    cmd.angular.z = turn_gain * turn_speed * (yaw_error > 0 ? 1.0 : -1.0);
+                } else {
+                    double base_speed = 0.5;
+                    double min_speed = 0.08;
+                    double speed_factor = 1.0;
+                    
+                    if (horizontal_distance < 5.0) {
+                        speed_factor = std::max(min_speed / base_speed, 
+                                               std::pow(horizontal_distance / 5.0, 0.7));
+                    }
+                    
+                    if (horizontal_distance < 1.5) {
+                        speed_factor *= 0.5;
+                    }
+                    
+                    cmd.linear.x = base_speed * speed_factor;
+                    
+                    if (horizontal_distance > 1.0 && yaw_error_degrees > heading_tolerance_degrees_) {
+                        double correction_gain = 0.15;
+                        cmd.angular.z = yaw_error * correction_gain;
+                        cmd.angular.z = std::max(-0.2, std::min(0.2, cmd.angular.z));
+                    } else {
+                        cmd.angular.z = 0.0;
+                    }
+                }
+                break;
+                
             default:
                 break;
         }
@@ -359,10 +590,12 @@ private:
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_pub_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr waypoint_reached_pub_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr obstacle_detected_pub_;
+    rclcpp::Publisher<std_msgs::msg::Int32>::SharedPtr avoidance_direction_pub_;
     
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr waypoint_sub_;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr avoidance_mode_sub_;
     
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::TimerBase::SharedPtr status_timer_;
@@ -378,13 +611,20 @@ private:
     ControlState control_state_;
     bool has_target_;
     bool obstacle_detected_;
+    bool in_avoidance_mode_;
     
     double position_tolerance_;
     double altitude_tolerance_;
     double climbing_threshold_;
     double turning_threshold_degrees_;
     double heading_tolerance_degrees_;
-    double obstacle_threshold_;
+    
+    double normal_obstacle_threshold_;
+    double avoidance_obstacle_threshold_;
+    double emergency_obstacle_threshold_;
+    
+    rclcpp::Time scan_start_time_;
+    sensor_msgs::msg::LaserScan::SharedPtr latest_scan_;
 };
 
 int main(int argc, char** argv) {
