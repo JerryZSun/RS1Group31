@@ -55,14 +55,21 @@ public:
         
         // Initialize waypoints
         waypoints_ = {
-            {0, -1.5, 0.6},
-            {3, 2.5, 0.6},
-            {4, 3, 0.6},        // BEFORE OBSTACLE
-            {8, 7.5, 0.6},      // AFTER OBSTACLE
-            {11, 10.5, 0.6},
-            {11, 10.5, 7},
-            {0, 0, 7},
-            {0, 0, 0.1},
+            {0, 0, 0.1},           // Start
+            {0, 0, 7},             // Climb up
+            {9.5, -12, 7},         // Fly high to far corner
+            {9.5, -12, 0.6},       // Descend to survey altitude
+            {7, -9.5, 0.6},        // Survey waypoint
+            {4, -8.5, 0.6},        // Survey waypoint
+            {2, -7.5, 0.6},        // Survey waypoint
+            {0, -1.5, 0.6},        // Survey waypoint
+            {3, 2.5, 0.6},         // Survey waypoint
+            {4, 3, 0.6},           // BEFORE OBSTACLE - drone should detect obstacle from here
+            {8, 7.5, 0.6},         // AFTER OBSTACLE - (7, 6.25) obstacle is between these points
+            {11, 10.5, 0.6},       // Continue survey
+            {11, 10.5, 7},         // Climb back up
+            {0, 0, 7},             // Return home high
+            {0, 0, 0.1},           // Land
         };
         
         position_tolerance_ = 0.5;
