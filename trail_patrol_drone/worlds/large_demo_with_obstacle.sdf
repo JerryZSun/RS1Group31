@@ -133,36 +133,16 @@
       <pose>+9.32 12.5 2 1.570796 0 0</pose>
     </include>
 
-    <!-- OBSTACLE: Vertical cylinder (standing upright) blocking the trail -->
+    <!-- OBSTACLE: Using existing Fuel rock model that works with LIDAR -->
     <!-- Position: Between waypoints (6, 5, 0.6) and (8, 7.5, 0.6) -->
-    <!-- This is a VERTICAL obstacle at the drone's flight altitude -->
-    <model name="trail_obstacle">
-      <pose>7 6.25 1.0 0 0 0</pose> <!-- Standing upright, centered at 1m height -->
-      <static>true</static>
-      <link name="obstacle_link">
-        <collision name="obstacle_collision">
-          <geometry>
-            <cylinder>
-              <radius>0.5</radius>
-              <length>2.0</length> <!-- 2m tall cylinder: from 0m to 2m -->
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="obstacle_visual">
-          <geometry>
-            <cylinder>
-              <radius>0.5</radius>
-              <length>2.0</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.4 0.25 0.1 1</ambient>
-            <diffuse>0.5 0.3 0.15 1</diffuse>
-            <specular>0.1 0.1 0.1 1</specular>
-          </material>
-        </visual>
-      </link>
-    </model>
+    <!-- Lifted up to drone altitude for reliable detection -->
+    <include>
+      <uri>
+        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Falling%20Rock%201
+      </uri>
+      <name>trail_obstacle</name>
+      <pose>7 6.25 0.6 0 0 0</pose>
+    </include>
 
     <!-- Oak trees -->
     <include>

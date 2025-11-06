@@ -61,13 +61,11 @@ public:
         climbing_threshold_ = 2.0; // Enter CLIMBING state if altitude diff > 2m
         turning_threshold_degrees_ = 30.0;
         heading_tolerance_degrees_ = 5.0;
-        obstacle_threshold_ = 2.0; // Detection distance
-        min_obstacle_height_ = 0.3; // Minimum obstacle height (30cm) - filters ground clutter
-        max_obstacle_height_ = 2.0; // Maximum obstacle height (2m) - filters tree canopy
+        obstacle_threshold_ = 2.0; // Detection distance - 2m gives ~1.5m buffer at 0.5m/s speed
         
         RCLCPP_INFO(this->get_logger(), "Navigation node initialized");
-        RCLCPP_INFO(this->get_logger(), "Obstacle detection: distance=%.2fm, height range=[%.2fm, %.2fm]", 
-                    obstacle_threshold_, min_obstacle_height_, max_obstacle_height_);
+        RCLCPP_INFO(this->get_logger(), "Obstacle detection: distance=%.2fm, cone=±20°, ONLY when MOVING and aligned", 
+                    obstacle_threshold_);
     }
 
 private:
@@ -108,15 +106,27 @@ private:
     }
     
     void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
-        // Only check for obstacles when actively moving toward target
+        // CRITICAL: Only check for obstacles when MOVING and well-aligned toward target
         if (control_state_ != ControlState::MOVING) {
             return;
         }
         
-        // Check for obstacles in a narrow forward cone at drone's altitude
+        // Calculate if we're aligned with target
+        double dx = target_position_.x - current_position_.x;
+        double dy = target_position_.y - current_position_.y;
+        double target_yaw = std::atan2(dy, dx);
+        double yaw_error = normalize_angle(target_yaw - current_yaw_);
+        double yaw_error_degrees = std::abs(yaw_error) * 180.0 / M_PI;
+        
+        // Only check for obstacles if heading is well-aligned (< 15 degrees off)
+        if (yaw_error_degrees > 15.0) {
+            return;
+        }
+        
         size_t ranges_size = msg->ranges.size();
-        // Tighter cone: 40 degrees total (20 degrees each side) - very focused on direct path
-        int front_range = ranges_size / 9;  // ~40 degrees
+        
+        // Narrow cone: 40 degrees (20 each side) - focused on direct path
+        int front_range = ranges_size / 9;  // 40 degrees total
         
         bool obstacle_in_path = false;
         float closest_range = std::numeric_limits<float>::max();
@@ -130,28 +140,15 @@ private:
                 continue;
             }
             
-            // Calculate the approximate height of detected object
-            // Lidar is at current_position_.z (drone altitude)
-            // If something is detected at 'range' meters, check if it's at drone's flight level
-            // This filters out ground-level objects and high tree branches
-            
-            // For horizontal lidar, objects at flight altitude will be detected
-            // We use the drone's altitude to filter appropriately
-            double drone_altitude = current_position_.z;
-            
-            // Only consider obstacles that are:
-            // 1. Within detection range
-            // 2. Not too close (> 0.2m to filter drone itself)
-            // 3. Multiple consecutive readings (more robust)
+            // Check if within detection threshold
             if (range < obstacle_threshold_ && range > 0.2) {
                 detection_count++;
                 closest_range = std::min(closest_range, range);
             }
         }
         
-        // Require multiple detections to confirm obstacle (reduces false positives)
-        // At least 3 consecutive readings in the narrow forward cone
-        if (detection_count >= 3) {
+        // Require at least 5 detections in the cone
+        if (detection_count >= 5) {
             obstacle_in_path = true;
         }
         
@@ -164,8 +161,9 @@ private:
             obstacle_pub_->publish(obs_msg);
             
             RCLCPP_WARN(this->get_logger(), 
-                "OBSTACLE DETECTED at %.2fm from position (%.2f, %.2f, %.2f)! %d readings. Stopping.", 
-                closest_range, current_position_.x, current_position_.y, current_position_.z, detection_count);
+                "OBSTACLE DETECTED at %.2fm from position (%.2f, %.2f, %.2f)! %d detections, heading error: %.1f°. Stopping.", 
+                closest_range, current_position_.x, current_position_.y, current_position_.z, 
+                detection_count, yaw_error_degrees);
             
             control_state_ = ControlState::OBSTACLE_DETECTED;
         } else if (!obstacle_in_path && obstacle_detected_) {
@@ -420,8 +418,6 @@ private:
     double turning_threshold_degrees_;
     double heading_tolerance_degrees_;
     double obstacle_threshold_;
-    double min_obstacle_height_;
-    double max_obstacle_height_;
 };
 
 int main(int argc, char** argv) {
