@@ -13,17 +13,6 @@ find_package(nav_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(ros_ign_interfaces REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-
-# Generate custom messages
-rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/ObstacleAvoidanceRequest.msg"
-  DEPENDENCIES geometry_msgs std_msgs
-)
-
-# Get the typesupport target name for dependencies
-rosidl_get_typesupport_target(cpp_typesupport_target
-  ${PROJECT_NAME} rosidl_typesupport_cpp)
 
 # Create mission executable
 add_executable(mission src/mission.cpp)
@@ -33,7 +22,6 @@ ament_target_dependencies(mission
   nav_msgs
   std_msgs
 )
-target_link_libraries(mission "${cpp_typesupport_target}")
 
 # Create navigation executable
 add_executable(navigation src/navigation.cpp)
@@ -44,7 +32,6 @@ ament_target_dependencies(navigation
   std_msgs
   sensor_msgs
 )
-target_link_libraries(navigation "${cpp_typesupport_target}")
 
 # Install executables
 install(TARGETS

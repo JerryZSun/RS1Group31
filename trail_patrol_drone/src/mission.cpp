@@ -2,7 +2,6 @@
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 #include "std_msgs/msg/bool.hpp"
-#include "trail_patrol_drone/msg/obstacle_avoidance_request.hpp"
 #include <vector>
 #include <cmath>
 
@@ -12,7 +11,6 @@ struct Waypoint {
 
 enum class MissionState {
     NORMAL,
-    FLY_AROUND,
     FLY_OVER_UP,
     FLY_OVER_ACROSS
 };
@@ -25,16 +23,13 @@ public:
                 waypoint_reached_(false),
                 first_waypoint_published_(false),
                 mission_state_(MissionState::NORMAL),
-                interrupted_waypoint_index_(0),
-                fly_around_attempts_(0) {
+                interrupted_waypoint_index_(0) {
         
         // Publishers
         waypoint_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>(
             "/mission/current_waypoint", 10);
         mission_status_pub_ = this->create_publisher<std_msgs::msg::Bool>(
             "/mission/complete", 10);
-        avoidance_mode_pub_ = this->create_publisher<std_msgs::msg::Bool>(
-            "/mission/avoidance_mode", 10);
         
         // Subscribers
         odom_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
@@ -47,9 +42,9 @@ public:
             std::bind(&Mission::waypoint_reached_callback, this, std::placeholders::_1)
         );
         
-        avoidance_request_sub_ = this->create_subscription<trail_patrol_drone::msg::ObstacleAvoidanceRequest>(
-            "/navigation/obstacle_avoidance_request", 10,
-            std::bind(&Mission::avoidance_request_callback, this, std::placeholders::_1)
+        obstacle_detected_sub_ = this->create_subscription<std_msgs::msg::Bool>(
+            "/navigation/obstacle_detected", 10,
+            std::bind(&Mission::obstacle_detected_callback, this, std::placeholders::_1)
         );
         
         // Timer for mission management
@@ -58,15 +53,8 @@ public:
             std::bind(&Mission::mission_loop, this)
         );
         
-        // Initialize waypoints (commented out first section for object avoidance debugging)
+        // Initialize waypoints
         waypoints_ = {
-            // {0, 0, 0.1},
-            // {0, 0, 7},
-            // {9.5, -12, 7},
-            // {9.5, -12, 0.6},
-            // {7, -9.5, 0.6},
-            // {4, -8.5, 0.6},
-            // {2, -7.5, 0.6},
             {0, -1.5, 0.6},
             {3, 2.5, 0.6},
             {4, 3, 0.6},        // BEFORE OBSTACLE
@@ -81,7 +69,7 @@ public:
         
         RCLCPP_INFO(this->get_logger(), "=== Mission Node Initialized ===");
         RCLCPP_INFO(this->get_logger(), "Total waypoints: %zu", waypoints_.size());
-        RCLCPP_INFO(this->get_logger(), "Obstacle test: WP11 (6,5,0.6) → WP12 (8,7.5,0.6)");
+        RCLCPP_INFO(this->get_logger(), "Protocol: FLY-OVER only");
         RCLCPP_INFO(this->get_logger(), "Waiting for navigation node...");
     }
 
@@ -98,106 +86,24 @@ private:
         }
     }
     
-    void avoidance_request_callback(const trail_patrol_drone::msg::ObstacleAvoidanceRequest::SharedPtr msg) {
-        double best_angle = msg->best_clear_angle;
-        double obstacle_distance = msg->obstacle_distance;
-        
-        if (best_angle == -999.0) {
-            // NO_PATH - use fly-over protocol
+    void obstacle_detected_callback(const std_msgs::msg::Bool::SharedPtr msg) {
+        if (msg->data && mission_state_ == MissionState::NORMAL) {
             RCLCPP_ERROR(this->get_logger(), 
-                "═══════════════════════════════════════════════════════");
+                "═══════════════════════════════════════════════════════════");
             RCLCPP_ERROR(this->get_logger(), 
-                "NO CLEAR PATH FOUND or EMERGENCY STOP");
+                "OBSTACLE DETECTED - Activating FLY-OVER protocol");
             RCLCPP_ERROR(this->get_logger(), 
-                "Activating FLY-OVER protocol");
-            RCLCPP_ERROR(this->get_logger(), 
-                "═══════════════════════════════════════════════════════");
+                "═══════════════════════════════════════════════════════════");
             
             activate_fly_over_protocol();
-            
-        } else {
-            // Check attempt count
-            if (fly_around_attempts_ >= 3) {
-                RCLCPP_WARN(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════");
-                RCLCPP_WARN(this->get_logger(), 
-                    "3 FLY-AROUND attempts failed for this waypoint");
-                RCLCPP_WARN(this->get_logger(), 
-                    "Switching to FLY-OVER protocol");
-                RCLCPP_WARN(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════");
-                
-                activate_fly_over_protocol();
-                
-            } else {
-                // Use fly-around protocol
-                fly_around_attempts_++;
-                
-                RCLCPP_WARN(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════");
-                RCLCPP_WARN(this->get_logger(), 
-                    "Activating FLY-AROUND protocol (Attempt %d/3)", 
-                    fly_around_attempts_);
-                RCLCPP_WARN(this->get_logger(), 
-                    "Best clear direction: %.1f° (%.2f rad)", 
-                    best_angle * 180.0 / M_PI, best_angle);
-                RCLCPP_WARN(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════");
-                
-                activate_fly_around_protocol(best_angle, msg->current_position);
-            }
         }
-    }
-    
-    void activate_fly_around_protocol(double clear_angle, const geometry_msgs::msg::Point& current_pos) {
-        // Save interrupted waypoint if in normal mode
-        if (mission_state_ == MissionState::NORMAL) {
-            interrupted_waypoint_index_ = current_waypoint_index_;
-        }
-        
-        mission_state_ = MissionState::FLY_AROUND;
-        
-        // Calculate avoidance waypoint: 4m in clear direction
-        double avoidance_x = current_pos.x + 4.0 * std::cos(clear_angle);
-        double avoidance_y = current_pos.y + 4.0 * std::sin(clear_angle);
-        double avoidance_z = current_pos.z;  // Maintain altitude
-        
-        RCLCPP_INFO(this->get_logger(), 
-            "Generated FLY-AROUND waypoint: (%.2f, %.2f, %.2f)", 
-            avoidance_x, avoidance_y, avoidance_z);
-        
-        // Enable avoidance mode (reduced detection)
-        auto mode_msg = std_msgs::msg::Bool();
-        mode_msg.data = true;
-        avoidance_mode_pub_->publish(mode_msg);
-        
-        // Publish avoidance waypoint
-        auto waypoint_msg = geometry_msgs::msg::PoseStamped();
-        waypoint_msg.header.stamp = this->now();
-        waypoint_msg.header.frame_id = "map";
-        waypoint_msg.pose.position.x = avoidance_x;
-        waypoint_msg.pose.position.y = avoidance_y;
-        waypoint_msg.pose.position.z = avoidance_z;
-        waypoint_msg.pose.orientation.w = 1.0;
-        
-        waypoint_pub_->publish(waypoint_msg);
     }
     
     void activate_fly_over_protocol() {
-        // Save interrupted waypoint if in normal mode
-        if (mission_state_ == MissionState::NORMAL) {
-            interrupted_waypoint_index_ = current_waypoint_index_;
-        }
-        
-        // Reset fly-around attempts
-        fly_around_attempts_ = 0;
+        // Save interrupted waypoint
+        interrupted_waypoint_index_ = current_waypoint_index_;
         
         mission_state_ = MissionState::FLY_OVER_UP;
-        
-        // Disable obstacle detection for climbing (will be managed by navigation)
-        auto mode_msg = std_msgs::msg::Bool();
-        mode_msg.data = false;  // Not in avoidance mode during climb
-        avoidance_mode_pub_->publish(mode_msg);
         
         // Generate first fly-over waypoint: straight up to z=7
         double up_x = current_position_.x;
@@ -234,12 +140,12 @@ private:
         if (current_waypoint_index_ >= waypoints_.size() && mission_state_ == MissionState::NORMAL) {
             if (!mission_complete_) {
                 RCLCPP_INFO(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════");
+                    "═══════════════════════════════════════════════════════════");
                 RCLCPP_INFO(this->get_logger(), 
                     "MISSION COMPLETE: All %zu waypoints reached", 
                     waypoints_.size());
                 RCLCPP_INFO(this->get_logger(), 
-                    "═══════════════════════════════════════════════════════");
+                    "═══════════════════════════════════════════════════════════");
                 mission_complete_ = true;
                 
                 auto status_msg = std_msgs::msg::Bool();
@@ -256,7 +162,6 @@ private:
             switch (mission_state_) {
                 case MissionState::NORMAL:
                     current_waypoint_index_++;
-                    fly_around_attempts_ = 0;  // Reset attempts for new waypoint
                     
                     if (current_waypoint_index_ < waypoints_.size()) {
                         RCLCPP_INFO(this->get_logger(), 
@@ -264,23 +169,6 @@ private:
                             current_waypoint_index_, waypoints_.size());
                         publish_current_waypoint();
                     }
-                    break;
-                    
-                case MissionState::FLY_AROUND:
-                    RCLCPP_INFO(this->get_logger(), 
-                        "FLY-AROUND waypoint reached, resuming mission");
-                    
-                    // Disable avoidance mode
-                    {
-                        auto mode_msg = std_msgs::msg::Bool();
-                        mode_msg.data = false;
-                        avoidance_mode_pub_->publish(mode_msg);
-                    }
-                    
-                    // Resume interrupted waypoint
-                    mission_state_ = MissionState::NORMAL;
-                    current_waypoint_index_ = interrupted_waypoint_index_;
-                    publish_current_waypoint();
                     break;
                     
                 case MissionState::FLY_OVER_UP:
@@ -349,11 +237,10 @@ private:
     // Member variables
     rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr waypoint_pub_;
     rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr mission_status_pub_;
-    rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr avoidance_mode_pub_;
     
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr odom_sub_;
     rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr waypoint_reached_sub_;
-    rclcpp::Subscription<trail_patrol_drone::msg::ObstacleAvoidanceRequest>::SharedPtr avoidance_request_sub_;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr obstacle_detected_sub_;
     
     rclcpp::TimerBase::SharedPtr timer_;
     
@@ -365,7 +252,6 @@ private:
     
     MissionState mission_state_;
     size_t interrupted_waypoint_index_;
-    int fly_around_attempts_;
     
     Waypoint current_position_;
     double position_tolerance_;
