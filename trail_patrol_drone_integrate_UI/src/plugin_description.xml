@@ -1,0 +1,9 @@
+<library path="drone_control_panel">
+  <class name="drone_ui/DroneControlPanel"
+         type="drone_ui::DroneControlPanel"
+         base_class_type="rviz_common::Panel">
+    <description>
+      Drone Mission Control Panel - Provides START, STOP, PAUSE, and RESUME controls for drone navigation with real-time status display.
+    </description>
+  </class>
+</library>
