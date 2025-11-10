@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>trail_patrol_drone_integrate_UI</name>
+  <version>1.0.3</version>
+  <description>Trail Patrol Drone with UI Integration</description>
+  <maintainer email="rkreinin@clearpathrobotics.com">rkreinin</maintainer>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Core ROS2 dependencies -->
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>visualization_msgs</depend>
+
+  <!-- ROS IGN -->
+  <depend>ros_ign_interfaces</depend>
+  <depend>ros_ign_gazebo</depend>
+  <depend>ros_ign_bridge</depend>
+
+  <!-- Robot Localization -->
+  <depend>robot_localization</depend>
+
+  <!-- Qt5 for RViz panel -->
+  <build_depend>qtbase5-dev</build_depend>
+  <depend>libqt5-core</depend>
+  <depend>libqt5-widgets</depend>
+
+  <!-- RViz2 dependencies -->
+  <depend>rviz_common</depend>
+  <depend>rviz_rendering</depend>
+  <depend>rviz_default_plugins</depend>
+  <depend>pluginlib</depend>
+
+  <!-- Testing -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+    <gazebo_ros gazebo_media_path="${prefix}/worlds"/>
+    <rviz plugin="${prefix}/share/${PROJECT_NAME}/plugin_description.xml"/>
+  </export>
+</package>
