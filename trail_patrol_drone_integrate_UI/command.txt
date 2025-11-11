@@ -1,13 +1,24 @@
-# Build:
-Go to the folder of trail_patrol_drone_integrate_UI if you are in the other folder it might not work 
-make sure you are in the folder!
-it should look like this "peter@DESKTOP-RDB79BJ:~/RS1Group31/trail_patrol_drone_integrate_UI"
+First create a workspace folder in the root and make a symbolic link to the package folder in the git repository.
+This way we can build it cleanly seperatly, and we don't build it inside the repositry.
+
+# First, navigate to your ROS workspace src directory
+cd ~/trail_patrol_ws_ui/src
+
+# Remove the existing directory if it exists
+# Backup first if you have any uncommitted changes
+rm -rf trail_patrol_drone_integrate_UI
+
+# Create the symbolic link from your git repo to your workspace
+ln -s ~/git/RS1Group31/trail_patrol_drone_integrate_UI .
+
+#Now to make clean build build:
+
+cd ~/trail_patrol_ws_ui
+rm -rf build install log
 source /opt/ros/humble/setup.bash
 colcon build --symlink-install
 
 # ===== LAUNCH =====
-Make sure you are in the folder!
-it should look like this "peter@DESKTOP-RDB79BJ:~/RS1Group31/trail_patrol_drone_integrate_UI"
 source install/setup.bash
 export MESA_GL_VERSION_OVERRIDE=4.6
 export MESA_GLSL_VERSION_OVERRIDE=460
