@@ -61,3 +61,9 @@ In Waypoint Library:
 - You can load the waypoint file, choose the waypoint.txtfile so that you can simply just press the waypoint that given
 - In this waypoint library, if you press the waypoint, the drone will take that as priority even if it is in the mission
 - After arrive to waypoint that you pressed, it will continue the mission.
+
+Should the drone be stuck in a state during mission mode:
+- Pause the mission
+- Load the waypoint.txt file
+- Press the waypoint number that is greater than the progress number you are currently at
+- Resume mission
