@@ -1,10 +1,11 @@
 # Build:
-cd ~/trail_patrol_drone_integrate_UI
+Go to the folder of trail_patrol_drone_integrate_UI
+make sure you are in the folder
 source /opt/ros/humble/setup.bash
 colcon build --symlink-install
 
 # ===== LAUNCH =====
-cd ~/trail_patrol_drone_integrate_UI
+Make sure you are in the folder
 source install/setup.bash
 export MESA_GL_VERSION_OVERRIDE=4.6
 export MESA_GLSL_VERSION_OVERRIDE=460
@@ -12,8 +13,11 @@ export MESA_GLSL_CACHE_DISABLE=1
 export MESA_NO_ERROR=1
 ros2 launch trail_patrol_drone_integrate_UI trail_patrol_drone_mission.launch.py slam:=true nav2:=true rviz:=true
 
+Just need one terminal to run the simulation
+
 # ===== To Start Mission ======
 
+Don't need to put any node in terminal
 Use UI:
 -Click panel in rviz
 -Add New Panels
