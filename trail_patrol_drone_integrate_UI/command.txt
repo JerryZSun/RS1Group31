@@ -1,3 +1,10 @@
+Assignment folder:
+/home/jsunne/git/rs1group31/trail_patrol_drone_integrate_UI
+
+# Link package to workspace (Make ~/trail_patrol_ws/src first if you haven't done so already)
+cd ~/trail_patrol_ws/src
+ln -s ~/git/RS1Group31/trail_patrol_drone_integrate_UI.
+
 # Build:
 Go to the folder of trail_patrol_drone_integrate_UI
 make sure you are in the folder
