@@ -50,8 +50,8 @@ enum class ControlState {
  * - Waypoint following with state machine control
  * - Three-tier obstacle detection system:
  *   - Emergency: < 0.5m (immediate fly-over)
- *   - Normal: < 2.0m (scan and choose avoidance)
- *   - Avoidance: < 1.5m (during avoidance maneuvers)
+ *   - Normal: < 1.8m (scan and choose avoidance)
+ *   - Avoidance: < 1.3m (during avoidance maneuvers)
  * - Left/right path scanning for fly-around decisions
  * - Velocity command generation (linear and angular)
  * - UI control integration (pause, resume, emergency stop)
@@ -139,8 +139,8 @@ public:
         turning_threshold_degrees_ = 30.0;
         heading_tolerance_degrees_ = 5.0;
 
-        normal_obstacle_threshold_ = 2.0;
-        avoidance_obstacle_threshold_ = 1.5;
+        normal_obstacle_threshold_ = 1.8;
+        avoidance_obstacle_threshold_ = 1.3;
         emergency_obstacle_threshold_ = 0.5;
         
         RCLCPP_INFO(this->get_logger(), "Navigation node initialized");
@@ -211,12 +211,12 @@ private:
      *
      * Implements a three-tier obstacle detection system:
      * 1. Emergency detection (< 0.5m): Always active, triggers immediate fly-over
-     * 2. Normal detection (< 2.0m): Active when MOVING and aligned, triggers 1s scan
+     * 2. Normal detection (< 1.8m): Active when MOVING and aligned, triggers 1s scan
      * 3. Path scanning: After 1s scan, determines best avoidance direction
      *
      * Detection uses a ±20° cone in front of the drone (40° total field of view).
-     * Requires 5+ laser points detecting obstacle for normal triggering,
-     * 3+ points for emergency triggering.
+     * Requires 6+ laser points detecting obstacle for normal triggering,
+     * 4+ points for emergency triggering.
      *
      * @param msg Laser scan message containing 360° range measurements
      *
@@ -293,8 +293,8 @@ private:
             }
         }
 
-        // Trigger if 5+ points detect obstacle
-        if (detection_count >= 5 && !obstacle_detected_) {
+        // Trigger if 6+ points detect obstacle
+        if (detection_count >= 6 && !obstacle_detected_) {
             obstacle_detected_ = true;
             control_state_ = ControlState::OBSTACLE_SCANNING;
             scan_start_time_ = this->now();
@@ -314,10 +314,10 @@ private:
      * safety. Triggers immediate fly-over protocol if detected.
      *
      * @param msg Laser scan message with range data
-     * @return true if 3 or more laser points detect obstacle within 0.5m
+     * @return true if 4 or more laser points detect obstacle within 0.5m
      *
      * @note Always active - not suppressed during avoidance or other states
-     * @note Lower threshold (3 points) than normal detection for safety
+     * @note Lower threshold (4 points) than normal detection for safety
      * @see scan_callback()
      */
     bool check_emergency_obstacle(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
@@ -338,7 +338,7 @@ private:
             }
         }
 
-        return detection_count >= 3;
+        return detection_count >= 4;
     }
 
     /**

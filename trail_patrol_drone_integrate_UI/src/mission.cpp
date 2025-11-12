@@ -65,6 +65,7 @@ public:
     Mission()
         : Node("mission"),
           current_waypoint_index_(0),
+          completed_waypoints_(0),
           mission_complete_(false),
           waypoint_reached_(false),
           first_waypoint_published_(false),
@@ -73,7 +74,8 @@ public:
           mission_state_(MissionState::NORMAL),
           interrupted_waypoint_index_(0),
           avoidance_direction_(0),
-          waiting_for_avoidance_direction_(false) {
+          waiting_for_avoidance_direction_(false),
+          skip_next_increment_(false) {
 
         waypoint_pub_ = this->create_publisher<geometry_msgs::msg::PoseStamped>(
             "/mission/current_waypoint", 10);
@@ -134,7 +136,7 @@ public:
 
         waypoints_ = {
             {7.75, -8.96, 6.0}, {6.31, -8.95, 6.0}, {5.38, -7.15, 6.0},
-            {3.07, -5.32, 6.0}, {2.01, -1.64, 6.0}, {1.28, 0.88, 6.0},
+            {3.07, -5.32, 6.0}, {1.10, -0.90, 6.0}, {1.28, 0.88, 6.0},
             {2.48, 2.17, 6.0}, {4.63, 4.89, 6.0}, {6.08, 6.08, 6.0},
             {7.30, 7.19, 6.0}, {8.44, 8.63, 6.0}, {10.37, 10.09, 6.0},
             {11.0, 10.5, 6.0}};
@@ -246,6 +248,7 @@ private:
         mission_complete_ = false;
         is_paused_ = false;
         current_waypoint_index_ = 0;
+        completed_waypoints_ = 0;
         first_waypoint_published_ = false;
         mission_state_ = MissionState::NORMAL;
         waiting_for_avoidance_direction_ = false;
@@ -253,7 +256,7 @@ private:
 
         publish_ui_state("NAVIGATING");
         publish_ui_status("Mission started! Publishing waypoint 1...");
-        publish_ui_progress("1/" + std::to_string(waypoints_.size()));
+        publish_ui_progress("0/" + std::to_string(waypoints_.size()));
     }
 
     void pause_callback(const std_msgs::msg::Bool::SharedPtr msg) {
@@ -421,43 +424,62 @@ private:
 
         switch (mission_state_) {
             case MissionState::NORMAL:
-                current_waypoint_index_++;
+                if (skip_next_increment_) {
+                    skip_next_increment_ = false;
+                    RCLCPP_INFO(this->get_logger(), "Skipping increment after avoidance return");
+                } else {
+                    completed_waypoints_++;
+                    current_waypoint_index_++;
+                }
                 if (current_waypoint_index_ < waypoints_.size()) {
-                    publish_current_waypoint();
+                    publish_current_waypoint(true);  // Update both status and progress
                 }
                 break;
 
             case MissionState::FLY_AROUND_RIGHT:
             case MissionState::FLY_AROUND_LEFT:
                 mission_state_ = MissionState::FLY_AROUND_RETURN;
-                publish_current_waypoint(interrupted_waypoint_index_);
-                publish_ui_status("Returning to mission route after sidestep");
+                {
+                    const Waypoint &wp = waypoints_[interrupted_waypoint_index_];
+                    publish_waypoint(wp.x, wp.y, wp.z);
+                    publish_ui_status("Returning to mission route after sidestep");
+                    // Don't change progress during avoidance
+                }
                 break;
 
             case MissionState::FLY_AROUND_RETURN: {
                 set_avoidance_mode(false);
                 mission_state_ = MissionState::NORMAL;
                 current_waypoint_index_ = interrupted_waypoint_index_;
-                publish_ui_status("Obstacle bypassed. Resuming mission.");
+                skip_next_increment_ = true;  // Don't increment when we reach this waypoint
                 publish_ui_state("NAVIGATING");
-                publish_current_waypoint();
+                const Waypoint &wp = waypoints_[current_waypoint_index_];
+                publish_waypoint(wp.x, wp.y, wp.z);
+                publish_ui_status("Obstacle bypassed. Resuming mission.");
+                // Progress stays the same - we're returning to same waypoint
                 break;
             }
 
             case MissionState::FLY_OVER_UP: {
                 mission_state_ = MissionState::FLY_OVER_ACROSS;
                 const Waypoint &wp = waypoints_[interrupted_waypoint_index_];
-                publish_ui_status("Fly-over: traversing obstacle from above");
                 publish_waypoint(wp.x, wp.y, 7.0);
+                publish_ui_status("Fly-over: traversing obstacle from above");
+                // Don't change progress during avoidance
                 break;
             }
 
             case MissionState::FLY_OVER_ACROSS:
                 mission_state_ = MissionState::NORMAL;
                 current_waypoint_index_ = interrupted_waypoint_index_;
-                publish_ui_status("Fly-over complete. Resuming mission.");
+                skip_next_increment_ = true;  // Don't increment when we reach this waypoint
                 publish_ui_state("NAVIGATING");
-                publish_current_waypoint();
+                {
+                    const Waypoint &wp = waypoints_[current_waypoint_index_];
+                    publish_waypoint(wp.x, wp.y, wp.z);
+                    publish_ui_status("Fly-over complete. Resuming mission.");
+                    // Progress stays the same - we're returning to same waypoint
+                }
                 break;
         }
     }
@@ -536,10 +558,11 @@ private:
         const Waypoint &wp = waypoints_[current_waypoint_index_];
         publish_waypoint(wp.x, wp.y, wp.z);
 
-        std::string progress = make_progress_string(current_waypoint_index_);
-        publish_ui_status("Navigating to waypoint " + progress + "...");
+        std::string target = make_progress_string(current_waypoint_index_);
+        std::string progress_str = std::to_string(completed_waypoints_) + "/" + std::to_string(waypoints_.size());
+        publish_ui_status("Navigating to waypoint " + target + "...");
         if (update_progress) {
-            publish_ui_progress(progress);
+            publish_ui_progress(progress_str);
         }
     }
 
@@ -597,6 +620,7 @@ private:
     std::vector<Waypoint> waypoints_;
     std::vector<Waypoint> initial_waypoints_;  // Store the original mission waypoints
     size_t current_waypoint_index_;
+    size_t completed_waypoints_;
     bool mission_complete_;
     bool waypoint_reached_;
     bool first_waypoint_published_;
@@ -607,6 +631,7 @@ private:
     size_t interrupted_waypoint_index_;
     int avoidance_direction_;
     bool waiting_for_avoidance_direction_;
+    bool skip_next_increment_;
 
     Waypoint current_position_;
     double current_yaw_;
