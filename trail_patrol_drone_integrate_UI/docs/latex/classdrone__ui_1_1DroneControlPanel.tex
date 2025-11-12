@@ -1,0 +1,1418 @@
+\hypertarget{classdrone__ui_1_1DroneControlPanel}{}\doxysection{drone\+\_\+ui\+::Drone\+Control\+Panel Class Reference}
+\label{classdrone__ui_1_1DroneControlPanel}\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+
+
+RViz2 panel widget for comprehensive drone control and monitoring.  
+
+
+
+
+{\ttfamily \#include $<$drone\+\_\+control\+\_\+panel.\+hpp$>$}
+
+
+
+Inheritance diagram for drone\+\_\+ui\+::Drone\+Control\+Panel\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classdrone__ui_1_1DroneControlPanel__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for drone\+\_\+ui\+::Drone\+Control\+Panel\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classdrone__ui_1_1DroneControlPanel__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a02e46c2816b7a0d11d1e59641c0d4a85}{Drone\+Control\+Panel}} (QWidget $\ast$parent=nullptr)
+\item 
+virtual \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a475cc2f8d41391460da51e40971eac7f}{$\sim$\+Drone\+Control\+Panel}} ()
+\item 
+virtual void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a96d37cad8ac3df239e299951310b33f6}{load}} (const rviz\+\_\+common\+::\+Config \&config) override
+\item 
+virtual void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a6b859dae0e58e1fb5daaced394cbb139}{save}} (rviz\+\_\+common\+::\+Config config) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ab5c2bc18d9cb5441a707026f5ce553d8}{on\+Start\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ad406edb4996b2004c4d839b797d7aef3}{on\+Stop\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_af0203eb4df53c04886ad694bb2367bbd}{on\+Pause\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ab256ebd4097769974ed03b93d964fbda}{on\+Resume\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a7daebb97be825a77c9aad51bc0d25196}{on\+Add\+Waypoint\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a0d74d0220b5fb263869b049aed09575f}{on\+Clear\+Waypoints\+Clicked}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aeb5eca15c10a8764789279ce9634a5e9}{on\+Load\+Library\+File}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a511bf5849013b92dba7d0a69ca8ffed8}{on\+Library\+Waypoint\+Clicked}} (const QString \&waypoint\+\_\+data)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a16eb753f92296060cbb8ba2886684847}{on\+Stop\+Movement\+Pressed}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a06c47f8206270a300502f375a70459bf}{on\+Mode\+Changed}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ac2b2506e70d9b4b1a8decd5e63e97815}{update\+Panel}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a0e1eea2dfc77419d4ca80e42712d4ea0}{create\+Layout}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae4ee3bbc2aac6a194bc3566447f21e7f}{setup\+Mission\+Controls}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a67e13beb4ccdcbd2829967adec5049b4}{setup\+Status\+Display}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a422cff42945149fb5779796b9b9a9817}{setup\+Telemetry\+Display}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a67f980f32b88e94a67064dc9802c25fe}{setup\+Waypoint\+Controls}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a5c1b69a365be29ac4e217c4c3e12307a}{setup\+Waypoint\+Library}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a11a404417068dd06d6094373fb72687d}{setup\+Manual\+Controls}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae60a40950c8917542d52ac4b573fa238}{style\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a5554091dba143befabd4eb62871a3423}{style\+Mission\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a68ffebffdf8497c343fb68d04d1c4480}{style\+Manual\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a3ad700f9dbd70fec336f52b7e039bf7a}{setup\+ROSCommunication}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ac6fa129bd611e0b992d94774bd02e9fb}{create\+Publishers}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aec54f7d5cea66c7a9accdd2454040a7e}{create\+Subscribers}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_afda6e24e6fc98effc1587d2a90126fcb}{state\+Callback}} (const std\+\_\+msgs\+::msg\+::\+String\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae8614013ec282d2f23c616c289573129}{progress\+Callback}} (const std\+\_\+msgs\+::msg\+::\+String\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a0c47be4b257c266df05a77fc10778588}{status\+Message\+Callback}} (const std\+\_\+msgs\+::msg\+::\+String\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae2169acda333ad84aa0f4f72190fa1c5}{odom\+Callback}} (const nav\+\_\+msgs\+::msg\+::\+Odometry\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ac4738797821238e1139f0f11f3e89702}{publish\+Manual\+Velocity}} (double vx, double vy, double vz, double angular\+\_\+z=0.\+0)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ab6352c0140fe450ff940090709a07e27}{stop\+Drone}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a7b78cf94c7b494de57c62322567185c1}{start\+Continuous\+Movement}} (double vx, double vy, double vz)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a07a40541d7bb7cc38311bf5425f0d406}{stop\+Continuous\+Movement}} ()
+\item 
+double \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ad61a38258e2de31cd901622a30baf52f}{get\+Manual\+Speed}} ()
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a09873480b8a190419d85ed3ea7b43912}{update\+State\+Display}} (const QString \&state)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a2c748853817cf65ec8edddfa51bc0863}{set\+Buttons\+Enabled}} (bool start, bool stop, bool pause, bool resume)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ac74865957f8849dd2465b55069fe0c47}{set\+Manual\+Controls\+Enabled}} (bool enabled)
+\item 
+QString \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ac196f7441abae75f32110e174193afc2}{get\+Color\+For\+State}} (const QString \&state)
+\item 
+double \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a7a2bf9a8819a04a7bac94d1d5e9ad4d6}{calculate\+Speed}} (double vx, double vy, double vz)
+\item 
+void \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_abad12bdc3fae97007f01472241bc16b8}{store\+Waypoint\+Data}} (QList\+Widget\+Item $\ast$item, double x, double y, double z)
+\item 
+bool \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aedcbd316ce77abb19356b85be2a59c9e}{get\+Waypoint\+Data}} (QList\+Widget\+Item $\ast$item, double \&x, double \&y, double \&z)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+rclcpp\+::\+Node\+::\+Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a0bc4d67b802f367fa63f5021d4489ede}{ros\+\_\+node\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a2b34ab87d4de2c4ff393c8aa1059426d}{start\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a81f480f2a643491320574c3dcc1e71d0}{stop\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ad36ae0f3248c4c0eebfa8dd99b384c56}{pause\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a312ffed73f44870d1be26db350f92b8b}{resume\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ geometry\+\_\+msgs\+::msg\+::\+Point $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a69d2483cc8fd342c6be8371dc813fc99}{waypoint\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_af8a614ee4453493f1008e5474fc80acc}{clear\+\_\+waypoints\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ geometry\+\_\+msgs\+::msg\+::\+Twist $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a1dacf345543267945e1cf97482ffe8a4}{manual\+\_\+cmd\+\_\+vel\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ada2f1fd9baa53a36b89f439116f7c576}{library\+\_\+goal\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aca4509e12c980054a1f6fe819c0e699a}{state\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae33095fdb171baf7e86f001beaae17ca}{progress\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aad591052c5c266f7a501889908093ca2}{status\+\_\+message\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ nav\+\_\+msgs\+::msg\+::\+Odometry $>$\+::Shared\+Ptr \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a5cf825651e12a1b236331d6adfd9697e}{odom\+\_\+sub\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a785e7d584989502c46dbcfd9d83dc976}{start\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a68594280847325adcc3e1c35bf6544e2}{stop\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a797a8be497ace53e2bf464f7bc0b2254}{pause\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_af28c20c840064907d66f68e5a044428b}{resume\+\_\+button\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ad0e9586dda4f9c92988156438873339f}{state\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a204d58f0071845dd90dc4d9f0903d532}{state\+\_\+indicator\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a892da4e64a240db26f209c6de609155d}{progress\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a1b539961994891b03cb8e8fa14d2e34a}{status\+\_\+message\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a6060e670c548b54bd41fe65323e76c3c}{timestamp\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a8e76076e61f1f74da60da02ea43a1029}{position\+\_\+x\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_acca394effdd7b193c08e6edbb2f69134}{position\+\_\+y\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aa222b0a8b0b75a3709d4520dbc51f30a}{position\+\_\+z\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_abaa2d9a86f924e9e22d9c4f63d0a5d70}{altitude\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a4c9ff5b5c9ef53e75dc2571f81a75ceb}{speed\+\_\+label\+\_\+}}
+\item 
+QDouble\+Spin\+Box $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a46d56fc27f7bdc5d284a6231de408c76}{waypoint\+\_\+x\+\_\+input\+\_\+}}
+\item 
+QDouble\+Spin\+Box $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a4128e35cb0777fc129cd2977df95ec89}{waypoint\+\_\+y\+\_\+input\+\_\+}}
+\item 
+QDouble\+Spin\+Box $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a452eb52efaf8f7a0dc0b584e8462733c}{waypoint\+\_\+z\+\_\+input\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a9df5995ab3561d87e8ccef57befe1132}{add\+\_\+waypoint\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a0c9e005e92772da404442d49f4c1770b}{clear\+\_\+waypoints\+\_\+button\+\_\+}}
+\item 
+QList\+Widget $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aafa44fa582fcf1c110b23859c2a87a40}{waypoint\+\_\+list\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a1ee23290c729b50bd92c86542a379daa}{load\+\_\+library\+\_\+button\+\_\+}}
+\item 
+QList\+Widget $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a9bafa02c9ed69415b68b7928a9bf21d6}{library\+\_\+list\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a530be85a7a3b4a958aa11452c03259db}{library\+\_\+file\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a2efa5ebab7713b83514b9f1c03a61f68}{library\+\_\+target\+\_\+label\+\_\+}}
+\item 
+std\+::vector$<$ std\+::tuple$<$ double, double, double, QString $>$ $>$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aedfb80f1a3fe551d46a74836c2e60ab0}{library\+\_\+waypoints\+\_\+data\+\_\+}}
+\item 
+QRadio\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_af7dd5839b1f3a3a4760c70ec6facf849}{autonomous\+\_\+mode\+\_\+radio\+\_\+}}
+\item 
+QRadio\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae5cb5e3a8ce45b653e3f13acdf33f6fb}{manual\+\_\+mode\+\_\+radio\+\_\+}}
+\item 
+QButton\+Group $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_af46ce9b1ead1347cfa49cc9e9126234f}{mode\+\_\+button\+\_\+group\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a813b433dd5578923855dd3d87ed7651c}{forward\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ad8d4cc5d346474c48bf8657dbe8a096d}{backward\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a98a0a398884ad89ec8caa43929d90b8a}{left\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ad2c09f549d5ca4171b3c1c71c74f39d9}{right\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ab5dff003701746778375959b30f44e55}{up\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_acdfd57b47686a98195d47fec0a64df7d}{down\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a5155845e1b24fb8ea6fa728e2ba30d97}{rotate\+\_\+left\+\_\+button\+\_\+}}
+\item 
+QPush\+Button $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae4b783f73025636b5dbf2cc65c49a9b1}{rotate\+\_\+right\+\_\+button\+\_\+}}
+\item 
+QSlider $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a243cfef59fe68428054a6bf6c49a686b}{speed\+\_\+slider\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aeb0b16534f2c0e5a66a2d48b3ef9f290}{speed\+\_\+value\+\_\+label\+\_\+}}
+\item 
+QLabel $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a6f8b127f815cb1a3fca231cfba00119b}{mode\+\_\+status\+\_\+label\+\_\+}}
+\item 
+QVBox\+Layout $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ac4281ab09fd6a771cf9ec8bc06893178}{main\+\_\+layout\+\_\+}}
+\item 
+QTimer $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_abea092cb229a42d9ff369d494c11a918}{update\+\_\+timer\+\_\+}}
+\item 
+QTimer $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a8e4888400131776d1f20245e5676cb51}{movement\+\_\+timer\+\_\+}}
+\item 
+QTimer $\ast$ \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_aeacba0ffa4abbd9c4e7cb7b647c2d253}{stop\+\_\+timer\+\_\+}}
+\item 
+QString \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a7dcc1b0476d0743ede6cf806fb168b6f}{current\+\_\+state\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_af469701991e220b2368192eddbc86e2c}{is\+\_\+paused\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a164096e81238d090e895b3cb05f715c3}{is\+\_\+manual\+\_\+mode\+\_\+}}
+\item 
+double \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_ae06bdca948d35fd75a94ceb4899918b4}{current\+\_\+vx\+\_\+}}
+\item 
+double \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a9ee584c8aa553f81d5390ac716b0fcab}{current\+\_\+vy\+\_\+}}
+\item 
+double \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a108e4967cdf1c2b5f4e84a69d72b3cf4}{current\+\_\+vz\+\_\+}}
+\item 
+double \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a06c67404e23f402eda81ddf7bff0d831}{current\+\_\+angular\+\_\+z\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel_a179bb5a23bc3fde3d4d6772d9bc81710}{button\+\_\+held\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+RViz2 panel widget for comprehensive drone control and monitoring. 
+
+This class implements a Qt-\/based control panel that integrates with RViz2 to provide a graphical interface for drone mission management. It supports multiple control modes\+:
+
+{\bfseries{\mbox{\hyperlink{classMission}{Mission}} Mode\+:}}
+\begin{DoxyItemize}
+\item Start/pause/resume/stop predefined missions
+\item Add custom waypoints to mission queue
+\item Clear custom waypoints while preserving mission path
+\item Monitor mission progress and waypoint completion
+\end{DoxyItemize}
+
+{\bfseries{Manual Mode\+:}}
+\begin{DoxyItemize}
+\item Direct velocity control with arrow buttons
+\item Altitude control with up/down commands
+\item Rotation control with left/right commands
+\item Emergency stop for immediate halt
+\end{DoxyItemize}
+
+{\bfseries{Monitoring\+:}}
+\begin{DoxyItemize}
+\item Real-\/time position display (X, Y, Z)
+\item Current altitude indication
+\item Drone speed calculation and display
+\item \mbox{\hyperlink{classMission}{Mission}} state and progress tracking
+\item Status messages with timestamps
+\end{DoxyItemize}
+
+The panel publishes commands to mission and navigation nodes via ROS2 topics and subscribes to telemetry and status updates for real-\/time display.
+
+\begin{DoxyNote}{Note}
+This panel requires \mbox{\hyperlink{mission_8cpp}{mission.\+cpp}} and \mbox{\hyperlink{navigation_8cpp}{navigation.\+cpp}} nodes to be running 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMission}{Mission}}, \mbox{\hyperlink{classNavigation}{Navigation}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a02e46c2816b7a0d11d1e59641c0d4a85}\label{classdrone__ui_1_1DroneControlPanel_a02e46c2816b7a0d11d1e59641c0d4a85}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!DroneControlPanel@{DroneControlPanel}}
+\index{DroneControlPanel@{DroneControlPanel}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{DroneControlPanel()}{DroneControlPanel()}}
+{\footnotesize\ttfamily drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::\+Drone\+Control\+Panel (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a02e46c2816b7a0d11d1e59641c0d4a85_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a475cc2f8d41391460da51e40971eac7f}\label{classdrone__ui_1_1DroneControlPanel_a475cc2f8d41391460da51e40971eac7f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!````~DroneControlPanel@{$\sim$DroneControlPanel}}
+\index{````~DroneControlPanel@{$\sim$DroneControlPanel}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{$\sim$DroneControlPanel()}{~DroneControlPanel()}}
+{\footnotesize\ttfamily drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::$\sim$\+Drone\+Control\+Panel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a7a2bf9a8819a04a7bac94d1d5e9ad4d6}\label{classdrone__ui_1_1DroneControlPanel_a7a2bf9a8819a04a7bac94d1d5e9ad4d6}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!calculateSpeed@{calculateSpeed}}
+\index{calculateSpeed@{calculateSpeed}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{calculateSpeed()}{calculateSpeed()}}
+{\footnotesize\ttfamily double drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::calculate\+Speed (\begin{DoxyParamCaption}\item[{double}]{vx,  }\item[{double}]{vy,  }\item[{double}]{vz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a7a2bf9a8819a04a7bac94d1d5e9ad4d6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a0e1eea2dfc77419d4ca80e42712d4ea0}\label{classdrone__ui_1_1DroneControlPanel_a0e1eea2dfc77419d4ca80e42712d4ea0}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!createLayout@{createLayout}}
+\index{createLayout@{createLayout}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{createLayout()}{createLayout()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::create\+Layout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a0e1eea2dfc77419d4ca80e42712d4ea0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a0e1eea2dfc77419d4ca80e42712d4ea0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ac6fa129bd611e0b992d94774bd02e9fb}\label{classdrone__ui_1_1DroneControlPanel_ac6fa129bd611e0b992d94774bd02e9fb}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!createPublishers@{createPublishers}}
+\index{createPublishers@{createPublishers}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{createPublishers()}{createPublishers()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::create\+Publishers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ac6fa129bd611e0b992d94774bd02e9fb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aec54f7d5cea66c7a9accdd2454040a7e}\label{classdrone__ui_1_1DroneControlPanel_aec54f7d5cea66c7a9accdd2454040a7e}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!createSubscribers@{createSubscribers}}
+\index{createSubscribers@{createSubscribers}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{createSubscribers()}{createSubscribers()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::create\+Subscribers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_aec54f7d5cea66c7a9accdd2454040a7e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_aec54f7d5cea66c7a9accdd2454040a7e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ac196f7441abae75f32110e174193afc2}\label{classdrone__ui_1_1DroneControlPanel_ac196f7441abae75f32110e174193afc2}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!getColorForState@{getColorForState}}
+\index{getColorForState@{getColorForState}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{getColorForState()}{getColorForState()}}
+{\footnotesize\ttfamily QString drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::get\+Color\+For\+State (\begin{DoxyParamCaption}\item[{const QString \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ac196f7441abae75f32110e174193afc2_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ad61a38258e2de31cd901622a30baf52f}\label{classdrone__ui_1_1DroneControlPanel_ad61a38258e2de31cd901622a30baf52f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!getManualSpeed@{getManualSpeed}}
+\index{getManualSpeed@{getManualSpeed}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{getManualSpeed()}{getManualSpeed()}}
+{\footnotesize\ttfamily double drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::get\+Manual\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ad61a38258e2de31cd901622a30baf52f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aedcbd316ce77abb19356b85be2a59c9e}\label{classdrone__ui_1_1DroneControlPanel_aedcbd316ce77abb19356b85be2a59c9e}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!getWaypointData@{getWaypointData}}
+\index{getWaypointData@{getWaypointData}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{getWaypointData()}{getWaypointData()}}
+{\footnotesize\ttfamily bool drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::get\+Waypoint\+Data (\begin{DoxyParamCaption}\item[{QList\+Widget\+Item $\ast$}]{item,  }\item[{double \&}]{x,  }\item[{double \&}]{y,  }\item[{double \&}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a96d37cad8ac3df239e299951310b33f6}\label{classdrone__ui_1_1DroneControlPanel_a96d37cad8ac3df239e299951310b33f6}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!load@{load}}
+\index{load@{load}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::load (\begin{DoxyParamCaption}\item[{const rviz\+\_\+common\+::\+Config \&}]{config }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae2169acda333ad84aa0f4f72190fa1c5}\label{classdrone__ui_1_1DroneControlPanel_ae2169acda333ad84aa0f4f72190fa1c5}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!odomCallback@{odomCallback}}
+\index{odomCallback@{odomCallback}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{odomCallback()}{odomCallback()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::odom\+Callback (\begin{DoxyParamCaption}\item[{const nav\+\_\+msgs\+::msg\+::\+Odometry\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae2169acda333ad84aa0f4f72190fa1c5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae2169acda333ad84aa0f4f72190fa1c5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a7daebb97be825a77c9aad51bc0d25196}\label{classdrone__ui_1_1DroneControlPanel_a7daebb97be825a77c9aad51bc0d25196}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onAddWaypointClicked@{onAddWaypointClicked}}
+\index{onAddWaypointClicked@{onAddWaypointClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onAddWaypointClicked}{onAddWaypointClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Add\+Waypoint\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a7daebb97be825a77c9aad51bc0d25196_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a0d74d0220b5fb263869b049aed09575f}\label{classdrone__ui_1_1DroneControlPanel_a0d74d0220b5fb263869b049aed09575f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onClearWaypointsClicked@{onClearWaypointsClicked}}
+\index{onClearWaypointsClicked@{onClearWaypointsClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onClearWaypointsClicked}{onClearWaypointsClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Clear\+Waypoints\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a0d74d0220b5fb263869b049aed09575f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a511bf5849013b92dba7d0a69ca8ffed8}\label{classdrone__ui_1_1DroneControlPanel_a511bf5849013b92dba7d0a69ca8ffed8}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onLibraryWaypointClicked@{onLibraryWaypointClicked}}
+\index{onLibraryWaypointClicked@{onLibraryWaypointClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onLibraryWaypointClicked}{onLibraryWaypointClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Library\+Waypoint\+Clicked (\begin{DoxyParamCaption}\item[{const QString \&}]{waypoint\+\_\+data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a511bf5849013b92dba7d0a69ca8ffed8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aeb5eca15c10a8764789279ce9634a5e9}\label{classdrone__ui_1_1DroneControlPanel_aeb5eca15c10a8764789279ce9634a5e9}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onLoadLibraryFile@{onLoadLibraryFile}}
+\index{onLoadLibraryFile@{onLoadLibraryFile}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onLoadLibraryFile}{onLoadLibraryFile}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Load\+Library\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_aeb5eca15c10a8764789279ce9634a5e9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a06c47f8206270a300502f375a70459bf}\label{classdrone__ui_1_1DroneControlPanel_a06c47f8206270a300502f375a70459bf}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onModeChanged@{onModeChanged}}
+\index{onModeChanged@{onModeChanged}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onModeChanged}{onModeChanged}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Mode\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a06c47f8206270a300502f375a70459bf_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a06c47f8206270a300502f375a70459bf_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_af0203eb4df53c04886ad694bb2367bbd}\label{classdrone__ui_1_1DroneControlPanel_af0203eb4df53c04886ad694bb2367bbd}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onPauseClicked@{onPauseClicked}}
+\index{onPauseClicked@{onPauseClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onPauseClicked}{onPauseClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Pause\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_af0203eb4df53c04886ad694bb2367bbd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_af0203eb4df53c04886ad694bb2367bbd_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ab256ebd4097769974ed03b93d964fbda}\label{classdrone__ui_1_1DroneControlPanel_ab256ebd4097769974ed03b93d964fbda}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onResumeClicked@{onResumeClicked}}
+\index{onResumeClicked@{onResumeClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onResumeClicked}{onResumeClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Resume\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ab256ebd4097769974ed03b93d964fbda_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ab256ebd4097769974ed03b93d964fbda_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ab5c2bc18d9cb5441a707026f5ce553d8}\label{classdrone__ui_1_1DroneControlPanel_ab5c2bc18d9cb5441a707026f5ce553d8}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onStartClicked@{onStartClicked}}
+\index{onStartClicked@{onStartClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onStartClicked}{onStartClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Start\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ab5c2bc18d9cb5441a707026f5ce553d8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ab5c2bc18d9cb5441a707026f5ce553d8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ad406edb4996b2004c4d839b797d7aef3}\label{classdrone__ui_1_1DroneControlPanel_ad406edb4996b2004c4d839b797d7aef3}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onStopClicked@{onStopClicked}}
+\index{onStopClicked@{onStopClicked}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onStopClicked}{onStopClicked}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Stop\+Clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ad406edb4996b2004c4d839b797d7aef3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ad406edb4996b2004c4d839b797d7aef3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a16eb753f92296060cbb8ba2886684847}\label{classdrone__ui_1_1DroneControlPanel_a16eb753f92296060cbb8ba2886684847}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!onStopMovementPressed@{onStopMovementPressed}}
+\index{onStopMovementPressed@{onStopMovementPressed}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{onStopMovementPressed}{onStopMovementPressed}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::on\+Stop\+Movement\+Pressed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae8614013ec282d2f23c616c289573129}\label{classdrone__ui_1_1DroneControlPanel_ae8614013ec282d2f23c616c289573129}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!progressCallback@{progressCallback}}
+\index{progressCallback@{progressCallback}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{progressCallback()}{progressCallback()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::progress\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+String\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae8614013ec282d2f23c616c289573129_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ac4738797821238e1139f0f11f3e89702}\label{classdrone__ui_1_1DroneControlPanel_ac4738797821238e1139f0f11f3e89702}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!publishManualVelocity@{publishManualVelocity}}
+\index{publishManualVelocity@{publishManualVelocity}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{publishManualVelocity()}{publishManualVelocity()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::publish\+Manual\+Velocity (\begin{DoxyParamCaption}\item[{double}]{vx,  }\item[{double}]{vy,  }\item[{double}]{vz,  }\item[{double}]{angular\+\_\+z = {\ttfamily 0.0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ac4738797821238e1139f0f11f3e89702_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a6b859dae0e58e1fb5daaced394cbb139}\label{classdrone__ui_1_1DroneControlPanel_a6b859dae0e58e1fb5daaced394cbb139}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!save@{save}}
+\index{save@{save}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::save (\begin{DoxyParamCaption}\item[{rviz\+\_\+common\+::\+Config}]{config }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a2c748853817cf65ec8edddfa51bc0863}\label{classdrone__ui_1_1DroneControlPanel_a2c748853817cf65ec8edddfa51bc0863}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setButtonsEnabled@{setButtonsEnabled}}
+\index{setButtonsEnabled@{setButtonsEnabled}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setButtonsEnabled()}{setButtonsEnabled()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::set\+Buttons\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{start,  }\item[{bool}]{stop,  }\item[{bool}]{pause,  }\item[{bool}]{resume }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a2c748853817cf65ec8edddfa51bc0863_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ac74865957f8849dd2465b55069fe0c47}\label{classdrone__ui_1_1DroneControlPanel_ac74865957f8849dd2465b55069fe0c47}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setManualControlsEnabled@{setManualControlsEnabled}}
+\index{setManualControlsEnabled@{setManualControlsEnabled}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setManualControlsEnabled()}{setManualControlsEnabled()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::set\+Manual\+Controls\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{enabled }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ac74865957f8849dd2465b55069fe0c47_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a11a404417068dd06d6094373fb72687d}\label{classdrone__ui_1_1DroneControlPanel_a11a404417068dd06d6094373fb72687d}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupManualControls@{setupManualControls}}
+\index{setupManualControls@{setupManualControls}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupManualControls()}{setupManualControls()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+Manual\+Controls (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a11a404417068dd06d6094373fb72687d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a11a404417068dd06d6094373fb72687d_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae4ee3bbc2aac6a194bc3566447f21e7f}\label{classdrone__ui_1_1DroneControlPanel_ae4ee3bbc2aac6a194bc3566447f21e7f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupMissionControls@{setupMissionControls}}
+\index{setupMissionControls@{setupMissionControls}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupMissionControls()}{setupMissionControls()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+Mission\+Controls (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae4ee3bbc2aac6a194bc3566447f21e7f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae4ee3bbc2aac6a194bc3566447f21e7f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a3ad700f9dbd70fec336f52b7e039bf7a}\label{classdrone__ui_1_1DroneControlPanel_a3ad700f9dbd70fec336f52b7e039bf7a}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupROSCommunication@{setupROSCommunication}}
+\index{setupROSCommunication@{setupROSCommunication}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupROSCommunication()}{setupROSCommunication()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+ROSCommunication (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a3ad700f9dbd70fec336f52b7e039bf7a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a3ad700f9dbd70fec336f52b7e039bf7a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a67e13beb4ccdcbd2829967adec5049b4}\label{classdrone__ui_1_1DroneControlPanel_a67e13beb4ccdcbd2829967adec5049b4}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupStatusDisplay@{setupStatusDisplay}}
+\index{setupStatusDisplay@{setupStatusDisplay}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupStatusDisplay()}{setupStatusDisplay()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+Status\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a67e13beb4ccdcbd2829967adec5049b4_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a422cff42945149fb5779796b9b9a9817}\label{classdrone__ui_1_1DroneControlPanel_a422cff42945149fb5779796b9b9a9817}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupTelemetryDisplay@{setupTelemetryDisplay}}
+\index{setupTelemetryDisplay@{setupTelemetryDisplay}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupTelemetryDisplay()}{setupTelemetryDisplay()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+Telemetry\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a422cff42945149fb5779796b9b9a9817_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a67f980f32b88e94a67064dc9802c25fe}\label{classdrone__ui_1_1DroneControlPanel_a67f980f32b88e94a67064dc9802c25fe}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupWaypointControls@{setupWaypointControls}}
+\index{setupWaypointControls@{setupWaypointControls}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupWaypointControls()}{setupWaypointControls()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+Waypoint\+Controls (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a67f980f32b88e94a67064dc9802c25fe_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a67f980f32b88e94a67064dc9802c25fe_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a5c1b69a365be29ac4e217c4c3e12307a}\label{classdrone__ui_1_1DroneControlPanel_a5c1b69a365be29ac4e217c4c3e12307a}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!setupWaypointLibrary@{setupWaypointLibrary}}
+\index{setupWaypointLibrary@{setupWaypointLibrary}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{setupWaypointLibrary()}{setupWaypointLibrary()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::setup\+Waypoint\+Library (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a5c1b69a365be29ac4e217c4c3e12307a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a5c1b69a365be29ac4e217c4c3e12307a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a7b78cf94c7b494de57c62322567185c1}\label{classdrone__ui_1_1DroneControlPanel_a7b78cf94c7b494de57c62322567185c1}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!startContinuousMovement@{startContinuousMovement}}
+\index{startContinuousMovement@{startContinuousMovement}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{startContinuousMovement()}{startContinuousMovement()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::start\+Continuous\+Movement (\begin{DoxyParamCaption}\item[{double}]{vx,  }\item[{double}]{vy,  }\item[{double}]{vz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a7b78cf94c7b494de57c62322567185c1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a7b78cf94c7b494de57c62322567185c1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_afda6e24e6fc98effc1587d2a90126fcb}\label{classdrone__ui_1_1DroneControlPanel_afda6e24e6fc98effc1587d2a90126fcb}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!stateCallback@{stateCallback}}
+\index{stateCallback@{stateCallback}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{stateCallback()}{stateCallback()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::state\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+String\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_afda6e24e6fc98effc1587d2a90126fcb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_afda6e24e6fc98effc1587d2a90126fcb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a0c47be4b257c266df05a77fc10778588}\label{classdrone__ui_1_1DroneControlPanel_a0c47be4b257c266df05a77fc10778588}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!statusMessageCallback@{statusMessageCallback}}
+\index{statusMessageCallback@{statusMessageCallback}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{statusMessageCallback()}{statusMessageCallback()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::status\+Message\+Callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+String\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a0c47be4b257c266df05a77fc10778588_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a07a40541d7bb7cc38311bf5425f0d406}\label{classdrone__ui_1_1DroneControlPanel_a07a40541d7bb7cc38311bf5425f0d406}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!stopContinuousMovement@{stopContinuousMovement}}
+\index{stopContinuousMovement@{stopContinuousMovement}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{stopContinuousMovement()}{stopContinuousMovement()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::stop\+Continuous\+Movement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a07a40541d7bb7cc38311bf5425f0d406_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a07a40541d7bb7cc38311bf5425f0d406_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ab6352c0140fe450ff940090709a07e27}\label{classdrone__ui_1_1DroneControlPanel_ab6352c0140fe450ff940090709a07e27}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!stopDrone@{stopDrone}}
+\index{stopDrone@{stopDrone}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{stopDrone()}{stopDrone()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::stop\+Drone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ab6352c0140fe450ff940090709a07e27_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ab6352c0140fe450ff940090709a07e27_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_abad12bdc3fae97007f01472241bc16b8}\label{classdrone__ui_1_1DroneControlPanel_abad12bdc3fae97007f01472241bc16b8}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!storeWaypointData@{storeWaypointData}}
+\index{storeWaypointData@{storeWaypointData}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{storeWaypointData()}{storeWaypointData()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::store\+Waypoint\+Data (\begin{DoxyParamCaption}\item[{QList\+Widget\+Item $\ast$}]{item,  }\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae60a40950c8917542d52ac4b573fa238}\label{classdrone__ui_1_1DroneControlPanel_ae60a40950c8917542d52ac4b573fa238}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!styleButtons@{styleButtons}}
+\index{styleButtons@{styleButtons}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{styleButtons()}{styleButtons()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::style\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae60a40950c8917542d52ac4b573fa238_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ae60a40950c8917542d52ac4b573fa238_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a68ffebffdf8497c343fb68d04d1c4480}\label{classdrone__ui_1_1DroneControlPanel_a68ffebffdf8497c343fb68d04d1c4480}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!styleManualButtons@{styleManualButtons}}
+\index{styleManualButtons@{styleManualButtons}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{styleManualButtons()}{styleManualButtons()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::style\+Manual\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a68ffebffdf8497c343fb68d04d1c4480_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a5554091dba143befabd4eb62871a3423}\label{classdrone__ui_1_1DroneControlPanel_a5554091dba143befabd4eb62871a3423}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!styleMissionButtons@{styleMissionButtons}}
+\index{styleMissionButtons@{styleMissionButtons}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{styleMissionButtons()}{styleMissionButtons()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::style\+Mission\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a5554091dba143befabd4eb62871a3423_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ac2b2506e70d9b4b1a8decd5e63e97815}\label{classdrone__ui_1_1DroneControlPanel_ac2b2506e70d9b4b1a8decd5e63e97815}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!updatePanel@{updatePanel}}
+\index{updatePanel@{updatePanel}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{updatePanel}{updatePanel}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::update\+Panel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_ac2b2506e70d9b4b1a8decd5e63e97815_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a09873480b8a190419d85ed3ea7b43912}\label{classdrone__ui_1_1DroneControlPanel_a09873480b8a190419d85ed3ea7b43912}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!updateStateDisplay@{updateStateDisplay}}
+\index{updateStateDisplay@{updateStateDisplay}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{updateStateDisplay()}{updateStateDisplay()}}
+{\footnotesize\ttfamily void drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::update\+State\+Display (\begin{DoxyParamCaption}\item[{const QString \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a09873480b8a190419d85ed3ea7b43912_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classdrone__ui_1_1DroneControlPanel_a09873480b8a190419d85ed3ea7b43912_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a9df5995ab3561d87e8ccef57befe1132}\label{classdrone__ui_1_1DroneControlPanel_a9df5995ab3561d87e8ccef57befe1132}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!add\_waypoint\_button\_@{add\_waypoint\_button\_}}
+\index{add\_waypoint\_button\_@{add\_waypoint\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{add\_waypoint\_button\_}{add\_waypoint\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::add\+\_\+waypoint\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_abaa2d9a86f924e9e22d9c4f63d0a5d70}\label{classdrone__ui_1_1DroneControlPanel_abaa2d9a86f924e9e22d9c4f63d0a5d70}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!altitude\_label\_@{altitude\_label\_}}
+\index{altitude\_label\_@{altitude\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{altitude\_label\_}{altitude\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::altitude\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_af7dd5839b1f3a3a4760c70ec6facf849}\label{classdrone__ui_1_1DroneControlPanel_af7dd5839b1f3a3a4760c70ec6facf849}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!autonomous\_mode\_radio\_@{autonomous\_mode\_radio\_}}
+\index{autonomous\_mode\_radio\_@{autonomous\_mode\_radio\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{autonomous\_mode\_radio\_}{autonomous\_mode\_radio\_}}
+{\footnotesize\ttfamily QRadio\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::autonomous\+\_\+mode\+\_\+radio\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ad8d4cc5d346474c48bf8657dbe8a096d}\label{classdrone__ui_1_1DroneControlPanel_ad8d4cc5d346474c48bf8657dbe8a096d}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!backward\_button\_@{backward\_button\_}}
+\index{backward\_button\_@{backward\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{backward\_button\_}{backward\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::backward\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a179bb5a23bc3fde3d4d6772d9bc81710}\label{classdrone__ui_1_1DroneControlPanel_a179bb5a23bc3fde3d4d6772d9bc81710}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!button\_held\_@{button\_held\_}}
+\index{button\_held\_@{button\_held\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{button\_held\_}{button\_held\_}}
+{\footnotesize\ttfamily bool drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::button\+\_\+held\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a0c9e005e92772da404442d49f4c1770b}\label{classdrone__ui_1_1DroneControlPanel_a0c9e005e92772da404442d49f4c1770b}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!clear\_waypoints\_button\_@{clear\_waypoints\_button\_}}
+\index{clear\_waypoints\_button\_@{clear\_waypoints\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{clear\_waypoints\_button\_}{clear\_waypoints\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::clear\+\_\+waypoints\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_af8a614ee4453493f1008e5474fc80acc}\label{classdrone__ui_1_1DroneControlPanel_af8a614ee4453493f1008e5474fc80acc}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!clear\_waypoints\_pub\_@{clear\_waypoints\_pub\_}}
+\index{clear\_waypoints\_pub\_@{clear\_waypoints\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{clear\_waypoints\_pub\_}{clear\_waypoints\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::clear\+\_\+waypoints\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a06c67404e23f402eda81ddf7bff0d831}\label{classdrone__ui_1_1DroneControlPanel_a06c67404e23f402eda81ddf7bff0d831}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!current\_angular\_z\_@{current\_angular\_z\_}}
+\index{current\_angular\_z\_@{current\_angular\_z\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{current\_angular\_z\_}{current\_angular\_z\_}}
+{\footnotesize\ttfamily double drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::current\+\_\+angular\+\_\+z\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a7dcc1b0476d0743ede6cf806fb168b6f}\label{classdrone__ui_1_1DroneControlPanel_a7dcc1b0476d0743ede6cf806fb168b6f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!current\_state\_@{current\_state\_}}
+\index{current\_state\_@{current\_state\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{current\_state\_}{current\_state\_}}
+{\footnotesize\ttfamily QString drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::current\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae06bdca948d35fd75a94ceb4899918b4}\label{classdrone__ui_1_1DroneControlPanel_ae06bdca948d35fd75a94ceb4899918b4}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!current\_vx\_@{current\_vx\_}}
+\index{current\_vx\_@{current\_vx\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{current\_vx\_}{current\_vx\_}}
+{\footnotesize\ttfamily double drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::current\+\_\+vx\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a9ee584c8aa553f81d5390ac716b0fcab}\label{classdrone__ui_1_1DroneControlPanel_a9ee584c8aa553f81d5390ac716b0fcab}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!current\_vy\_@{current\_vy\_}}
+\index{current\_vy\_@{current\_vy\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{current\_vy\_}{current\_vy\_}}
+{\footnotesize\ttfamily double drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::current\+\_\+vy\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a108e4967cdf1c2b5f4e84a69d72b3cf4}\label{classdrone__ui_1_1DroneControlPanel_a108e4967cdf1c2b5f4e84a69d72b3cf4}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!current\_vz\_@{current\_vz\_}}
+\index{current\_vz\_@{current\_vz\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{current\_vz\_}{current\_vz\_}}
+{\footnotesize\ttfamily double drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::current\+\_\+vz\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_acdfd57b47686a98195d47fec0a64df7d}\label{classdrone__ui_1_1DroneControlPanel_acdfd57b47686a98195d47fec0a64df7d}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!down\_button\_@{down\_button\_}}
+\index{down\_button\_@{down\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{down\_button\_}{down\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::down\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a813b433dd5578923855dd3d87ed7651c}\label{classdrone__ui_1_1DroneControlPanel_a813b433dd5578923855dd3d87ed7651c}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!forward\_button\_@{forward\_button\_}}
+\index{forward\_button\_@{forward\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{forward\_button\_}{forward\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::forward\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a164096e81238d090e895b3cb05f715c3}\label{classdrone__ui_1_1DroneControlPanel_a164096e81238d090e895b3cb05f715c3}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!is\_manual\_mode\_@{is\_manual\_mode\_}}
+\index{is\_manual\_mode\_@{is\_manual\_mode\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{is\_manual\_mode\_}{is\_manual\_mode\_}}
+{\footnotesize\ttfamily bool drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::is\+\_\+manual\+\_\+mode\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_af469701991e220b2368192eddbc86e2c}\label{classdrone__ui_1_1DroneControlPanel_af469701991e220b2368192eddbc86e2c}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!is\_paused\_@{is\_paused\_}}
+\index{is\_paused\_@{is\_paused\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{is\_paused\_}{is\_paused\_}}
+{\footnotesize\ttfamily bool drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::is\+\_\+paused\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a98a0a398884ad89ec8caa43929d90b8a}\label{classdrone__ui_1_1DroneControlPanel_a98a0a398884ad89ec8caa43929d90b8a}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!left\_button\_@{left\_button\_}}
+\index{left\_button\_@{left\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{left\_button\_}{left\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::left\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a530be85a7a3b4a958aa11452c03259db}\label{classdrone__ui_1_1DroneControlPanel_a530be85a7a3b4a958aa11452c03259db}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!library\_file\_label\_@{library\_file\_label\_}}
+\index{library\_file\_label\_@{library\_file\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{library\_file\_label\_}{library\_file\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::library\+\_\+file\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ada2f1fd9baa53a36b89f439116f7c576}\label{classdrone__ui_1_1DroneControlPanel_ada2f1fd9baa53a36b89f439116f7c576}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!library\_goal\_pub\_@{library\_goal\_pub\_}}
+\index{library\_goal\_pub\_@{library\_goal\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{library\_goal\_pub\_}{library\_goal\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::library\+\_\+goal\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a9bafa02c9ed69415b68b7928a9bf21d6}\label{classdrone__ui_1_1DroneControlPanel_a9bafa02c9ed69415b68b7928a9bf21d6}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!library\_list\_@{library\_list\_}}
+\index{library\_list\_@{library\_list\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{library\_list\_}{library\_list\_}}
+{\footnotesize\ttfamily QList\+Widget$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::library\+\_\+list\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a2efa5ebab7713b83514b9f1c03a61f68}\label{classdrone__ui_1_1DroneControlPanel_a2efa5ebab7713b83514b9f1c03a61f68}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!library\_target\_label\_@{library\_target\_label\_}}
+\index{library\_target\_label\_@{library\_target\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{library\_target\_label\_}{library\_target\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::library\+\_\+target\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aedfb80f1a3fe551d46a74836c2e60ab0}\label{classdrone__ui_1_1DroneControlPanel_aedfb80f1a3fe551d46a74836c2e60ab0}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!library\_waypoints\_data\_@{library\_waypoints\_data\_}}
+\index{library\_waypoints\_data\_@{library\_waypoints\_data\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{library\_waypoints\_data\_}{library\_waypoints\_data\_}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::tuple$<$double, double, double, QString$>$ $>$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::library\+\_\+waypoints\+\_\+data\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a1ee23290c729b50bd92c86542a379daa}\label{classdrone__ui_1_1DroneControlPanel_a1ee23290c729b50bd92c86542a379daa}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!load\_library\_button\_@{load\_library\_button\_}}
+\index{load\_library\_button\_@{load\_library\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{load\_library\_button\_}{load\_library\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::load\+\_\+library\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ac4281ab09fd6a771cf9ec8bc06893178}\label{classdrone__ui_1_1DroneControlPanel_ac4281ab09fd6a771cf9ec8bc06893178}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!main\_layout\_@{main\_layout\_}}
+\index{main\_layout\_@{main\_layout\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{main\_layout\_}{main\_layout\_}}
+{\footnotesize\ttfamily QVBox\+Layout$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::main\+\_\+layout\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a1dacf345543267945e1cf97482ffe8a4}\label{classdrone__ui_1_1DroneControlPanel_a1dacf345543267945e1cf97482ffe8a4}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!manual\_cmd\_vel\_pub\_@{manual\_cmd\_vel\_pub\_}}
+\index{manual\_cmd\_vel\_pub\_@{manual\_cmd\_vel\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{manual\_cmd\_vel\_pub\_}{manual\_cmd\_vel\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$geometry\+\_\+msgs\+::msg\+::\+Twist$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::manual\+\_\+cmd\+\_\+vel\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae5cb5e3a8ce45b653e3f13acdf33f6fb}\label{classdrone__ui_1_1DroneControlPanel_ae5cb5e3a8ce45b653e3f13acdf33f6fb}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!manual\_mode\_radio\_@{manual\_mode\_radio\_}}
+\index{manual\_mode\_radio\_@{manual\_mode\_radio\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{manual\_mode\_radio\_}{manual\_mode\_radio\_}}
+{\footnotesize\ttfamily QRadio\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::manual\+\_\+mode\+\_\+radio\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_af46ce9b1ead1347cfa49cc9e9126234f}\label{classdrone__ui_1_1DroneControlPanel_af46ce9b1ead1347cfa49cc9e9126234f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!mode\_button\_group\_@{mode\_button\_group\_}}
+\index{mode\_button\_group\_@{mode\_button\_group\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{mode\_button\_group\_}{mode\_button\_group\_}}
+{\footnotesize\ttfamily QButton\+Group$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::mode\+\_\+button\+\_\+group\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a6f8b127f815cb1a3fca231cfba00119b}\label{classdrone__ui_1_1DroneControlPanel_a6f8b127f815cb1a3fca231cfba00119b}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!mode\_status\_label\_@{mode\_status\_label\_}}
+\index{mode\_status\_label\_@{mode\_status\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{mode\_status\_label\_}{mode\_status\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::mode\+\_\+status\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a8e4888400131776d1f20245e5676cb51}\label{classdrone__ui_1_1DroneControlPanel_a8e4888400131776d1f20245e5676cb51}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!movement\_timer\_@{movement\_timer\_}}
+\index{movement\_timer\_@{movement\_timer\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{movement\_timer\_}{movement\_timer\_}}
+{\footnotesize\ttfamily QTimer$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::movement\+\_\+timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a5cf825651e12a1b236331d6adfd9697e}\label{classdrone__ui_1_1DroneControlPanel_a5cf825651e12a1b236331d6adfd9697e}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!odom\_sub\_@{odom\_sub\_}}
+\index{odom\_sub\_@{odom\_sub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{odom\_sub\_}{odom\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$nav\+\_\+msgs\+::msg\+::\+Odometry$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::odom\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a797a8be497ace53e2bf464f7bc0b2254}\label{classdrone__ui_1_1DroneControlPanel_a797a8be497ace53e2bf464f7bc0b2254}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!pause\_button\_@{pause\_button\_}}
+\index{pause\_button\_@{pause\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{pause\_button\_}{pause\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::pause\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ad36ae0f3248c4c0eebfa8dd99b384c56}\label{classdrone__ui_1_1DroneControlPanel_ad36ae0f3248c4c0eebfa8dd99b384c56}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!pause\_pub\_@{pause\_pub\_}}
+\index{pause\_pub\_@{pause\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{pause\_pub\_}{pause\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::pause\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a8e76076e61f1f74da60da02ea43a1029}\label{classdrone__ui_1_1DroneControlPanel_a8e76076e61f1f74da60da02ea43a1029}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!position\_x\_label\_@{position\_x\_label\_}}
+\index{position\_x\_label\_@{position\_x\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{position\_x\_label\_}{position\_x\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::position\+\_\+x\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_acca394effdd7b193c08e6edbb2f69134}\label{classdrone__ui_1_1DroneControlPanel_acca394effdd7b193c08e6edbb2f69134}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!position\_y\_label\_@{position\_y\_label\_}}
+\index{position\_y\_label\_@{position\_y\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{position\_y\_label\_}{position\_y\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::position\+\_\+y\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aa222b0a8b0b75a3709d4520dbc51f30a}\label{classdrone__ui_1_1DroneControlPanel_aa222b0a8b0b75a3709d4520dbc51f30a}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!position\_z\_label\_@{position\_z\_label\_}}
+\index{position\_z\_label\_@{position\_z\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{position\_z\_label\_}{position\_z\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::position\+\_\+z\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a892da4e64a240db26f209c6de609155d}\label{classdrone__ui_1_1DroneControlPanel_a892da4e64a240db26f209c6de609155d}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!progress\_label\_@{progress\_label\_}}
+\index{progress\_label\_@{progress\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{progress\_label\_}{progress\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::progress\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae33095fdb171baf7e86f001beaae17ca}\label{classdrone__ui_1_1DroneControlPanel_ae33095fdb171baf7e86f001beaae17ca}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!progress\_sub\_@{progress\_sub\_}}
+\index{progress\_sub\_@{progress\_sub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{progress\_sub\_}{progress\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::progress\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_af28c20c840064907d66f68e5a044428b}\label{classdrone__ui_1_1DroneControlPanel_af28c20c840064907d66f68e5a044428b}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!resume\_button\_@{resume\_button\_}}
+\index{resume\_button\_@{resume\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{resume\_button\_}{resume\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::resume\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a312ffed73f44870d1be26db350f92b8b}\label{classdrone__ui_1_1DroneControlPanel_a312ffed73f44870d1be26db350f92b8b}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!resume\_pub\_@{resume\_pub\_}}
+\index{resume\_pub\_@{resume\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{resume\_pub\_}{resume\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::resume\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ad2c09f549d5ca4171b3c1c71c74f39d9}\label{classdrone__ui_1_1DroneControlPanel_ad2c09f549d5ca4171b3c1c71c74f39d9}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!right\_button\_@{right\_button\_}}
+\index{right\_button\_@{right\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{right\_button\_}{right\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::right\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a0bc4d67b802f367fa63f5021d4489ede}\label{classdrone__ui_1_1DroneControlPanel_a0bc4d67b802f367fa63f5021d4489ede}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!ros\_node\_@{ros\_node\_}}
+\index{ros\_node\_@{ros\_node\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{ros\_node\_}{ros\_node\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Node\+::\+Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::ros\+\_\+node\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a5155845e1b24fb8ea6fa728e2ba30d97}\label{classdrone__ui_1_1DroneControlPanel_a5155845e1b24fb8ea6fa728e2ba30d97}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!rotate\_left\_button\_@{rotate\_left\_button\_}}
+\index{rotate\_left\_button\_@{rotate\_left\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{rotate\_left\_button\_}{rotate\_left\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::rotate\+\_\+left\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ae4b783f73025636b5dbf2cc65c49a9b1}\label{classdrone__ui_1_1DroneControlPanel_ae4b783f73025636b5dbf2cc65c49a9b1}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!rotate\_right\_button\_@{rotate\_right\_button\_}}
+\index{rotate\_right\_button\_@{rotate\_right\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{rotate\_right\_button\_}{rotate\_right\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::rotate\+\_\+right\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a4c9ff5b5c9ef53e75dc2571f81a75ceb}\label{classdrone__ui_1_1DroneControlPanel_a4c9ff5b5c9ef53e75dc2571f81a75ceb}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!speed\_label\_@{speed\_label\_}}
+\index{speed\_label\_@{speed\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{speed\_label\_}{speed\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::speed\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a243cfef59fe68428054a6bf6c49a686b}\label{classdrone__ui_1_1DroneControlPanel_a243cfef59fe68428054a6bf6c49a686b}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!speed\_slider\_@{speed\_slider\_}}
+\index{speed\_slider\_@{speed\_slider\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{speed\_slider\_}{speed\_slider\_}}
+{\footnotesize\ttfamily QSlider$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::speed\+\_\+slider\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aeb0b16534f2c0e5a66a2d48b3ef9f290}\label{classdrone__ui_1_1DroneControlPanel_aeb0b16534f2c0e5a66a2d48b3ef9f290}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!speed\_value\_label\_@{speed\_value\_label\_}}
+\index{speed\_value\_label\_@{speed\_value\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{speed\_value\_label\_}{speed\_value\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::speed\+\_\+value\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a785e7d584989502c46dbcfd9d83dc976}\label{classdrone__ui_1_1DroneControlPanel_a785e7d584989502c46dbcfd9d83dc976}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!start\_button\_@{start\_button\_}}
+\index{start\_button\_@{start\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{start\_button\_}{start\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::start\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a2b34ab87d4de2c4ff393c8aa1059426d}\label{classdrone__ui_1_1DroneControlPanel_a2b34ab87d4de2c4ff393c8aa1059426d}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!start\_pub\_@{start\_pub\_}}
+\index{start\_pub\_@{start\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{start\_pub\_}{start\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::start\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a204d58f0071845dd90dc4d9f0903d532}\label{classdrone__ui_1_1DroneControlPanel_a204d58f0071845dd90dc4d9f0903d532}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!state\_indicator\_@{state\_indicator\_}}
+\index{state\_indicator\_@{state\_indicator\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{state\_indicator\_}{state\_indicator\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::state\+\_\+indicator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ad0e9586dda4f9c92988156438873339f}\label{classdrone__ui_1_1DroneControlPanel_ad0e9586dda4f9c92988156438873339f}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!state\_label\_@{state\_label\_}}
+\index{state\_label\_@{state\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{state\_label\_}{state\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::state\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aca4509e12c980054a1f6fe819c0e699a}\label{classdrone__ui_1_1DroneControlPanel_aca4509e12c980054a1f6fe819c0e699a}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!state\_sub\_@{state\_sub\_}}
+\index{state\_sub\_@{state\_sub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{state\_sub\_}{state\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::state\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a1b539961994891b03cb8e8fa14d2e34a}\label{classdrone__ui_1_1DroneControlPanel_a1b539961994891b03cb8e8fa14d2e34a}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!status\_message\_label\_@{status\_message\_label\_}}
+\index{status\_message\_label\_@{status\_message\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{status\_message\_label\_}{status\_message\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::status\+\_\+message\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aad591052c5c266f7a501889908093ca2}\label{classdrone__ui_1_1DroneControlPanel_aad591052c5c266f7a501889908093ca2}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!status\_message\_sub\_@{status\_message\_sub\_}}
+\index{status\_message\_sub\_@{status\_message\_sub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{status\_message\_sub\_}{status\_message\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::status\+\_\+message\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a68594280847325adcc3e1c35bf6544e2}\label{classdrone__ui_1_1DroneControlPanel_a68594280847325adcc3e1c35bf6544e2}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!stop\_button\_@{stop\_button\_}}
+\index{stop\_button\_@{stop\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{stop\_button\_}{stop\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::stop\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a81f480f2a643491320574c3dcc1e71d0}\label{classdrone__ui_1_1DroneControlPanel_a81f480f2a643491320574c3dcc1e71d0}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!stop\_pub\_@{stop\_pub\_}}
+\index{stop\_pub\_@{stop\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{stop\_pub\_}{stop\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::stop\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aeacba0ffa4abbd9c4e7cb7b647c2d253}\label{classdrone__ui_1_1DroneControlPanel_aeacba0ffa4abbd9c4e7cb7b647c2d253}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!stop\_timer\_@{stop\_timer\_}}
+\index{stop\_timer\_@{stop\_timer\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{stop\_timer\_}{stop\_timer\_}}
+{\footnotesize\ttfamily QTimer$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::stop\+\_\+timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a6060e670c548b54bd41fe65323e76c3c}\label{classdrone__ui_1_1DroneControlPanel_a6060e670c548b54bd41fe65323e76c3c}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!timestamp\_label\_@{timestamp\_label\_}}
+\index{timestamp\_label\_@{timestamp\_label\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{timestamp\_label\_}{timestamp\_label\_}}
+{\footnotesize\ttfamily QLabel$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::timestamp\+\_\+label\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_ab5dff003701746778375959b30f44e55}\label{classdrone__ui_1_1DroneControlPanel_ab5dff003701746778375959b30f44e55}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!up\_button\_@{up\_button\_}}
+\index{up\_button\_@{up\_button\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{up\_button\_}{up\_button\_}}
+{\footnotesize\ttfamily QPush\+Button$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::up\+\_\+button\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_abea092cb229a42d9ff369d494c11a918}\label{classdrone__ui_1_1DroneControlPanel_abea092cb229a42d9ff369d494c11a918}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!update\_timer\_@{update\_timer\_}}
+\index{update\_timer\_@{update\_timer\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{update\_timer\_}{update\_timer\_}}
+{\footnotesize\ttfamily QTimer$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::update\+\_\+timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_aafa44fa582fcf1c110b23859c2a87a40}\label{classdrone__ui_1_1DroneControlPanel_aafa44fa582fcf1c110b23859c2a87a40}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!waypoint\_list\_@{waypoint\_list\_}}
+\index{waypoint\_list\_@{waypoint\_list\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{waypoint\_list\_}{waypoint\_list\_}}
+{\footnotesize\ttfamily QList\+Widget$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::waypoint\+\_\+list\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a69d2483cc8fd342c6be8371dc813fc99}\label{classdrone__ui_1_1DroneControlPanel_a69d2483cc8fd342c6be8371dc813fc99}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!waypoint\_pub\_@{waypoint\_pub\_}}
+\index{waypoint\_pub\_@{waypoint\_pub\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{waypoint\_pub\_}{waypoint\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$geometry\+\_\+msgs\+::msg\+::\+Point$>$\+::Shared\+Ptr drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::waypoint\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a46d56fc27f7bdc5d284a6231de408c76}\label{classdrone__ui_1_1DroneControlPanel_a46d56fc27f7bdc5d284a6231de408c76}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!waypoint\_x\_input\_@{waypoint\_x\_input\_}}
+\index{waypoint\_x\_input\_@{waypoint\_x\_input\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{waypoint\_x\_input\_}{waypoint\_x\_input\_}}
+{\footnotesize\ttfamily QDouble\+Spin\+Box$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::waypoint\+\_\+x\+\_\+input\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a4128e35cb0777fc129cd2977df95ec89}\label{classdrone__ui_1_1DroneControlPanel_a4128e35cb0777fc129cd2977df95ec89}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!waypoint\_y\_input\_@{waypoint\_y\_input\_}}
+\index{waypoint\_y\_input\_@{waypoint\_y\_input\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{waypoint\_y\_input\_}{waypoint\_y\_input\_}}
+{\footnotesize\ttfamily QDouble\+Spin\+Box$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::waypoint\+\_\+y\+\_\+input\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdrone__ui_1_1DroneControlPanel_a452eb52efaf8f7a0dc0b584e8462733c}\label{classdrone__ui_1_1DroneControlPanel_a452eb52efaf8f7a0dc0b584e8462733c}} 
+\index{drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}!waypoint\_z\_input\_@{waypoint\_z\_input\_}}
+\index{waypoint\_z\_input\_@{waypoint\_z\_input\_}!drone\_ui::DroneControlPanel@{drone\_ui::DroneControlPanel}}
+\doxysubsubsection{\texorpdfstring{waypoint\_z\_input\_}{waypoint\_z\_input\_}}
+{\footnotesize\ttfamily QDouble\+Spin\+Box$\ast$ drone\+\_\+ui\+::\+Drone\+Control\+Panel\+::waypoint\+\_\+z\+\_\+input\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{drone__control__panel_8hpp}{drone\+\_\+control\+\_\+panel.\+hpp}}\item 
+src/\mbox{\hyperlink{drone__control__panel_8cpp}{drone\+\_\+control\+\_\+panel.\+cpp}}\end{DoxyCompactItemize}

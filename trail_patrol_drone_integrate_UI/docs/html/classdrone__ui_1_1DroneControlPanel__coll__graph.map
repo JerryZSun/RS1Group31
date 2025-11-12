@@ -1,0 +1,4 @@
+<map id="drone_ui::DroneControlPanel" name="drone_ui::DroneControlPanel">
+<area shape="rect" id="node1" title="RViz2 panel widget for comprehensive drone control and monitoring." alt="" coords="5,80,212,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="32,5,185,32"/>
+</map>

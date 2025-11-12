@@ -1,0 +1,9 @@
+<map id="Mission::publish_ui_progress" name="Mission::publish_ui_progress">
+<area shape="rect" id="node1" title=" " alt="" coords="419,152,565,193"/>
+<area shape="rect" id="node2" href="$classMission.html#acbd4ab61e1d733fc7e3ff172153a26ea" title=" " alt="" coords="192,5,363,47"/>
+<area shape="rect" id="node3" href="$classMission.html#aa5a6ff4fc779338ab01b8f6dd470f4df" title=" " alt="" coords="5,130,136,157"/>
+<area shape="rect" id="node4" href="$classMission.html#a9c36210798552a6d5ec5ddff2c9b2171" title="Callback to clear custom waypoints from the queue." alt="" coords="184,123,371,164"/>
+<area shape="rect" id="node5" href="$classMission.html#a430fb6a9d5e6bbac8a452549ad1d3db6" title=" " alt="" coords="194,189,361,215"/>
+<area shape="rect" id="node6" href="$classMission.html#a31a901ccbee43aafd9fbc3d60029c474" title=" " alt="" coords="187,240,367,281"/>
+<area shape="rect" id="node7" href="$classMission.html#af3de1d159a2ca9069d0585b7a1a65147" title="Callback to start or restart the mission." alt="" coords="193,305,361,347"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="Navigation::Navigation" name="Navigation::Navigation">
+<area shape="rect" id="node1" title=" " alt="" coords="5,239,177,266"/>
+<area shape="rect" id="node2" href="$classNavigation.html#a2537e6388987384b28ee246b7c3d97b7" title=" " alt="" coords="242,5,410,47"/>
+<area shape="rect" id="node3" href="$classNavigation.html#a5990da71532f8f714bcaec54fbdb8d48" title=" " alt="" coords="235,71,417,98"/>
+<area shape="rect" id="node6" href="$classNavigation.html#af7dde6e30816676c421f744b8ed196ae" title=" " alt="" coords="239,123,413,164"/>
+<area shape="rect" id="node7" href="$classNavigation.html#a829bdd9b4ee19b2382c7d0349ba08206" title=" " alt="" coords="227,189,425,215"/>
+<area shape="rect" id="node8" href="$classNavigation.html#adfcb5422cccd6f76c7da6cf17c4b8b27" title=" " alt="" coords="225,239,427,266"/>
+<area shape="rect" id="node9" href="$classNavigation.html#a51bfc59a1382eaccb34701e206bfb5bb" title=" " alt="" coords="237,290,415,317"/>
+<area shape="rect" id="node10" href="$classNavigation.html#af8917b897b2445f6c7085af765c960a4" title=" " alt="" coords="251,341,401,383"/>
+<area shape="rect" id="node11" href="$classNavigation.html#a08b4e6f13a6bf5965814ccecf6a20651" title="Processes laser scan data for multi&#45;level obstacle detection." alt="" coords="230,407,422,434"/>
+<area shape="rect" id="node15" href="$classNavigation.html#aad1d7985655cef2fab9421fc985b183c" title=" " alt="" coords="245,459,407,500"/>
+<area shape="rect" id="node4" href="$classNavigation.html#a6082916b89f31eb3af5b72a249250c50" title=" " alt="" coords="504,64,664,105"/>
+<area shape="rect" id="node5" href="$classNavigation.html#a311b4d3e17474d743fdce1f51f4b41ae" title=" " alt="" coords="501,199,667,240"/>
+<area shape="rect" id="node12" href="$classNavigation.html#a2faf017283ad63d6e390a15347285320" title="Checks for obstacles within emergency threshold (0.5m)" alt="" coords="475,367,693,408"/>
+<area shape="rect" id="node13" href="$classNavigation.html#af99328c260597869758981b683412881" title="Scans left and right sides to determine best avoidance direction." alt="" coords="506,432,662,473"/>
+<area shape="rect" id="node14" href="$classNavigation.html#ab48a3cc9b711f8c1342cf698e11505ac" title=" " alt="" coords="741,432,944,473"/>
+</map>

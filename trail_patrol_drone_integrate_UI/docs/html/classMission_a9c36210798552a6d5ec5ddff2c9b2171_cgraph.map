@@ -1,0 +1,7 @@
+<map id="Mission::clear_waypoints_callback" name="Mission::clear_waypoints_callback">
+<area shape="rect" id="node1" title="Callback to clear custom waypoints from the queue." alt="" coords="5,104,192,145"/>
+<area shape="rect" id="node2" href="$classMission.html#afc97417b1e770007a7442b5b8626ae9f" title=" " alt="" coords="240,5,419,47"/>
+<area shape="rect" id="node3" href="$classMission.html#a4c51da57f38b8c2922d5dc15250f525b" title=" " alt="" coords="256,71,403,112"/>
+<area shape="rect" id="node4" href="$classMission.html#ac5ae94957c550eb05b4467a9b17e531b" title=" " alt="" coords="256,136,403,177"/>
+<area shape="rect" id="node5" href="$classMission.html#a6531a2b9cc98d99e60b2fd3095b7dfb9" title=" " alt="" coords="256,201,403,243"/>
+</map>

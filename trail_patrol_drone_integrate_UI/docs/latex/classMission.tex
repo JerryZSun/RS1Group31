@@ -1,0 +1,886 @@
+\hypertarget{classMission}{}\doxysection{Mission Class Reference}
+\label{classMission}\index{Mission@{Mission}}
+
+
+Main mission management class for autonomous drone navigation.  
+
+
+
+
+Inheritance diagram for Mission\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=157pt]{classMission__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Mission\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=275pt]{classMission__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMission_aa5a6ff4fc779338ab01b8f6dd470f4df}{Mission}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMission_a77c83440de3e7d90db618f762264c591}{odom\+\_\+callback}} (const nav\+\_\+msgs\+::msg\+::\+Odometry\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_a38d0fb31a61d00a2bce0a4ec4de6ed0d}{waypoint\+\_\+reached\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_acfaf9034e9ad3ad91817bbc9f942764b}{obstacle\+\_\+detected\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Callback for obstacle detection events from navigation node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMission_a20726c8a069901a1921acb6f11102e13}{avoidance\+\_\+direction\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Int32\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_af3de1d159a2ca9069d0585b7a1a65147}{start\+\_\+mission\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Callback to start or restart the mission. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMission_aec7d21c4224e4e08c04aa1ef133e0b5f}{pause\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_a0e0f7be47badf79e782b78743acffc6f}{resume\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_aca35dd36d34d25c5f3edddff034725b8}{emergency\+\_\+stop\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_acbd4ab61e1d733fc7e3ff172153a26ea}{add\+\_\+waypoint\+\_\+callback}} (const geometry\+\_\+msgs\+::msg\+::\+Point\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classMission_a9c36210798552a6d5ec5ddff2c9b2171}{clear\+\_\+waypoints\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\begin{DoxyCompactList}\small\item\em Callback to clear custom waypoints from the queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMission_a8ff7d050aec65f20d7f7206cd9d0a696}{library\+\_\+goal\+\_\+callback}} (const geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped\+::\+Shared\+Ptr goal)
+\item 
+void \mbox{\hyperlink{classMission_a430fb6a9d5e6bbac8a452549ad1d3db6}{mission\+\_\+loop}} ()
+\item 
+void \mbox{\hyperlink{classMission_a23a2e08ce31a98abce886bb968b727e9}{activate\+\_\+fly\+\_\+around\+\_\+protocol}} (bool go\+\_\+right)
+\begin{DoxyCompactList}\small\item\em Activates fly-\/around obstacle avoidance protocol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMission_a2d29b8445e75710276f496699e0c56a1}{activate\+\_\+fly\+\_\+over\+\_\+protocol}} ()
+\begin{DoxyCompactList}\small\item\em Activates fly-\/over obstacle avoidance protocol. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classMission_acefbdc40553462bdf2c31361bd3f7be9}{set\+\_\+avoidance\+\_\+mode}} (bool active)
+\item 
+std\+::string \mbox{\hyperlink{classMission_afc97417b1e770007a7442b5b8626ae9f}{make\+\_\+progress\+\_\+string}} (size\+\_\+t index) const
+\item 
+void \mbox{\hyperlink{classMission_a3485c6602a5635605b6fc159a8c46a11}{publish\+\_\+current\+\_\+waypoint}} (size\+\_\+t index\+\_\+override, bool update\+\_\+progress=true)
+\item 
+void \mbox{\hyperlink{classMission_a31a901ccbee43aafd9fbc3d60029c474}{publish\+\_\+current\+\_\+waypoint}} (bool update\+\_\+progress=true)
+\item 
+void \mbox{\hyperlink{classMission_af950d936bc73b3491d8cbe6af3743c26}{publish\+\_\+waypoint}} (double x, double y, double z)
+\item 
+void \mbox{\hyperlink{classMission_ac5ae94957c550eb05b4467a9b17e531b}{publish\+\_\+ui\+\_\+state}} (const std\+::string \&state)
+\item 
+void \mbox{\hyperlink{classMission_a4c51da57f38b8c2922d5dc15250f525b}{publish\+\_\+ui\+\_\+progress}} (const std\+::string \&progress)
+\item 
+void \mbox{\hyperlink{classMission_a6531a2b9cc98d99e60b2fd3095b7dfb9}{publish\+\_\+ui\+\_\+status}} (const std\+::string \&status)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+rclcpp\+::\+Publisher$<$ geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a9dd745bdb19c9366286f9e899eff468d}{waypoint\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_ab539d079ea412de0cc782c7d086b5a72}{mission\+\_\+status\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a2fd85c88ecaf2c84a71a19f99e6a0d29}{ui\+\_\+state\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a26e11857f0b515b622cf0f68de5caa6a}{ui\+\_\+progress\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_af492601a1e9ae818398ca771faf6f04d}{ui\+\_\+status\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a2e95836c67bed1731f5dfd399ca0f102}{avoidance\+\_\+mode\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ nav\+\_\+msgs\+::msg\+::\+Odometry $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a4ed200059bfa16397628d8da3e787d1e}{odom\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a6650d8d3272ae050e86b239eebd8365e}{waypoint\+\_\+reached\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a502b92989f19039f25e7ee501b004c94}{obstacle\+\_\+detected\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Int32 $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a09ebc3a8b5b96f4b6160b53177b0b41e}{avoidance\+\_\+direction\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_ad13815240121a6caa7b67978ebdc0655}{start\+\_\+mission\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a140a3b3ef3a8927df2c1dc093c3f3881}{pause\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_abeb8a546b48b602249a9131c99db1ac1}{resume\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a279b4d1724d3aff08d5a1f9ebf702e33}{emergency\+\_\+stop\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ geometry\+\_\+msgs\+::msg\+::\+Point $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_a9dce9ee811343a38a64cdc454e2ff8e1}{add\+\_\+waypoint\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_aac3219db83b3856326634b1c8d837323}{clear\+\_\+waypoints\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped $>$\+::Shared\+Ptr \mbox{\hyperlink{classMission_acdc9c85a3ce90dd428671d9b8c9df733}{library\+\_\+goal\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Timer\+Base\+::\+Shared\+Ptr \mbox{\hyperlink{classMission_a33d19d7622c27d84a682187c6369619c}{timer\+\_\+}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structWaypoint}{Waypoint}} $>$ \mbox{\hyperlink{classMission_a6fda9ac9cdd273f219dd684b6b011d09}{waypoints\+\_\+}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structWaypoint}{Waypoint}} $>$ \mbox{\hyperlink{classMission_ac4ebb688d2d10604a42459a7e72956b9}{initial\+\_\+waypoints\+\_\+}}
+\item 
+size\+\_\+t \mbox{\hyperlink{classMission_a90cbb718f8cc63efc906879eced58a4f}{current\+\_\+waypoint\+\_\+index\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classMission_aa5bdf3a96655c28a5771bcf6a7f7876c}{mission\+\_\+complete\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classMission_abab0f1c947f55e9385f63eda05391a47}{waypoint\+\_\+reached\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classMission_aabdffbce6e88d9788e26790949ccdfbf}{first\+\_\+waypoint\+\_\+published\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classMission_a3b8d1074a8f6264c88ee95e5e76d53bd}{mission\+\_\+started\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classMission_a8e078e174ad6deecbb285300c0ca36a2}{is\+\_\+paused\+\_\+}}
+\item 
+\mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827f}{Mission\+State}} \mbox{\hyperlink{classMission_a5eeda3f1f7c017d8c380ec53a9788857}{mission\+\_\+state\+\_\+}}
+\item 
+size\+\_\+t \mbox{\hyperlink{classMission_a3d8fd378e3381ce440652c674d6513d3}{interrupted\+\_\+waypoint\+\_\+index\+\_\+}}
+\item 
+int \mbox{\hyperlink{classMission_af3918dbb17cf1c70ccbdc046acac6b6c}{avoidance\+\_\+direction\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classMission_afb59626bb901a1ee142d7c2fd3002c42}{waiting\+\_\+for\+\_\+avoidance\+\_\+direction\+\_\+}}
+\item 
+\mbox{\hyperlink{structWaypoint}{Waypoint}} \mbox{\hyperlink{classMission_a02229cf488b3e7ce24d2d16816653eeb}{current\+\_\+position\+\_\+}}
+\item 
+double \mbox{\hyperlink{classMission_a1555fd99563b7e10a13e1b9153ee7616}{current\+\_\+yaw\+\_\+}}
+\item 
+double \mbox{\hyperlink{classMission_a42b004649374a87c102f4f09e2dea7a7}{position\+\_\+tolerance\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main mission management class for autonomous drone navigation. 
+
+This class handles\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{structWaypoint}{Waypoint}} queue management (initial mission + custom waypoints)
+\item \mbox{\hyperlink{classMission}{Mission}} state control (start, pause, resume, stop)
+\item Obstacle avoidance coordination with navigation node
+\item UI status updates and progress tracking
+\item Fly-\/over and fly-\/around avoidance protocols
+\end{DoxyItemize}
+
+The mission publishes waypoints to the navigation node and monitors waypoint completion, adjusting for obstacles as needed. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMission_aa5a6ff4fc779338ab01b8f6dd470f4df}\label{classMission_aa5a6ff4fc779338ab01b8f6dd470f4df}} 
+\index{Mission@{Mission}!Mission@{Mission}}
+\index{Mission@{Mission}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{Mission()}{Mission()}}
+{\footnotesize\ttfamily Mission\+::\+Mission (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_aa5a6ff4fc779338ab01b8f6dd470f4df_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMission_a23a2e08ce31a98abce886bb968b727e9}\label{classMission_a23a2e08ce31a98abce886bb968b727e9}} 
+\index{Mission@{Mission}!activate\_fly\_around\_protocol@{activate\_fly\_around\_protocol}}
+\index{activate\_fly\_around\_protocol@{activate\_fly\_around\_protocol}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{activate\_fly\_around\_protocol()}{activate\_fly\_around\_protocol()}}
+{\footnotesize\ttfamily void Mission\+::activate\+\_\+fly\+\_\+around\+\_\+protocol (\begin{DoxyParamCaption}\item[{bool}]{go\+\_\+right }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Activates fly-\/around obstacle avoidance protocol. 
+
+Calculates a waypoint perpendicular to the current heading (left or right) at a 2.\+0m offset. The drone will sidestep around the obstacle, then return to the mission path to resume navigation to the interrupted waypoint.
+
+
+\begin{DoxyParams}{Parameters}
+{\em go\+\_\+right} & True to fly around right, false to fly around left\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Sets avoidance\+\_\+mode to true, which disables normal obstacle detection 
+
+After reaching sidestep waypoint, returns to interrupted waypoint 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMission_a2d29b8445e75710276f496699e0c56a1}{activate\+\_\+fly\+\_\+over\+\_\+protocol()}}, \mbox{\hyperlink{classMission_acefbdc40553462bdf2c31361bd3f7be9}{set\+\_\+avoidance\+\_\+mode()}} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a23a2e08ce31a98abce886bb968b727e9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a23a2e08ce31a98abce886bb968b727e9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a2d29b8445e75710276f496699e0c56a1}\label{classMission_a2d29b8445e75710276f496699e0c56a1}} 
+\index{Mission@{Mission}!activate\_fly\_over\_protocol@{activate\_fly\_over\_protocol}}
+\index{activate\_fly\_over\_protocol@{activate\_fly\_over\_protocol}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{activate\_fly\_over\_protocol()}{activate\_fly\_over\_protocol()}}
+{\footnotesize\ttfamily void Mission\+::activate\+\_\+fly\+\_\+over\+\_\+protocol (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Activates fly-\/over obstacle avoidance protocol. 
+
+Commands the drone to climb vertically to 7.\+0m altitude, then traverse over the obstacle to the original waypoint position, resuming mission from there. Used when no clear lateral path exists or for emergency close obstacles.
+
+Two-\/phase process\+:
+\begin{DoxyEnumerate}
+\item FLY\+\_\+\+OVER\+\_\+\+UP\+: Climb to 7.\+0m at current position
+\item FLY\+\_\+\+OVER\+\_\+\+ACROSS\+: Move to interrupted waypoint at 7.\+0m, then descend
+\end{DoxyEnumerate}
+
+\begin{DoxyNote}{Note}
+Avoidance mode remains false during fly-\/over 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMission_a23a2e08ce31a98abce886bb968b727e9}{activate\+\_\+fly\+\_\+around\+\_\+protocol()}} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a2d29b8445e75710276f496699e0c56a1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a2d29b8445e75710276f496699e0c56a1_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_acbd4ab61e1d733fc7e3ff172153a26ea}\label{classMission_acbd4ab61e1d733fc7e3ff172153a26ea}} 
+\index{Mission@{Mission}!add\_waypoint\_callback@{add\_waypoint\_callback}}
+\index{add\_waypoint\_callback@{add\_waypoint\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{add\_waypoint\_callback()}{add\_waypoint\_callback()}}
+{\footnotesize\ttfamily void Mission\+::add\+\_\+waypoint\+\_\+callback (\begin{DoxyParamCaption}\item[{const geometry\+\_\+msgs\+::msg\+::\+Point\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_acbd4ab61e1d733fc7e3ff172153a26ea_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classMission_acbd4ab61e1d733fc7e3ff172153a26ea_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a20726c8a069901a1921acb6f11102e13}\label{classMission_a20726c8a069901a1921acb6f11102e13}} 
+\index{Mission@{Mission}!avoidance\_direction\_callback@{avoidance\_direction\_callback}}
+\index{avoidance\_direction\_callback@{avoidance\_direction\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{avoidance\_direction\_callback()}{avoidance\_direction\_callback()}}
+{\footnotesize\ttfamily void Mission\+::avoidance\+\_\+direction\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Int32\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a20726c8a069901a1921acb6f11102e13_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{classMission_a20726c8a069901a1921acb6f11102e13_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a9c36210798552a6d5ec5ddff2c9b2171}\label{classMission_a9c36210798552a6d5ec5ddff2c9b2171}} 
+\index{Mission@{Mission}!clear\_waypoints\_callback@{clear\_waypoints\_callback}}
+\index{clear\_waypoints\_callback@{clear\_waypoints\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{clear\_waypoints\_callback()}{clear\_waypoints\_callback()}}
+{\footnotesize\ttfamily void Mission\+::clear\+\_\+waypoints\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Callback to clear custom waypoints from the queue. 
+
+Removes custom waypoints added by the user while preserving the initial mission waypoints. Behavior differs based on mission state\+:
+\begin{DoxyItemize}
+\item If mission is running\+: Removes only custom waypoints, mission continues
+\item If mission is idle\+: Clears custom waypoints and resets to initial state
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Boolean message, clears queue when msg-\/$>$data is true\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Initial mission waypoints (stored in initial\+\_\+waypoints\+\_\+) are always preserved 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMission_acbd4ab61e1d733fc7e3ff172153a26ea}{add\+\_\+waypoint\+\_\+callback()}} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a9c36210798552a6d5ec5ddff2c9b2171_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a9c36210798552a6d5ec5ddff2c9b2171_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_aca35dd36d34d25c5f3edddff034725b8}\label{classMission_aca35dd36d34d25c5f3edddff034725b8}} 
+\index{Mission@{Mission}!emergency\_stop\_callback@{emergency\_stop\_callback}}
+\index{emergency\_stop\_callback@{emergency\_stop\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{emergency\_stop\_callback()}{emergency\_stop\_callback()}}
+{\footnotesize\ttfamily void Mission\+::emergency\+\_\+stop\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=341pt]{classMission_aca35dd36d34d25c5f3edddff034725b8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{classMission_aca35dd36d34d25c5f3edddff034725b8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a8ff7d050aec65f20d7f7206cd9d0a696}\label{classMission_a8ff7d050aec65f20d7f7206cd9d0a696}} 
+\index{Mission@{Mission}!library\_goal\_callback@{library\_goal\_callback}}
+\index{library\_goal\_callback@{library\_goal\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{library\_goal\_callback()}{library\_goal\_callback()}}
+{\footnotesize\ttfamily void Mission\+::library\+\_\+goal\+\_\+callback (\begin{DoxyParamCaption}\item[{const geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped\+::\+Shared\+Ptr}]{goal }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{classMission_a8ff7d050aec65f20d7f7206cd9d0a696_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{classMission_a8ff7d050aec65f20d7f7206cd9d0a696_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_afc97417b1e770007a7442b5b8626ae9f}\label{classMission_afc97417b1e770007a7442b5b8626ae9f}} 
+\index{Mission@{Mission}!make\_progress\_string@{make\_progress\_string}}
+\index{make\_progress\_string@{make\_progress\_string}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{make\_progress\_string()}{make\_progress\_string()}}
+{\footnotesize\ttfamily std\+::string Mission\+::make\+\_\+progress\+\_\+string (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_afc97417b1e770007a7442b5b8626ae9f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a430fb6a9d5e6bbac8a452549ad1d3db6}\label{classMission_a430fb6a9d5e6bbac8a452549ad1d3db6}} 
+\index{Mission@{Mission}!mission\_loop@{mission\_loop}}
+\index{mission\_loop@{mission\_loop}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{mission\_loop()}{mission\_loop()}}
+{\footnotesize\ttfamily void Mission\+::mission\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a430fb6a9d5e6bbac8a452549ad1d3db6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{classMission_a430fb6a9d5e6bbac8a452549ad1d3db6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_acfaf9034e9ad3ad91817bbc9f942764b}\label{classMission_acfaf9034e9ad3ad91817bbc9f942764b}} 
+\index{Mission@{Mission}!obstacle\_detected\_callback@{obstacle\_detected\_callback}}
+\index{obstacle\_detected\_callback@{obstacle\_detected\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{obstacle\_detected\_callback()}{obstacle\_detected\_callback()}}
+{\footnotesize\ttfamily void Mission\+::obstacle\+\_\+detected\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Callback for obstacle detection events from navigation node. 
+
+When an obstacle is detected during normal navigation, this callback saves the current waypoint index and waits for the navigation node to determine the best avoidance direction through a 1-\/second scan.
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Boolean message indicating obstacle detection status\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Only processes obstacles during active mission (not paused/stopped) 
+
+Only triggers in NORMAL mission state (not during avoidance) 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMission_a20726c8a069901a1921acb6f11102e13}{avoidance\+\_\+direction\+\_\+callback()}}, \mbox{\hyperlink{classMission_a2d29b8445e75710276f496699e0c56a1}{activate\+\_\+fly\+\_\+over\+\_\+protocol()}}, \mbox{\hyperlink{classMission_a23a2e08ce31a98abce886bb968b727e9}{activate\+\_\+fly\+\_\+around\+\_\+protocol()}} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_acfaf9034e9ad3ad91817bbc9f942764b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_acfaf9034e9ad3ad91817bbc9f942764b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a77c83440de3e7d90db618f762264c591}\label{classMission_a77c83440de3e7d90db618f762264c591}} 
+\index{Mission@{Mission}!odom\_callback@{odom\_callback}}
+\index{odom\_callback@{odom\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{odom\_callback()}{odom\_callback()}}
+{\footnotesize\ttfamily void Mission\+::odom\+\_\+callback (\begin{DoxyParamCaption}\item[{const nav\+\_\+msgs\+::msg\+::\+Odometry\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{classMission_a77c83440de3e7d90db618f762264c591_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_aec7d21c4224e4e08c04aa1ef133e0b5f}\label{classMission_aec7d21c4224e4e08c04aa1ef133e0b5f}} 
+\index{Mission@{Mission}!pause\_callback@{pause\_callback}}
+\index{pause\_callback@{pause\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{pause\_callback()}{pause\_callback()}}
+{\footnotesize\ttfamily void Mission\+::pause\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_aec7d21c4224e4e08c04aa1ef133e0b5f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{classMission_aec7d21c4224e4e08c04aa1ef133e0b5f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a31a901ccbee43aafd9fbc3d60029c474}\label{classMission_a31a901ccbee43aafd9fbc3d60029c474}} 
+\index{Mission@{Mission}!publish\_current\_waypoint@{publish\_current\_waypoint}}
+\index{publish\_current\_waypoint@{publish\_current\_waypoint}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{publish\_current\_waypoint()}{publish\_current\_waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Mission\+::publish\+\_\+current\+\_\+waypoint (\begin{DoxyParamCaption}\item[{bool}]{update\+\_\+progress = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a31a901ccbee43aafd9fbc3d60029c474_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a3485c6602a5635605b6fc159a8c46a11}\label{classMission_a3485c6602a5635605b6fc159a8c46a11}} 
+\index{Mission@{Mission}!publish\_current\_waypoint@{publish\_current\_waypoint}}
+\index{publish\_current\_waypoint@{publish\_current\_waypoint}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{publish\_current\_waypoint()}{publish\_current\_waypoint()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Mission\+::publish\+\_\+current\+\_\+waypoint (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index\+\_\+override,  }\item[{bool}]{update\+\_\+progress = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a3485c6602a5635605b6fc159a8c46a11_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a4c51da57f38b8c2922d5dc15250f525b}\label{classMission_a4c51da57f38b8c2922d5dc15250f525b}} 
+\index{Mission@{Mission}!publish\_ui\_progress@{publish\_ui\_progress}}
+\index{publish\_ui\_progress@{publish\_ui\_progress}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{publish\_ui\_progress()}{publish\_ui\_progress()}}
+{\footnotesize\ttfamily void Mission\+::publish\+\_\+ui\+\_\+progress (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{progress }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a4c51da57f38b8c2922d5dc15250f525b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_ac5ae94957c550eb05b4467a9b17e531b}\label{classMission_ac5ae94957c550eb05b4467a9b17e531b}} 
+\index{Mission@{Mission}!publish\_ui\_state@{publish\_ui\_state}}
+\index{publish\_ui\_state@{publish\_ui\_state}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{publish\_ui\_state()}{publish\_ui\_state()}}
+{\footnotesize\ttfamily void Mission\+::publish\+\_\+ui\+\_\+state (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_ac5ae94957c550eb05b4467a9b17e531b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a6531a2b9cc98d99e60b2fd3095b7dfb9}\label{classMission_a6531a2b9cc98d99e60b2fd3095b7dfb9}} 
+\index{Mission@{Mission}!publish\_ui\_status@{publish\_ui\_status}}
+\index{publish\_ui\_status@{publish\_ui\_status}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{publish\_ui\_status()}{publish\_ui\_status()}}
+{\footnotesize\ttfamily void Mission\+::publish\+\_\+ui\+\_\+status (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a6531a2b9cc98d99e60b2fd3095b7dfb9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_af950d936bc73b3491d8cbe6af3743c26}\label{classMission_af950d936bc73b3491d8cbe6af3743c26}} 
+\index{Mission@{Mission}!publish\_waypoint@{publish\_waypoint}}
+\index{publish\_waypoint@{publish\_waypoint}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{publish\_waypoint()}{publish\_waypoint()}}
+{\footnotesize\ttfamily void Mission\+::publish\+\_\+waypoint (\begin{DoxyParamCaption}\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_af950d936bc73b3491d8cbe6af3743c26_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a0e0f7be47badf79e782b78743acffc6f}\label{classMission_a0e0f7be47badf79e782b78743acffc6f}} 
+\index{Mission@{Mission}!resume\_callback@{resume\_callback}}
+\index{resume\_callback@{resume\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{resume\_callback()}{resume\_callback()}}
+{\footnotesize\ttfamily void Mission\+::resume\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a0e0f7be47badf79e782b78743acffc6f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a0e0f7be47badf79e782b78743acffc6f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_acefbdc40553462bdf2c31361bd3f7be9}\label{classMission_acefbdc40553462bdf2c31361bd3f7be9}} 
+\index{Mission@{Mission}!set\_avoidance\_mode@{set\_avoidance\_mode}}
+\index{set\_avoidance\_mode@{set\_avoidance\_mode}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{set\_avoidance\_mode()}{set\_avoidance\_mode()}}
+{\footnotesize\ttfamily void Mission\+::set\+\_\+avoidance\+\_\+mode (\begin{DoxyParamCaption}\item[{bool}]{active }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_acefbdc40553462bdf2c31361bd3f7be9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_af3de1d159a2ca9069d0585b7a1a65147}\label{classMission_af3de1d159a2ca9069d0585b7a1a65147}} 
+\index{Mission@{Mission}!start\_mission\_callback@{start\_mission\_callback}}
+\index{start\_mission\_callback@{start\_mission\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{start\_mission\_callback()}{start\_mission\_callback()}}
+{\footnotesize\ttfamily void Mission\+::start\+\_\+mission\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Callback to start or restart the mission. 
+
+Initializes mission state and begins waypoint navigation from the first waypoint. Resets all mission flags and publishes the initial status to the UI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & Boolean message, mission starts when msg-\/$>$data is true\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If waypoints list is empty, mission will not start 
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classMission_aec7d21c4224e4e08c04aa1ef133e0b5f}{pause\+\_\+callback()}}, \mbox{\hyperlink{classMission_a0e0f7be47badf79e782b78743acffc6f}{resume\+\_\+callback()}}, \mbox{\hyperlink{classMission_aca35dd36d34d25c5f3edddff034725b8}{emergency\+\_\+stop\+\_\+callback()}} 
+\end{DoxySeeAlso}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_af3de1d159a2ca9069d0585b7a1a65147_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{classMission_af3de1d159a2ca9069d0585b7a1a65147_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMission_a38d0fb31a61d00a2bce0a4ec4de6ed0d}\label{classMission_a38d0fb31a61d00a2bce0a4ec4de6ed0d}} 
+\index{Mission@{Mission}!waypoint\_reached\_callback@{waypoint\_reached\_callback}}
+\index{waypoint\_reached\_callback@{waypoint\_reached\_callback}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{waypoint\_reached\_callback()}{waypoint\_reached\_callback()}}
+{\footnotesize\ttfamily void Mission\+::waypoint\+\_\+reached\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMission_a38d0fb31a61d00a2bce0a4ec4de6ed0d_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classMission_a9dce9ee811343a38a64cdc454e2ff8e1}\label{classMission_a9dce9ee811343a38a64cdc454e2ff8e1}} 
+\index{Mission@{Mission}!add\_waypoint\_sub\_@{add\_waypoint\_sub\_}}
+\index{add\_waypoint\_sub\_@{add\_waypoint\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{add\_waypoint\_sub\_}{add\_waypoint\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$geometry\+\_\+msgs\+::msg\+::\+Point$>$\+::Shared\+Ptr Mission\+::add\+\_\+waypoint\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_af3918dbb17cf1c70ccbdc046acac6b6c}\label{classMission_af3918dbb17cf1c70ccbdc046acac6b6c}} 
+\index{Mission@{Mission}!avoidance\_direction\_@{avoidance\_direction\_}}
+\index{avoidance\_direction\_@{avoidance\_direction\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{avoidance\_direction\_}{avoidance\_direction\_}}
+{\footnotesize\ttfamily int Mission\+::avoidance\+\_\+direction\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a09ebc3a8b5b96f4b6160b53177b0b41e}\label{classMission_a09ebc3a8b5b96f4b6160b53177b0b41e}} 
+\index{Mission@{Mission}!avoidance\_direction\_sub\_@{avoidance\_direction\_sub\_}}
+\index{avoidance\_direction\_sub\_@{avoidance\_direction\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{avoidance\_direction\_sub\_}{avoidance\_direction\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Int32$>$\+::Shared\+Ptr Mission\+::avoidance\+\_\+direction\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a2e95836c67bed1731f5dfd399ca0f102}\label{classMission_a2e95836c67bed1731f5dfd399ca0f102}} 
+\index{Mission@{Mission}!avoidance\_mode\_pub\_@{avoidance\_mode\_pub\_}}
+\index{avoidance\_mode\_pub\_@{avoidance\_mode\_pub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{avoidance\_mode\_pub\_}{avoidance\_mode\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::avoidance\+\_\+mode\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_aac3219db83b3856326634b1c8d837323}\label{classMission_aac3219db83b3856326634b1c8d837323}} 
+\index{Mission@{Mission}!clear\_waypoints\_sub\_@{clear\_waypoints\_sub\_}}
+\index{clear\_waypoints\_sub\_@{clear\_waypoints\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{clear\_waypoints\_sub\_}{clear\_waypoints\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::clear\+\_\+waypoints\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a02229cf488b3e7ce24d2d16816653eeb}\label{classMission_a02229cf488b3e7ce24d2d16816653eeb}} 
+\index{Mission@{Mission}!current\_position\_@{current\_position\_}}
+\index{current\_position\_@{current\_position\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{current\_position\_}{current\_position\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structWaypoint}{Waypoint}} Mission\+::current\+\_\+position\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a90cbb718f8cc63efc906879eced58a4f}\label{classMission_a90cbb718f8cc63efc906879eced58a4f}} 
+\index{Mission@{Mission}!current\_waypoint\_index\_@{current\_waypoint\_index\_}}
+\index{current\_waypoint\_index\_@{current\_waypoint\_index\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{current\_waypoint\_index\_}{current\_waypoint\_index\_}}
+{\footnotesize\ttfamily size\+\_\+t Mission\+::current\+\_\+waypoint\+\_\+index\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a1555fd99563b7e10a13e1b9153ee7616}\label{classMission_a1555fd99563b7e10a13e1b9153ee7616}} 
+\index{Mission@{Mission}!current\_yaw\_@{current\_yaw\_}}
+\index{current\_yaw\_@{current\_yaw\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{current\_yaw\_}{current\_yaw\_}}
+{\footnotesize\ttfamily double Mission\+::current\+\_\+yaw\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a279b4d1724d3aff08d5a1f9ebf702e33}\label{classMission_a279b4d1724d3aff08d5a1f9ebf702e33}} 
+\index{Mission@{Mission}!emergency\_stop\_sub\_@{emergency\_stop\_sub\_}}
+\index{emergency\_stop\_sub\_@{emergency\_stop\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{emergency\_stop\_sub\_}{emergency\_stop\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::emergency\+\_\+stop\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_aabdffbce6e88d9788e26790949ccdfbf}\label{classMission_aabdffbce6e88d9788e26790949ccdfbf}} 
+\index{Mission@{Mission}!first\_waypoint\_published\_@{first\_waypoint\_published\_}}
+\index{first\_waypoint\_published\_@{first\_waypoint\_published\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{first\_waypoint\_published\_}{first\_waypoint\_published\_}}
+{\footnotesize\ttfamily bool Mission\+::first\+\_\+waypoint\+\_\+published\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_ac4ebb688d2d10604a42459a7e72956b9}\label{classMission_ac4ebb688d2d10604a42459a7e72956b9}} 
+\index{Mission@{Mission}!initial\_waypoints\_@{initial\_waypoints\_}}
+\index{initial\_waypoints\_@{initial\_waypoints\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{initial\_waypoints\_}{initial\_waypoints\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structWaypoint}{Waypoint}}$>$ Mission\+::initial\+\_\+waypoints\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a3d8fd378e3381ce440652c674d6513d3}\label{classMission_a3d8fd378e3381ce440652c674d6513d3}} 
+\index{Mission@{Mission}!interrupted\_waypoint\_index\_@{interrupted\_waypoint\_index\_}}
+\index{interrupted\_waypoint\_index\_@{interrupted\_waypoint\_index\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{interrupted\_waypoint\_index\_}{interrupted\_waypoint\_index\_}}
+{\footnotesize\ttfamily size\+\_\+t Mission\+::interrupted\+\_\+waypoint\+\_\+index\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a8e078e174ad6deecbb285300c0ca36a2}\label{classMission_a8e078e174ad6deecbb285300c0ca36a2}} 
+\index{Mission@{Mission}!is\_paused\_@{is\_paused\_}}
+\index{is\_paused\_@{is\_paused\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{is\_paused\_}{is\_paused\_}}
+{\footnotesize\ttfamily bool Mission\+::is\+\_\+paused\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_acdc9c85a3ce90dd428671d9b8c9df733}\label{classMission_acdc9c85a3ce90dd428671d9b8c9df733}} 
+\index{Mission@{Mission}!library\_goal\_sub\_@{library\_goal\_sub\_}}
+\index{library\_goal\_sub\_@{library\_goal\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{library\_goal\_sub\_}{library\_goal\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped$>$\+::Shared\+Ptr Mission\+::library\+\_\+goal\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_aa5bdf3a96655c28a5771bcf6a7f7876c}\label{classMission_aa5bdf3a96655c28a5771bcf6a7f7876c}} 
+\index{Mission@{Mission}!mission\_complete\_@{mission\_complete\_}}
+\index{mission\_complete\_@{mission\_complete\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{mission\_complete\_}{mission\_complete\_}}
+{\footnotesize\ttfamily bool Mission\+::mission\+\_\+complete\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a3b8d1074a8f6264c88ee95e5e76d53bd}\label{classMission_a3b8d1074a8f6264c88ee95e5e76d53bd}} 
+\index{Mission@{Mission}!mission\_started\_@{mission\_started\_}}
+\index{mission\_started\_@{mission\_started\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{mission\_started\_}{mission\_started\_}}
+{\footnotesize\ttfamily bool Mission\+::mission\+\_\+started\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a5eeda3f1f7c017d8c380ec53a9788857}\label{classMission_a5eeda3f1f7c017d8c380ec53a9788857}} 
+\index{Mission@{Mission}!mission\_state\_@{mission\_state\_}}
+\index{mission\_state\_@{mission\_state\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{mission\_state\_}{mission\_state\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827f}{Mission\+State}} Mission\+::mission\+\_\+state\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_ab539d079ea412de0cc782c7d086b5a72}\label{classMission_ab539d079ea412de0cc782c7d086b5a72}} 
+\index{Mission@{Mission}!mission\_status\_pub\_@{mission\_status\_pub\_}}
+\index{mission\_status\_pub\_@{mission\_status\_pub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{mission\_status\_pub\_}{mission\_status\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::mission\+\_\+status\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a502b92989f19039f25e7ee501b004c94}\label{classMission_a502b92989f19039f25e7ee501b004c94}} 
+\index{Mission@{Mission}!obstacle\_detected\_sub\_@{obstacle\_detected\_sub\_}}
+\index{obstacle\_detected\_sub\_@{obstacle\_detected\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{obstacle\_detected\_sub\_}{obstacle\_detected\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::obstacle\+\_\+detected\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a4ed200059bfa16397628d8da3e787d1e}\label{classMission_a4ed200059bfa16397628d8da3e787d1e}} 
+\index{Mission@{Mission}!odom\_sub\_@{odom\_sub\_}}
+\index{odom\_sub\_@{odom\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{odom\_sub\_}{odom\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$nav\+\_\+msgs\+::msg\+::\+Odometry$>$\+::Shared\+Ptr Mission\+::odom\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a140a3b3ef3a8927df2c1dc093c3f3881}\label{classMission_a140a3b3ef3a8927df2c1dc093c3f3881}} 
+\index{Mission@{Mission}!pause\_sub\_@{pause\_sub\_}}
+\index{pause\_sub\_@{pause\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{pause\_sub\_}{pause\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::pause\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a42b004649374a87c102f4f09e2dea7a7}\label{classMission_a42b004649374a87c102f4f09e2dea7a7}} 
+\index{Mission@{Mission}!position\_tolerance\_@{position\_tolerance\_}}
+\index{position\_tolerance\_@{position\_tolerance\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{position\_tolerance\_}{position\_tolerance\_}}
+{\footnotesize\ttfamily double Mission\+::position\+\_\+tolerance\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_abeb8a546b48b602249a9131c99db1ac1}\label{classMission_abeb8a546b48b602249a9131c99db1ac1}} 
+\index{Mission@{Mission}!resume\_sub\_@{resume\_sub\_}}
+\index{resume\_sub\_@{resume\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{resume\_sub\_}{resume\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::resume\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_ad13815240121a6caa7b67978ebdc0655}\label{classMission_ad13815240121a6caa7b67978ebdc0655}} 
+\index{Mission@{Mission}!start\_mission\_sub\_@{start\_mission\_sub\_}}
+\index{start\_mission\_sub\_@{start\_mission\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{start\_mission\_sub\_}{start\_mission\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::start\+\_\+mission\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a33d19d7622c27d84a682187c6369619c}\label{classMission_a33d19d7622c27d84a682187c6369619c}} 
+\index{Mission@{Mission}!timer\_@{timer\_}}
+\index{timer\_@{timer\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{timer\_}{timer\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Timer\+Base\+::\+Shared\+Ptr Mission\+::timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a26e11857f0b515b622cf0f68de5caa6a}\label{classMission_a26e11857f0b515b622cf0f68de5caa6a}} 
+\index{Mission@{Mission}!ui\_progress\_pub\_@{ui\_progress\_pub\_}}
+\index{ui\_progress\_pub\_@{ui\_progress\_pub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{ui\_progress\_pub\_}{ui\_progress\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr Mission\+::ui\+\_\+progress\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a2fd85c88ecaf2c84a71a19f99e6a0d29}\label{classMission_a2fd85c88ecaf2c84a71a19f99e6a0d29}} 
+\index{Mission@{Mission}!ui\_state\_pub\_@{ui\_state\_pub\_}}
+\index{ui\_state\_pub\_@{ui\_state\_pub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{ui\_state\_pub\_}{ui\_state\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr Mission\+::ui\+\_\+state\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_af492601a1e9ae818398ca771faf6f04d}\label{classMission_af492601a1e9ae818398ca771faf6f04d}} 
+\index{Mission@{Mission}!ui\_status\_pub\_@{ui\_status\_pub\_}}
+\index{ui\_status\_pub\_@{ui\_status\_pub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{ui\_status\_pub\_}{ui\_status\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr Mission\+::ui\+\_\+status\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_afb59626bb901a1ee142d7c2fd3002c42}\label{classMission_afb59626bb901a1ee142d7c2fd3002c42}} 
+\index{Mission@{Mission}!waiting\_for\_avoidance\_direction\_@{waiting\_for\_avoidance\_direction\_}}
+\index{waiting\_for\_avoidance\_direction\_@{waiting\_for\_avoidance\_direction\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{waiting\_for\_avoidance\_direction\_}{waiting\_for\_avoidance\_direction\_}}
+{\footnotesize\ttfamily bool Mission\+::waiting\+\_\+for\+\_\+avoidance\+\_\+direction\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a9dd745bdb19c9366286f9e899eff468d}\label{classMission_a9dd745bdb19c9366286f9e899eff468d}} 
+\index{Mission@{Mission}!waypoint\_pub\_@{waypoint\_pub\_}}
+\index{waypoint\_pub\_@{waypoint\_pub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{waypoint\_pub\_}{waypoint\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped$>$\+::Shared\+Ptr Mission\+::waypoint\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_abab0f1c947f55e9385f63eda05391a47}\label{classMission_abab0f1c947f55e9385f63eda05391a47}} 
+\index{Mission@{Mission}!waypoint\_reached\_@{waypoint\_reached\_}}
+\index{waypoint\_reached\_@{waypoint\_reached\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{waypoint\_reached\_}{waypoint\_reached\_}}
+{\footnotesize\ttfamily bool Mission\+::waypoint\+\_\+reached\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a6650d8d3272ae050e86b239eebd8365e}\label{classMission_a6650d8d3272ae050e86b239eebd8365e}} 
+\index{Mission@{Mission}!waypoint\_reached\_sub\_@{waypoint\_reached\_sub\_}}
+\index{waypoint\_reached\_sub\_@{waypoint\_reached\_sub\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{waypoint\_reached\_sub\_}{waypoint\_reached\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr Mission\+::waypoint\+\_\+reached\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classMission_a6fda9ac9cdd273f219dd684b6b011d09}\label{classMission_a6fda9ac9cdd273f219dd684b6b011d09}} 
+\index{Mission@{Mission}!waypoints\_@{waypoints\_}}
+\index{waypoints\_@{waypoints\_}!Mission@{Mission}}
+\doxysubsubsection{\texorpdfstring{waypoints\_}{waypoints\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structWaypoint}{Waypoint}}$>$ Mission\+::waypoints\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{mission_8cpp}{mission.\+cpp}}\end{DoxyCompactItemize}

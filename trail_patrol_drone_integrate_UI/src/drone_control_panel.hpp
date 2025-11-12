@@ -1,3 +1,22 @@
+/**
+ * @file drone_control_panel.hpp
+ * @brief RViz2 panel for drone control and mission management
+ *
+ * This header defines the DroneControlPanel class which provides a Qt-based
+ * graphical user interface for controlling autonomous drone missions within RViz2.
+ *
+ * Features:
+ * - Mission control (start, pause, resume, emergency stop)
+ * - Custom waypoint queue management
+ * - Waypoint library for click-to-go navigation
+ * - Manual control mode with directional buttons
+ * - Real-time telemetry display (position, altitude, speed)
+ * - Mission progress and status monitoring
+ *
+ * @author RS1 Group 31
+ * @date 2025
+ */
+
 #ifndef DRONE_CONTROL_PANEL_HPP
 #define DRONE_CONTROL_PANEL_HPP
 
@@ -30,9 +49,41 @@
 
 namespace drone_ui {
 
+/**
+ * @brief RViz2 panel widget for comprehensive drone control and monitoring
+ *
+ * This class implements a Qt-based control panel that integrates with RViz2
+ * to provide a graphical interface for drone mission management. It supports
+ * multiple control modes:
+ *
+ * **Mission Mode:**
+ * - Start/pause/resume/stop predefined missions
+ * - Add custom waypoints to mission queue
+ * - Clear custom waypoints while preserving mission path
+ * - Monitor mission progress and waypoint completion
+ *
+ * **Manual Mode:**
+ * - Direct velocity control with arrow buttons
+ * - Altitude control with up/down commands
+ * - Rotation control with left/right commands
+ * - Emergency stop for immediate halt
+ *
+ * **Monitoring:**
+ * - Real-time position display (X, Y, Z)
+ * - Current altitude indication
+ * - Drone speed calculation and display
+ * - Mission state and progress tracking
+ * - Status messages with timestamps
+ *
+ * The panel publishes commands to mission and navigation nodes via ROS2 topics
+ * and subscribes to telemetry and status updates for real-time display.
+ *
+ * @note This panel requires mission.cpp and navigation.cpp nodes to be running
+ * @see Mission, Navigation
+ */
 class DroneControlPanel : public rviz_common::Panel {
     Q_OBJECT
-    
+
 public:
     explicit DroneControlPanel(QWidget* parent = nullptr);
     virtual ~DroneControlPanel();

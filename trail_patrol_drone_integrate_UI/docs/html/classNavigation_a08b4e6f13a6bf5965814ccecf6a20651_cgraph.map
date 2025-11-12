@@ -1,0 +1,7 @@
+<map id="Navigation::scan_callback" name="Navigation::scan_callback">
+<area shape="rect" id="node1" title="Processes laser scan data for multi&#45;level obstacle detection." alt="" coords="5,78,197,105"/>
+<area shape="rect" id="node2" href="$classNavigation.html#a2faf017283ad63d6e390a15347285320" title="Checks for obstacles within emergency threshold (0.5m)" alt="" coords="245,5,464,47"/>
+<area shape="rect" id="node3" href="$classNavigation.html#a311b4d3e17474d743fdce1f51f4b41ae" title=" " alt="" coords="271,71,438,112"/>
+<area shape="rect" id="node4" href="$classNavigation.html#af99328c260597869758981b683412881" title="Scans left and right sides to determine best avoidance direction." alt="" coords="277,136,433,177"/>
+<area shape="rect" id="node5" href="$classNavigation.html#ab48a3cc9b711f8c1342cf698e11505ac" title=" " alt="" coords="512,136,715,177"/>
+</map>

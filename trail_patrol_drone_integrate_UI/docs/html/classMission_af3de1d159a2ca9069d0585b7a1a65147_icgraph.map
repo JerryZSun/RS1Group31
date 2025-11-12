@@ -1,0 +1,4 @@
+<map id="Mission::start_mission_callback" name="Mission::start_mission_callback">
+<area shape="rect" id="node1" title="Callback to start or restart the mission." alt="" coords="184,5,352,47"/>
+<area shape="rect" id="node2" href="$classMission.html#aa5a6ff4fc779338ab01b8f6dd470f4df" title=" " alt="" coords="5,13,136,39"/>
+</map>

@@ -1,0 +1,135 @@
+\hypertarget{navigation_8cpp}{}\doxysection{src/navigation.cpp File Reference}
+\label{navigation_8cpp}\index{src/navigation.cpp@{src/navigation.cpp}}
+
+
+Low-\/level navigation controller for autonomous drone flight.  
+
+
+{\ttfamily \#include \char`\"{}rclcpp/rclcpp.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/msg/twist.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/msg/pose\+\_\+stamped.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}nav\+\_\+msgs/msg/odometry.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/msg/bool.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/msg/int32.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sensor\+\_\+msgs/msg/laser\+\_\+scan.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$limits$>$}\newline
+Include dependency graph for navigation.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{navigation_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classNavigation}{Navigation}}
+\begin{DoxyCompactList}\small\item\em Main navigation controller class for drone flight control. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structNavigation_1_1Position}{Navigation\+::\+Position}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524}{Control\+State}} \{ \newline
+\mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524aa5daf7f2ebbba4975d61dab1c40188c7}{IDLE}}
+, \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524afc4db29e596cb9d0d1de3cdc00b982f1}{CLIMBING}}
+, \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524af8a3b5e92aaa1fe9a779555599baeedd}{TURNING}}
+, \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524aaf5a690fd5ec6f789dbfc51ec6a891ba}{MOVING}}
+, \newline
+\mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a3b75a9597ea42a369cfed66b10ab4957}{OBSTACLE\+\_\+\+SCANNING}}
+, \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a2c31f5515f4ca11b615e04b2cc90abcf}{OBSTACLE\+\_\+\+STOP}}
+, \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a5582a9bd794608aa4f5c7c50a6f523e5}{AVOIDANCE\+\_\+\+MANEUVER}}
+, \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524ae98f9b8adc7dc0064c497fefa3dbfbcb}{OBSTACLE\+\_\+\+DETECTED}}
+, \newline
+\mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a12221c5e0468759db8eda6eb9494fc22}{EMERGENCY\+\_\+\+LANDING}}
+ \}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classNavigation}{Navigation}} control state enumeration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{navigation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Low-\/level navigation controller for autonomous drone flight. 
+
+This file implements the \mbox{\hyperlink{classNavigation}{Navigation}} class which handles\+:
+\begin{DoxyItemize}
+\item PID-\/style waypoint navigation with altitude, heading, and position control
+\item Multi-\/threshold obstacle detection (emergency, normal, avoidance)
+\item Intelligent path scanning and clearance detection
+\item Velocity command generation for drone control
+\item State machine for navigation phases (climbing, turning, moving)
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+RS1 Group 31 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025 
+\end{DoxyDate}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524}} 
+\index{navigation.cpp@{navigation.cpp}!ControlState@{ControlState}}
+\index{ControlState@{ControlState}!navigation.cpp@{navigation.cpp}}
+\doxysubsubsection{\texorpdfstring{ControlState}{ControlState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524}{Control\+State}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+\mbox{\hyperlink{classNavigation}{Navigation}} control state enumeration. 
+
+Defines the different states for the navigation controller\textquotesingle{}s state machine, controlling how the drone approaches waypoints and handles obstacles. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IDLE@{IDLE}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!IDLE@{IDLE}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524aa5daf7f2ebbba4975d61dab1c40188c7}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524aa5daf7f2ebbba4975d61dab1c40188c7}} 
+IDLE&No active waypoint, drone stationary. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CLIMBING@{CLIMBING}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!CLIMBING@{CLIMBING}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524afc4db29e596cb9d0d1de3cdc00b982f1}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524afc4db29e596cb9d0d1de3cdc00b982f1}} 
+CLIMBING&Adjusting altitude to target (vertical only) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TURNING@{TURNING}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!TURNING@{TURNING}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524af8a3b5e92aaa1fe9a779555599baeedd}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524af8a3b5e92aaa1fe9a779555599baeedd}} 
+TURNING&Rotating to face target heading (rotation only) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOVING@{MOVING}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!MOVING@{MOVING}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524aaf5a690fd5ec6f789dbfc51ec6a891ba}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524aaf5a690fd5ec6f789dbfc51ec6a891ba}} 
+MOVING&Moving forward toward waypoint. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBSTACLE\_SCANNING@{OBSTACLE\_SCANNING}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!OBSTACLE\_SCANNING@{OBSTACLE\_SCANNING}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a3b75a9597ea42a369cfed66b10ab4957}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a3b75a9597ea42a369cfed66b10ab4957}} 
+OBSTACLE\+\_\+\+SCANNING&Scanning environment for clear path (1 second) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBSTACLE\_STOP@{OBSTACLE\_STOP}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!OBSTACLE\_STOP@{OBSTACLE\_STOP}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a2c31f5515f4ca11b615e04b2cc90abcf}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a2c31f5515f4ca11b615e04b2cc90abcf}} 
+OBSTACLE\+\_\+\+STOP&Stopped due to obstacle, waiting for avoidance waypoint. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AVOIDANCE\_MANEUVER@{AVOIDANCE\_MANEUVER}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!AVOIDANCE\_MANEUVER@{AVOIDANCE\_MANEUVER}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a5582a9bd794608aa4f5c7c50a6f523e5}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a5582a9bd794608aa4f5c7c50a6f523e5}} 
+AVOIDANCE\+\_\+\+MANEUVER&Executing avoidance maneuver waypoint. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OBSTACLE\_DETECTED@{OBSTACLE\_DETECTED}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!OBSTACLE\_DETECTED@{OBSTACLE\_DETECTED}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524ae98f9b8adc7dc0064c497fefa3dbfbcb}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524ae98f9b8adc7dc0064c497fefa3dbfbcb}} 
+OBSTACLE\+\_\+\+DETECTED&Obstacle detected flag state. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EMERGENCY\_LANDING@{EMERGENCY\_LANDING}!navigation.cpp@{navigation.cpp}}\index{navigation.cpp@{navigation.cpp}!EMERGENCY\_LANDING@{EMERGENCY\_LANDING}}}\mbox{\Hypertarget{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a12221c5e0468759db8eda6eb9494fc22}\label{navigation_8cpp_abb8cc74d1e81bc5d24e0a6d5ec462524a12221c5e0468759db8eda6eb9494fc22}} 
+EMERGENCY\+\_\+\+LANDING&Emergency descent to ground. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{navigation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{navigation_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{navigation.cpp@{navigation.cpp}!main@{main}}
+\index{main@{main}!navigation.cpp@{navigation.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+

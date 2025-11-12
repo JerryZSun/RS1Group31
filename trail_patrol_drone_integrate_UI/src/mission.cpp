@@ -1,3 +1,15 @@
+/**
+ * @file mission.cpp
+ * @brief Mission management node for autonomous drone navigation
+ *
+ * This file implements the Mission class which manages waypoint-based drone navigation,
+ * including obstacle avoidance protocols (fly-over, fly-around), mission state management,
+ * and UI integration for real-time status updates and mission control.
+ *
+ * @author RS1 Group 31
+ * @date 2025
+ */
+
 #include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "geometry_msgs/msg/point.hpp"
@@ -11,19 +23,43 @@
 #include <chrono>
 #include <algorithm>
 
+/**
+ * @brief Waypoint structure representing a 3D position in space
+ *
+ * Contains x, y, z coordinates in meters for drone navigation targets.
+ */
 struct Waypoint {
-    double x, y, z;
+    double x, y, z;  ///< 3D coordinates in meters
 };
 
+/**
+ * @brief Mission state enumeration for obstacle avoidance protocols
+ *
+ * Defines different states the mission can be in during normal navigation
+ * and obstacle avoidance maneuvers.
+ */
 enum class MissionState {
-    NORMAL,
-    FLY_AROUND_RIGHT,
-    FLY_AROUND_LEFT,
-    FLY_AROUND_RETURN,
-    FLY_OVER_UP,
-    FLY_OVER_ACROSS
+    NORMAL,             ///< Normal waypoint navigation
+    FLY_AROUND_RIGHT,   ///< Avoiding obstacle by flying around to the right
+    FLY_AROUND_LEFT,    ///< Avoiding obstacle by flying around to the left
+    FLY_AROUND_RETURN,  ///< Returning to mission path after fly-around
+    FLY_OVER_UP,        ///< Climbing above obstacle (fly-over phase 1)
+    FLY_OVER_ACROSS     ///< Traversing over obstacle (fly-over phase 2)
 };
 
+/**
+ * @brief Main mission management class for autonomous drone navigation
+ *
+ * This class handles:
+ * - Waypoint queue management (initial mission + custom waypoints)
+ * - Mission state control (start, pause, resume, stop)
+ * - Obstacle avoidance coordination with navigation node
+ * - UI status updates and progress tracking
+ * - Fly-over and fly-around avoidance protocols
+ *
+ * The mission publishes waypoints to the navigation node and monitors
+ * waypoint completion, adjusting for obstacles as needed.
+ */
 class Mission : public rclcpp::Node {
 public:
     Mission()
@@ -103,6 +139,9 @@ public:
             {7.30, 7.19, 6.0}, {8.44, 8.63, 6.0}, {10.37, 10.09, 6.0},
             {11.0, 10.5, 6.0}};
 
+        // Store a copy of the initial mission waypoints
+        initial_waypoints_ = waypoints_;
+
         position_tolerance_ = 0.5;
 
         RCLCPP_INFO(this->get_logger(),
@@ -132,6 +171,19 @@ private:
         }
     }
 
+    /**
+     * @brief Callback for obstacle detection events from navigation node
+     *
+     * When an obstacle is detected during normal navigation, this callback
+     * saves the current waypoint index and waits for the navigation node
+     * to determine the best avoidance direction through a 1-second scan.
+     *
+     * @param msg Boolean message indicating obstacle detection status
+     *
+     * @note Only processes obstacles during active mission (not paused/stopped)
+     * @note Only triggers in NORMAL mission state (not during avoidance)
+     * @see avoidance_direction_callback(), activate_fly_over_protocol(), activate_fly_around_protocol()
+     */
     void obstacle_detected_callback(const std_msgs::msg::Bool::SharedPtr msg) {
         if (!mission_started_ || is_paused_) {
             return;
@@ -168,6 +220,17 @@ private:
         }
     }
 
+    /**
+     * @brief Callback to start or restart the mission
+     *
+     * Initializes mission state and begins waypoint navigation from the first waypoint.
+     * Resets all mission flags and publishes the initial status to the UI.
+     *
+     * @param msg Boolean message, mission starts when msg->data is true
+     *
+     * @note If waypoints list is empty, mission will not start
+     * @see pause_callback(), resume_callback(), emergency_stop_callback()
+     */
     void start_mission_callback(const std_msgs::msg::Bool::SharedPtr msg) {
         if (!msg->data) {
             return;
@@ -231,17 +294,75 @@ private:
         }
     }
 
+    /**
+     * @brief Callback to clear custom waypoints from the queue
+     *
+     * Removes custom waypoints added by the user while preserving the initial
+     * mission waypoints. Behavior differs based on mission state:
+     * - If mission is running: Removes only custom waypoints, mission continues
+     * - If mission is idle: Clears custom waypoints and resets to initial state
+     *
+     * @param msg Boolean message, clears queue when msg->data is true
+     *
+     * @note Initial mission waypoints (stored in initial_waypoints_) are always preserved
+     * @see add_waypoint_callback()
+     */
     void clear_waypoints_callback(const std_msgs::msg::Bool::SharedPtr msg) {
         if (!msg->data) {
             return;
         }
-        size_t cleared = waypoints_.size();
-        waypoints_.clear();
-        mission_started_ = false;
+
+        // Don't clear during mission - only clear the custom queue
+        if (mission_started_) {
+            // Calculate how many custom waypoints to remove
+            size_t custom_waypoints = waypoints_.size() > initial_waypoints_.size()
+                                       ? waypoints_.size() - initial_waypoints_.size()
+                                       : 0;
+
+            if (custom_waypoints == 0) {
+                publish_ui_status("No custom waypoints to clear.");
+                return;
+            }
+
+            // Remove custom waypoints but keep mission running
+            waypoints_ = initial_waypoints_;
+
+            // Ensure current index is within bounds
+            if (current_waypoint_index_ >= waypoints_.size()) {
+                current_waypoint_index_ = waypoints_.size() > 0 ? waypoints_.size() - 1 : 0;
+            }
+
+            // Prevent mission completion flag
+            mission_complete_ = false;
+
+            // Keep mission state as-is
+            if (is_paused_) {
+                publish_ui_state("PAUSED");
+            } else {
+                publish_ui_state("NAVIGATING");
+            }
+
+            publish_ui_status("Custom waypoints cleared (" + std::to_string(custom_waypoints) +
+                              "). Mission continues.");
+            publish_ui_progress(make_progress_string(current_waypoint_index_));
+
+            RCLCPP_INFO(this->get_logger(),
+                "Cleared %zu custom waypoints. Mission continues at waypoint %zu/%zu",
+                custom_waypoints, current_waypoint_index_ + 1, waypoints_.size());
+            return;
+        }
+
+        // Mission not running - clear everything and reset
+        size_t cleared = waypoints_.size() > initial_waypoints_.size()
+                         ? waypoints_.size() - initial_waypoints_.size()
+                         : 0;
+
+        waypoints_ = initial_waypoints_;
         mission_complete_ = false;
+
         publish_ui_state("IDLE");
-        publish_ui_status("Waypoints cleared (" + std::to_string(cleared) + ")");
-        publish_ui_progress("0/0 waypoints");
+        publish_ui_status("Custom waypoints cleared (" + std::to_string(cleared) + ")");
+        publish_ui_progress("0/" + std::to_string(waypoints_.size()) + " waypoints");
     }
 
     void library_goal_callback(const geometry_msgs::msg::PoseStamped::SharedPtr goal) {
@@ -341,6 +462,19 @@ private:
         }
     }
 
+    /**
+     * @brief Activates fly-around obstacle avoidance protocol
+     *
+     * Calculates a waypoint perpendicular to the current heading (left or right)
+     * at a 2.0m offset. The drone will sidestep around the obstacle, then return
+     * to the mission path to resume navigation to the interrupted waypoint.
+     *
+     * @param go_right True to fly around right, false to fly around left
+     *
+     * @note Sets avoidance_mode to true, which disables normal obstacle detection
+     * @note After reaching sidestep waypoint, returns to interrupted waypoint
+     * @see activate_fly_over_protocol(), set_avoidance_mode()
+     */
     void activate_fly_around_protocol(bool go_right) {
         mission_state_ = go_right ? MissionState::FLY_AROUND_RIGHT : MissionState::FLY_AROUND_LEFT;
         set_avoidance_mode(true);
@@ -357,6 +491,20 @@ private:
         publish_waypoint(target_x, target_y, target_z);
     }
 
+    /**
+     * @brief Activates fly-over obstacle avoidance protocol
+     *
+     * Commands the drone to climb vertically to 7.0m altitude, then traverse
+     * over the obstacle to the original waypoint position, resuming mission from there.
+     * Used when no clear lateral path exists or for emergency close obstacles.
+     *
+     * Two-phase process:
+     * 1. FLY_OVER_UP: Climb to 7.0m at current position
+     * 2. FLY_OVER_ACROSS: Move to interrupted waypoint at 7.0m, then descend
+     *
+     * @note Avoidance mode remains false during fly-over
+     * @see activate_fly_around_protocol()
+     */
     void activate_fly_over_protocol() {
         mission_state_ = MissionState::FLY_OVER_UP;
         set_avoidance_mode(false);
@@ -447,6 +595,7 @@ private:
     rclcpp::TimerBase::SharedPtr timer_;
 
     std::vector<Waypoint> waypoints_;
+    std::vector<Waypoint> initial_waypoints_;  // Store the original mission waypoints
     size_t current_waypoint_index_;
     bool mission_complete_;
     bool waypoint_reached_;

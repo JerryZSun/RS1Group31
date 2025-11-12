@@ -1,3 +1,18 @@
+/**
+ * @file navigation.cpp
+ * @brief Low-level navigation controller for autonomous drone flight
+ *
+ * This file implements the Navigation class which handles:
+ * - PID-style waypoint navigation with altitude, heading, and position control
+ * - Multi-threshold obstacle detection (emergency, normal, avoidance)
+ * - Intelligent path scanning and clearance detection
+ * - Velocity command generation for drone control
+ * - State machine for navigation phases (climbing, turning, moving)
+ *
+ * @author RS1 Group 31
+ * @date 2025
+ */
+
 #include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/twist.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
@@ -10,24 +25,47 @@
 #include <algorithm>
 #include <limits>
 
+/**
+ * @brief Navigation control state enumeration
+ *
+ * Defines the different states for the navigation controller's state machine,
+ * controlling how the drone approaches waypoints and handles obstacles.
+ */
 enum class ControlState {
-    IDLE,
-    CLIMBING,
-    TURNING,
-    MOVING,
-    OBSTACLE_SCANNING,
-    OBSTACLE_STOP,
-    AVOIDANCE_MANEUVER,
-    OBSTACLE_DETECTED,
-    EMERGENCY_LANDING
+    IDLE,                   ///< No active waypoint, drone stationary
+    CLIMBING,               ///< Adjusting altitude to target (vertical only)
+    TURNING,                ///< Rotating to face target heading (rotation only)
+    MOVING,                 ///< Moving forward toward waypoint
+    OBSTACLE_SCANNING,      ///< Scanning environment for clear path (1 second)
+    OBSTACLE_STOP,          ///< Stopped due to obstacle, waiting for avoidance waypoint
+    AVOIDANCE_MANEUVER,     ///< Executing avoidance maneuver waypoint
+    OBSTACLE_DETECTED,      ///< Obstacle detected flag state
+    EMERGENCY_LANDING       ///< Emergency descent to ground
 };
 
+/**
+ * @brief Main navigation controller class for drone flight control
+ *
+ * This class manages low-level drone navigation including:
+ * - Waypoint following with state machine control
+ * - Three-tier obstacle detection system:
+ *   - Emergency: < 0.5m (immediate fly-over)
+ *   - Normal: < 2.0m (scan and choose avoidance)
+ *   - Avoidance: < 1.5m (during avoidance maneuvers)
+ * - Left/right path scanning for fly-around decisions
+ * - Velocity command generation (linear and angular)
+ * - UI control integration (pause, resume, emergency stop)
+ *
+ * The navigation node receives waypoints from the mission node and publishes
+ * cmd_vel commands to control the drone's movement.
+ */
 class Navigation : public rclcpp::Node {
 public:
     Navigation() : Node("navigation"),
                    control_state_(ControlState::IDLE),
                    has_target_(false),
                    obstacle_detected_(false),
+                   emergency_triggered_(false),
                    is_paused_(false),
                    in_avoidance_mode_(false),
                    scan_start_time_(this->now()),
@@ -115,12 +153,13 @@ private:
         target_position_.x = msg->pose.position.x;
         target_position_.y = msg->pose.position.y;
         target_position_.z = msg->pose.position.z;
-        
+
         has_target_ = true;
 
         if (control_state_ != ControlState::AVOIDANCE_MANEUVER &&
             control_state_ != ControlState::OBSTACLE_STOP) {
             obstacle_detected_ = false;
+            emergency_triggered_ = false;
         }
 
         if (in_avoidance_mode_) {
@@ -133,13 +172,13 @@ private:
             double altitude_error = std::abs(target_position_.z - current_position_.z);
             if (altitude_error > climbing_threshold_) {
                 control_state_ = ControlState::CLIMBING;
-                RCLCPP_INFO(this->get_logger(), 
-                    "New waypoint received: (%.2f, %.2f, %.2f) - entering CLIMBING state", 
+                RCLCPP_INFO(this->get_logger(),
+                    "New waypoint received: (%.2f, %.2f, %.2f) - entering CLIMBING state",
                     target_position_.x, target_position_.y, target_position_.z);
             } else {
                 control_state_ = ControlState::TURNING;
-                RCLCPP_INFO(this->get_logger(), 
-                    "New waypoint received: (%.2f, %.2f, %.2f)", 
+                RCLCPP_INFO(this->get_logger(),
+                    "New waypoint received: (%.2f, %.2f, %.2f)",
                     target_position_.x, target_position_.y, target_position_.z);
             }
         }
@@ -167,43 +206,56 @@ private:
         }
     }
     
+    /**
+     * @brief Processes laser scan data for multi-level obstacle detection
+     *
+     * Implements a three-tier obstacle detection system:
+     * 1. Emergency detection (< 0.5m): Always active, triggers immediate fly-over
+     * 2. Normal detection (< 2.0m): Active when MOVING and aligned, triggers 1s scan
+     * 3. Path scanning: After 1s scan, determines best avoidance direction
+     *
+     * Detection uses a ±20° cone in front of the drone (40° total field of view).
+     * Requires 5+ laser points detecting obstacle for normal triggering,
+     * 3+ points for emergency triggering.
+     *
+     * @param msg Laser scan message containing 360° range measurements
+     *
+     * @note Skips normal detection during avoidance maneuvers or after emergency trigger
+     * @note Only checks obstacles when drone is aligned within 15° of target heading
+     * @see check_emergency_obstacle(), scan_for_clear_path(), check_segment_clear()
+     */
     void scan_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
-        if (is_paused_) {
-            return;
-        }
-
         latest_scan_ = msg;
 
-        if (!has_target_) {
-            return;
-        }
+        if (!has_target_) return;
 
-        // When executing an avoidance maneuver we let the mission drive the waypoint.
-        if (control_state_ == ControlState::AVOIDANCE_MANEUVER) {
-            return;
-        }
-
-        // Always check for very close obstacles (emergency fly-over)
+        // EMERGENCY CHECK - Always active at 0.5m
         if (check_emergency_obstacle(msg)) {
-            if (control_state_ != ControlState::OBSTACLE_STOP) {
-                RCLCPP_ERROR(this->get_logger(),
-                    "EMERGENCY: obstacle within %.2fm - triggering fly-over",
-                    emergency_obstacle_threshold_);
-
+            if (control_state_ != ControlState::OBSTACLE_STOP || !emergency_triggered_) {
+                emergency_triggered_ = true;
                 obstacle_detected_ = true;
                 control_state_ = ControlState::OBSTACLE_STOP;
 
-                auto dir = std_msgs::msg::Int32();
-                dir.data = 0;  // 0 -> fly over
-                avoidance_direction_pub_->publish(dir);
+                RCLCPP_ERROR(this->get_logger(), "🚨 EMERGENCY: Obstacle within 0.5m - FLY-OVER initiated!");
 
-                auto obs_msg = std_msgs::msg::Bool();
-                obs_msg.data = true;
-                obstacle_detected_pub_->publish(obs_msg);
+                // Trigger fly-over (direction = 0)
+                auto direction_msg = std_msgs::msg::Int32();
+                direction_msg.data = 0;
+                avoidance_direction_pub_->publish(direction_msg);
+
+                auto obstacle_msg = std_msgs::msg::Bool();
+                obstacle_msg.data = true;
+                obstacle_detected_pub_->publish(obstacle_msg);
             }
             return;
         }
 
+        // Skip normal detection during avoidance or emergency
+        if (control_state_ == ControlState::AVOIDANCE_MANEUVER || emergency_triggered_) {
+            return;
+        }
+
+        // Handle scanning state (1 second scan)
         if (control_state_ == ControlState::OBSTACLE_SCANNING) {
             auto elapsed = (this->now() - scan_start_time_).seconds();
             if (elapsed >= 1.0) {
@@ -212,10 +264,8 @@ private:
             return;
         }
 
-        // Normal obstacle checking only when MOVING
-        if (control_state_ != ControlState::MOVING) {
-            return;
-        }
+        // Normal obstacle detection (only when MOVING and aligned)
+        if (control_state_ != ControlState::MOVING) return;
 
         double dx = target_position_.x - current_position_.x;
         double dy = target_position_.y - current_position_.y;
@@ -223,113 +273,120 @@ private:
         double yaw_error = normalize_angle(target_yaw - current_yaw_);
         double yaw_error_degrees = std::abs(yaw_error) * 180.0 / M_PI;
 
-        if (yaw_error_degrees > 15.0) {
-            return;
-        }
+        if (yaw_error_degrees > 15.0) return;
 
+        // Check ±20° cone in front
+        int cone_range = msg->ranges.size() / 9;
         size_t ranges_size = msg->ranges.size();
-        int front_range = ranges_size / 9;  // ±20 degrees
-
-        bool obstacle_in_path = false;
         float closest_range = std::numeric_limits<float>::max();
         int detection_count = 0;
 
-        double obstacle_threshold = in_avoidance_mode_
-            ? avoidance_obstacle_threshold_
-            : normal_obstacle_threshold_;
-
-        for (int i = -front_range; i <= front_range; ++i) {
-            int idx = (ranges_size / 2 + i + ranges_size) % ranges_size;
+        for (int i = -cone_range; i <= cone_range; ++i) {
+            int idx = (i + ranges_size) % ranges_size;
             float range = msg->ranges[idx];
 
-            if (std::isnan(range) || std::isinf(range) || range < 0.2) {
-                continue;
-            }
+            if (std::isnan(range) || std::isinf(range) || range < 0.2) continue;
 
-            if (range < obstacle_threshold && range > 0.2) {
+            if (range < normal_obstacle_threshold_ && range > 0.2) {
                 detection_count++;
                 closest_range = std::min(closest_range, range);
             }
         }
 
-        if (detection_count >= 5) {
-            obstacle_in_path = true;
-        }
-
-        if (obstacle_in_path && !obstacle_detected_) {
+        // Trigger if 5+ points detect obstacle
+        if (detection_count >= 5 && !obstacle_detected_) {
             obstacle_detected_ = true;
             control_state_ = ControlState::OBSTACLE_SCANNING;
             scan_start_time_ = this->now();
 
-            RCLCPP_WARN(this->get_logger(),
-                "Obstacle detected at %.2fm - commencing scan for clearance",
-                closest_range);
+            RCLCPP_WARN(this->get_logger(), "OBSTACLE DETECTED at %.2fm - Starting scan", closest_range);
 
-            auto obs_msg = std_msgs::msg::Bool();
-            obs_msg.data = true;
-            obstacle_detected_pub_->publish(obs_msg);
-        } else if (!obstacle_in_path && obstacle_detected_) {
-            obstacle_detected_ = false;
-
-            auto obs_msg = std_msgs::msg::Bool();
-            obs_msg.data = false;
-            obstacle_detected_pub_->publish(obs_msg);
-
-            if (has_target_) {
-                double altitude_error = std::abs(target_position_.z - current_position_.z);
-                control_state_ = (altitude_error > climbing_threshold_)
-                    ? ControlState::CLIMBING
-                    : ControlState::TURNING;
-            }
-
-            RCLCPP_INFO(this->get_logger(), "Obstacle cleared - resuming navigation");
+            auto obstacle_msg = std_msgs::msg::Bool();
+            obstacle_msg.data = true;
+            obstacle_detected_pub_->publish(obstacle_msg);
         }
     }
+    /**
+     * @brief Checks for obstacles within emergency threshold (0.5m)
+     *
+     * Scans a ±20° cone in front of the drone for very close obstacles.
+     * This check is always active regardless of navigation state to ensure
+     * safety. Triggers immediate fly-over protocol if detected.
+     *
+     * @param msg Laser scan message with range data
+     * @return true if 3 or more laser points detect obstacle within 0.5m
+     *
+     * @note Always active - not suppressed during avoidance or other states
+     * @note Lower threshold (3 points) than normal detection for safety
+     * @see scan_callback()
+     */
     bool check_emergency_obstacle(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
         size_t ranges_size = msg->ranges.size();
-        int front_range = ranges_size / 9;  // ±20 degrees
+        int front_range = ranges_size / 9; // ±20°
         int detection_count = 0;
+        float closest_range = std::numeric_limits<float>::max();
 
         for (int i = -front_range; i <= front_range; ++i) {
-            int idx = (ranges_size / 2 + i + ranges_size) % ranges_size;
+            int idx = (i + ranges_size) % ranges_size;
             float range = msg->ranges[idx];
 
-            if (std::isnan(range) || std::isinf(range) || range < 0.2) {
-                continue;
-            }
+            if (std::isnan(range) || std::isinf(range) || range < 0.2) continue;
 
             if (range < emergency_obstacle_threshold_ && range > 0.2) {
                 detection_count++;
+                closest_range = std::min(closest_range, range);
             }
         }
 
         return detection_count >= 3;
     }
 
+    /**
+     * @brief Scans left and right sides to determine best avoidance direction
+     *
+     * After obstacle detection triggers a 1-second scan, this function analyzes
+     * 30° segments on the left (90°) and right (270°) sides of the drone to
+     * determine which direction has a clear path.
+     *
+     * Avoidance decision logic:
+     * - Right clear → Direction 1 (fly-around right)
+     * - Left clear → Direction 2 (fly-around left)
+     * - Neither clear → Direction 0 (fly-over)
+     *
+     * A segment is considered "clear" if 80% of laser points are beyond 3.0m.
+     *
+     * @param msg Laser scan message with range data
+     *
+     * @note Called automatically 1 second after obstacle detection
+     * @note Publishes avoidance direction to mission node
+     * @see check_segment_clear()
+     */
     void scan_for_clear_path(const sensor_msgs::msg::LaserScan::SharedPtr msg) {
         size_t ranges_size = msg->ranges.size();
 
-        int segment_width = ranges_size / 12; // ±15 degrees
-        int right_center = ranges_size * 3 / 4; // about -90 degrees
-        int left_center = ranges_size / 4;      // about +90 degrees
+        // Check 30° segments: right (270°) and left (90°)
+        int right_center = ranges_size * 3 / 4;
+        int left_center = ranges_size / 4;
+        int segment_width = ranges_size / 12; // ±15°
 
         bool right_clear = check_segment_clear(msg, right_center, segment_width, 3.0);
         bool left_clear = check_segment_clear(msg, left_center, segment_width, 3.0);
 
         int avoidance_direction = 0;
         if (right_clear) {
-            avoidance_direction = 1; // fly around to the right
-            RCLCPP_INFO(this->get_logger(), "Scan complete: right side is clear");
+            avoidance_direction = 1; // Fly-around right
+            RCLCPP_INFO(this->get_logger(), "RIGHT side clear - FLY-AROUND");
         } else if (left_clear) {
-            avoidance_direction = 2; // fly around to the left
-            RCLCPP_INFO(this->get_logger(), "Scan complete: left side is clear");
+            avoidance_direction = 2; // Fly-around left
+            RCLCPP_INFO(this->get_logger(), "LEFT side clear - FLY-AROUND");
         } else {
-            RCLCPP_WARN(this->get_logger(), "Scan complete: no clear lateral path - fallback to fly-over");
+            avoidance_direction = 0; // Fly-over
+            RCLCPP_WARN(this->get_logger(), "No clear path - FLY-OVER");
         }
 
-        auto dir = std_msgs::msg::Int32();
-        dir.data = avoidance_direction;
-        avoidance_direction_pub_->publish(dir);
+        auto direction_msg = std_msgs::msg::Int32();
+        direction_msg.data = avoidance_direction;
+        avoidance_direction_pub_->publish(direction_msg);
 
         control_state_ = ControlState::OBSTACLE_STOP;
     }
@@ -731,6 +788,7 @@ private:
     ControlState control_state_;
     bool has_target_;
     bool obstacle_detected_;
+    bool emergency_triggered_;
     bool is_paused_;
     bool in_avoidance_mode_;
 

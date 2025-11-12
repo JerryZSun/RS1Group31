@@ -1,0 +1,741 @@
+\hypertarget{classUINavigationBridge}{}\doxysection{UINavigation\+Bridge Class Reference}
+\label{classUINavigationBridge}\index{UINavigationBridge@{UINavigationBridge}}
+
+
+Inheritance diagram for UINavigation\+Bridge\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{classUINavigationBridge__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for UINavigation\+Bridge\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{classUINavigationBridge__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classUINavigationBridge_aa77faed143bb8a3789be9659e93a3e27}{UINavigation\+Bridge}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a3e49ee8216c230ff72db59e9b3881037}{ui\+\_\+start\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_af1d432e1711f39ff4f067c73cf3bcbd4}{ui\+\_\+stop\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_ad637feed7e616e926c0437fbcee191cb}{ui\+\_\+pause\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a4485f4ad45fa8bc45655d51d713c4b4a}{ui\+\_\+resume\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a2757a4bda05511c25b1aa6ee16fe9d9b}{ui\+\_\+add\+\_\+waypoint\+\_\+callback}} (const geometry\+\_\+msgs\+::msg\+::\+Point\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a01cd955e5a2504274e5238521852f1eb}{ui\+\_\+clear\+\_\+waypoints\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_ac2a51b2df9c5e25548dbd578cd6b40fa}{ui\+\_\+goal\+\_\+callback}} (const geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a9d7e842cf5035b4fe131181e78736f01}{nav\+\_\+waypoint\+\_\+reached\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a242c2a8ddedf78c6773cdc67afa063af}{nav\+\_\+obstacle\+\_\+callback}} (const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a1bd99574d8e5d755ae3217f89110cae6}{odom\+\_\+callback}} (const nav\+\_\+msgs\+::msg\+::\+Odometry\+::\+Shared\+Ptr msg)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a6692c3a4040b969e1a117af45acfbf2c}{initialize\+\_\+default\+\_\+waypoints}} ()
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_aed50114436e32d09dd03890ddb60b685}{state\+\_\+management\+\_\+loop}} ()
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a8cf7a6432a71fc75a403c14a851d1670}{advance\+\_\+to\+\_\+next\+\_\+waypoint}} ()
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_ae4adefe93921d14bf943d8930b6fa227}{publish\+\_\+next\+\_\+waypoint}} ()
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a7f4f7ba7b6a681e5c378941c13ff60b5}{publish\+\_\+ui\+\_\+state}} (const std\+::string \&state)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_ac8856cf83656c364f13cdc65396cca7c}{publish\+\_\+ui\+\_\+progress}} (const std\+::string \&progress)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a63dc9c3a86b7bdcfd8b7c86358012f96}{publish\+\_\+ui\+\_\+status}} (const std\+::string \&status)
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a31a5674c743516e0b7fba531b640b60f}{reset\+\_\+statistics}} ()
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_a7d6aa722076a45c36fa35b4e7d5066c0}{publish\+\_\+statistics}} ()
+\item 
+void \mbox{\hyperlink{classUINavigationBridge_ab45ddf73a4b3d6423f3d0d5b1ddebc14}{save\+\_\+statistics\+\_\+to\+\_\+file}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a5e64696480a2a51f350278dc1a900989}{ui\+\_\+state\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a06f63966afced1401bc22f2acc4edd8b}{ui\+\_\+progress\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a721012d1ca028ed7f0311c8168703e7d}{ui\+\_\+status\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ std\+\_\+msgs\+::msg\+::\+String $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a7c528eb42f5f9b2d28719872df4d5146}{ui\+\_\+statistics\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ nav\+\_\+msgs\+::msg\+::\+Odometry $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a4ebc836c0f94a8063a290c86e3f9eae9}{ui\+\_\+odom\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Publisher$<$ geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a95cb621e4502cca718d6826955bd43da}{nav\+\_\+waypoint\+\_\+pub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a0649ab2e134240f6d0d69a9a093e7191}{ui\+\_\+start\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a80b50159a14252c776c46e1700b33953}{ui\+\_\+stop\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a45150bc05e07579726744462a30b0f52}{ui\+\_\+pause\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a91ee7f51bacafcdf1f6a5658df29a6ee}{ui\+\_\+resume\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ geometry\+\_\+msgs\+::msg\+::\+Point $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a8cb219009e047a9abd98dbe1d2f95758}{ui\+\_\+add\+\_\+waypoint\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a9a9c6bb6e135a1601118e56bfe3e03cf}{ui\+\_\+clear\+\_\+waypoints\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_afe7eec8dafd07db5953af9cad4c1195b}{ui\+\_\+goal\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_abc35ca41bba58b17571d4ad70681f2c8}{nav\+\_\+waypoint\+\_\+reached\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ std\+\_\+msgs\+::msg\+::\+Bool $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_a95f73300ac8dd889b0bee7c3305133df}{nav\+\_\+obstacle\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Subscription$<$ nav\+\_\+msgs\+::msg\+::\+Odometry $>$\+::Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_abaeda788136ee49cea36da51d3d5253b}{nav\+\_\+odom\+\_\+sub\+\_\+}}
+\item 
+rclcpp\+::\+Timer\+Base\+::\+Shared\+Ptr \mbox{\hyperlink{classUINavigationBridge_ab45a0947931fc86a18b5e188619b4a0a}{state\+\_\+timer\+\_\+}}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structWaypoint}{Waypoint}} $>$ \mbox{\hyperlink{classUINavigationBridge_a79d5d11b689987d58352075686c2283a}{waypoint\+\_\+queue\+\_\+}}
+\item 
+size\+\_\+t \mbox{\hyperlink{classUINavigationBridge_a0b3fc3b333427369ffc8b0f983150b58}{current\+\_\+waypoint\+\_\+index\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classUINavigationBridge_aa2ac94f19bab245af195788f023faece}{mission\+\_\+active\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classUINavigationBridge_ac5455b0a64574f2a930972450a4124b4}{is\+\_\+paused\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classUINavigationBridge_ac9dd42e89f136122f81021cf428be587}{waypoint\+\_\+reached\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classUINavigationBridge_a3445e9a384c8820c28bceb3c671e5fd6}{obstacle\+\_\+detected\+\_\+}}
+\item 
+double \mbox{\hyperlink{classUINavigationBridge_a0b291770fce50f2c48fbf1e0081d237b}{total\+\_\+distance\+\_\+traveled\+\_\+}}
+\item 
+double \mbox{\hyperlink{classUINavigationBridge_a9c76afa7e64d8e6307f2ab06499361f7}{max\+\_\+speed\+\_\+}}
+\item 
+double \mbox{\hyperlink{classUINavigationBridge_a264c26fb2b19e0453595d4ca01c64339}{altitude\+\_\+sum\+\_\+}}
+\item 
+int \mbox{\hyperlink{classUINavigationBridge_a1c3a7bac2333a8b6d6e2176a6ca7c00a}{altitude\+\_\+count\+\_\+}}
+\item 
+geometry\+\_\+msgs\+::msg\+::\+Point \mbox{\hyperlink{classUINavigationBridge_aced17e5f820b05995e4fd3f42ca711b6}{last\+\_\+position\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classUINavigationBridge_a18fed180c0f447759f3f1326bbb8742c}{has\+\_\+last\+\_\+position\+\_\+}}
+\item 
+bool \mbox{\hyperlink{classUINavigationBridge_adadf7240031c4b14baffc7ae5b212fba}{statistics\+\_\+initialized\+\_\+}}
+\item 
+rclcpp\+::\+Time \mbox{\hyperlink{classUINavigationBridge_a2406b781a8bc3661aa59c190ad206723}{mission\+\_\+start\+\_\+time\+\_\+}}
+\item 
+rclcpp\+::\+Time \mbox{\hyperlink{classUINavigationBridge_af4aa6d04937883d3ddc98ac7626756b4}{mission\+\_\+end\+\_\+time\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classUINavigationBridge_aa77faed143bb8a3789be9659e93a3e27}\label{classUINavigationBridge_aa77faed143bb8a3789be9659e93a3e27}} 
+\index{UINavigationBridge@{UINavigationBridge}!UINavigationBridge@{UINavigationBridge}}
+\index{UINavigationBridge@{UINavigationBridge}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{UINavigationBridge()}{UINavigationBridge()}}
+{\footnotesize\ttfamily UINavigation\+Bridge\+::\+UINavigation\+Bridge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_aa77faed143bb8a3789be9659e93a3e27_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classUINavigationBridge_a8cf7a6432a71fc75a403c14a851d1670}\label{classUINavigationBridge_a8cf7a6432a71fc75a403c14a851d1670}} 
+\index{UINavigationBridge@{UINavigationBridge}!advance\_to\_next\_waypoint@{advance\_to\_next\_waypoint}}
+\index{advance\_to\_next\_waypoint@{advance\_to\_next\_waypoint}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{advance\_to\_next\_waypoint()}{advance\_to\_next\_waypoint()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::advance\+\_\+to\+\_\+next\+\_\+waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a8cf7a6432a71fc75a403c14a851d1670_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a8cf7a6432a71fc75a403c14a851d1670_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a6692c3a4040b969e1a117af45acfbf2c}\label{classUINavigationBridge_a6692c3a4040b969e1a117af45acfbf2c}} 
+\index{UINavigationBridge@{UINavigationBridge}!initialize\_default\_waypoints@{initialize\_default\_waypoints}}
+\index{initialize\_default\_waypoints@{initialize\_default\_waypoints}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{initialize\_default\_waypoints()}{initialize\_default\_waypoints()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::initialize\+\_\+default\+\_\+waypoints (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classUINavigationBridge_a6692c3a4040b969e1a117af45acfbf2c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a242c2a8ddedf78c6773cdc67afa063af}\label{classUINavigationBridge_a242c2a8ddedf78c6773cdc67afa063af}} 
+\index{UINavigationBridge@{UINavigationBridge}!nav\_obstacle\_callback@{nav\_obstacle\_callback}}
+\index{nav\_obstacle\_callback@{nav\_obstacle\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{nav\_obstacle\_callback()}{nav\_obstacle\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::nav\+\_\+obstacle\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a242c2a8ddedf78c6773cdc67afa063af_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a242c2a8ddedf78c6773cdc67afa063af_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a9d7e842cf5035b4fe131181e78736f01}\label{classUINavigationBridge_a9d7e842cf5035b4fe131181e78736f01}} 
+\index{UINavigationBridge@{UINavigationBridge}!nav\_waypoint\_reached\_callback@{nav\_waypoint\_reached\_callback}}
+\index{nav\_waypoint\_reached\_callback@{nav\_waypoint\_reached\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{nav\_waypoint\_reached\_callback()}{nav\_waypoint\_reached\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::nav\+\_\+waypoint\+\_\+reached\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a9d7e842cf5035b4fe131181e78736f01_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a9d7e842cf5035b4fe131181e78736f01_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a1bd99574d8e5d755ae3217f89110cae6}\label{classUINavigationBridge_a1bd99574d8e5d755ae3217f89110cae6}} 
+\index{UINavigationBridge@{UINavigationBridge}!odom\_callback@{odom\_callback}}
+\index{odom\_callback@{odom\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{odom\_callback()}{odom\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::odom\+\_\+callback (\begin{DoxyParamCaption}\item[{const nav\+\_\+msgs\+::msg\+::\+Odometry\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classUINavigationBridge_a1bd99574d8e5d755ae3217f89110cae6_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_ae4adefe93921d14bf943d8930b6fa227}\label{classUINavigationBridge_ae4adefe93921d14bf943d8930b6fa227}} 
+\index{UINavigationBridge@{UINavigationBridge}!publish\_next\_waypoint@{publish\_next\_waypoint}}
+\index{publish\_next\_waypoint@{publish\_next\_waypoint}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{publish\_next\_waypoint()}{publish\_next\_waypoint()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::publish\+\_\+next\+\_\+waypoint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_ae4adefe93921d14bf943d8930b6fa227_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_ae4adefe93921d14bf943d8930b6fa227_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a7d6aa722076a45c36fa35b4e7d5066c0}\label{classUINavigationBridge_a7d6aa722076a45c36fa35b4e7d5066c0}} 
+\index{UINavigationBridge@{UINavigationBridge}!publish\_statistics@{publish\_statistics}}
+\index{publish\_statistics@{publish\_statistics}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{publish\_statistics()}{publish\_statistics()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::publish\+\_\+statistics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a7d6aa722076a45c36fa35b4e7d5066c0_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_ac8856cf83656c364f13cdc65396cca7c}\label{classUINavigationBridge_ac8856cf83656c364f13cdc65396cca7c}} 
+\index{UINavigationBridge@{UINavigationBridge}!publish\_ui\_progress@{publish\_ui\_progress}}
+\index{publish\_ui\_progress@{publish\_ui\_progress}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{publish\_ui\_progress()}{publish\_ui\_progress()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::publish\+\_\+ui\+\_\+progress (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{progress }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_ac8856cf83656c364f13cdc65396cca7c_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a7f4f7ba7b6a681e5c378941c13ff60b5}\label{classUINavigationBridge_a7f4f7ba7b6a681e5c378941c13ff60b5}} 
+\index{UINavigationBridge@{UINavigationBridge}!publish\_ui\_state@{publish\_ui\_state}}
+\index{publish\_ui\_state@{publish\_ui\_state}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{publish\_ui\_state()}{publish\_ui\_state()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::publish\+\_\+ui\+\_\+state (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a7f4f7ba7b6a681e5c378941c13ff60b5_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a63dc9c3a86b7bdcfd8b7c86358012f96}\label{classUINavigationBridge_a63dc9c3a86b7bdcfd8b7c86358012f96}} 
+\index{UINavigationBridge@{UINavigationBridge}!publish\_ui\_status@{publish\_ui\_status}}
+\index{publish\_ui\_status@{publish\_ui\_status}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{publish\_ui\_status()}{publish\_ui\_status()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::publish\+\_\+ui\+\_\+status (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{status }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a63dc9c3a86b7bdcfd8b7c86358012f96_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a31a5674c743516e0b7fba531b640b60f}\label{classUINavigationBridge_a31a5674c743516e0b7fba531b640b60f}} 
+\index{UINavigationBridge@{UINavigationBridge}!reset\_statistics@{reset\_statistics}}
+\index{reset\_statistics@{reset\_statistics}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{reset\_statistics()}{reset\_statistics()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::reset\+\_\+statistics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a31a5674c743516e0b7fba531b640b60f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_ab45ddf73a4b3d6423f3d0d5b1ddebc14}\label{classUINavigationBridge_ab45ddf73a4b3d6423f3d0d5b1ddebc14}} 
+\index{UINavigationBridge@{UINavigationBridge}!save\_statistics\_to\_file@{save\_statistics\_to\_file}}
+\index{save\_statistics\_to\_file@{save\_statistics\_to\_file}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{save\_statistics\_to\_file()}{save\_statistics\_to\_file()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::save\+\_\+statistics\+\_\+to\+\_\+file (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_ab45ddf73a4b3d6423f3d0d5b1ddebc14_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_ab45ddf73a4b3d6423f3d0d5b1ddebc14_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_aed50114436e32d09dd03890ddb60b685}\label{classUINavigationBridge_aed50114436e32d09dd03890ddb60b685}} 
+\index{UINavigationBridge@{UINavigationBridge}!state\_management\_loop@{state\_management\_loop}}
+\index{state\_management\_loop@{state\_management\_loop}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{state\_management\_loop()}{state\_management\_loop()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::state\+\_\+management\+\_\+loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_aed50114436e32d09dd03890ddb60b685_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_aed50114436e32d09dd03890ddb60b685_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a2757a4bda05511c25b1aa6ee16fe9d9b}\label{classUINavigationBridge_a2757a4bda05511c25b1aa6ee16fe9d9b}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_add\_waypoint\_callback@{ui\_add\_waypoint\_callback}}
+\index{ui\_add\_waypoint\_callback@{ui\_add\_waypoint\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_add\_waypoint\_callback()}{ui\_add\_waypoint\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+add\+\_\+waypoint\+\_\+callback (\begin{DoxyParamCaption}\item[{const geometry\+\_\+msgs\+::msg\+::\+Point\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a2757a4bda05511c25b1aa6ee16fe9d9b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a2757a4bda05511c25b1aa6ee16fe9d9b_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a01cd955e5a2504274e5238521852f1eb}\label{classUINavigationBridge_a01cd955e5a2504274e5238521852f1eb}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_clear\_waypoints\_callback@{ui\_clear\_waypoints\_callback}}
+\index{ui\_clear\_waypoints\_callback@{ui\_clear\_waypoints\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_clear\_waypoints\_callback()}{ui\_clear\_waypoints\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+clear\+\_\+waypoints\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a01cd955e5a2504274e5238521852f1eb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a01cd955e5a2504274e5238521852f1eb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_ac2a51b2df9c5e25548dbd578cd6b40fa}\label{classUINavigationBridge_ac2a51b2df9c5e25548dbd578cd6b40fa}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_goal\_callback@{ui\_goal\_callback}}
+\index{ui\_goal\_callback@{ui\_goal\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_goal\_callback()}{ui\_goal\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+goal\+\_\+callback (\begin{DoxyParamCaption}\item[{const geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{classUINavigationBridge_ac2a51b2df9c5e25548dbd578cd6b40fa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classUINavigationBridge_ac2a51b2df9c5e25548dbd578cd6b40fa_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_ad637feed7e616e926c0437fbcee191cb}\label{classUINavigationBridge_ad637feed7e616e926c0437fbcee191cb}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_pause\_callback@{ui\_pause\_callback}}
+\index{ui\_pause\_callback@{ui\_pause\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_pause\_callback()}{ui\_pause\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+pause\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{classUINavigationBridge_ad637feed7e616e926c0437fbcee191cb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classUINavigationBridge_ad637feed7e616e926c0437fbcee191cb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a4485f4ad45fa8bc45655d51d713c4b4a}\label{classUINavigationBridge_a4485f4ad45fa8bc45655d51d713c4b4a}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_resume\_callback@{ui\_resume\_callback}}
+\index{ui\_resume\_callback@{ui\_resume\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_resume\_callback()}{ui\_resume\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+resume\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a4485f4ad45fa8bc45655d51d713c4b4a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a4485f4ad45fa8bc45655d51d713c4b4a_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_a3e49ee8216c230ff72db59e9b3881037}\label{classUINavigationBridge_a3e49ee8216c230ff72db59e9b3881037}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_start\_callback@{ui\_start\_callback}}
+\index{ui\_start\_callback@{ui\_start\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_start\_callback()}{ui\_start\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+start\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUINavigationBridge_a3e49ee8216c230ff72db59e9b3881037_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classUINavigationBridge_a3e49ee8216c230ff72db59e9b3881037_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUINavigationBridge_af1d432e1711f39ff4f067c73cf3bcbd4}\label{classUINavigationBridge_af1d432e1711f39ff4f067c73cf3bcbd4}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_stop\_callback@{ui\_stop\_callback}}
+\index{ui\_stop\_callback@{ui\_stop\_callback}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_stop\_callback()}{ui\_stop\_callback()}}
+{\footnotesize\ttfamily void UINavigation\+Bridge\+::ui\+\_\+stop\+\_\+callback (\begin{DoxyParamCaption}\item[{const std\+\_\+msgs\+::msg\+::\+Bool\+::\+Shared\+Ptr}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{classUINavigationBridge_af1d432e1711f39ff4f067c73cf3bcbd4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classUINavigationBridge_af1d432e1711f39ff4f067c73cf3bcbd4_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classUINavigationBridge_a1c3a7bac2333a8b6d6e2176a6ca7c00a}\label{classUINavigationBridge_a1c3a7bac2333a8b6d6e2176a6ca7c00a}} 
+\index{UINavigationBridge@{UINavigationBridge}!altitude\_count\_@{altitude\_count\_}}
+\index{altitude\_count\_@{altitude\_count\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{altitude\_count\_}{altitude\_count\_}}
+{\footnotesize\ttfamily int UINavigation\+Bridge\+::altitude\+\_\+count\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a264c26fb2b19e0453595d4ca01c64339}\label{classUINavigationBridge_a264c26fb2b19e0453595d4ca01c64339}} 
+\index{UINavigationBridge@{UINavigationBridge}!altitude\_sum\_@{altitude\_sum\_}}
+\index{altitude\_sum\_@{altitude\_sum\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{altitude\_sum\_}{altitude\_sum\_}}
+{\footnotesize\ttfamily double UINavigation\+Bridge\+::altitude\+\_\+sum\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a0b3fc3b333427369ffc8b0f983150b58}\label{classUINavigationBridge_a0b3fc3b333427369ffc8b0f983150b58}} 
+\index{UINavigationBridge@{UINavigationBridge}!current\_waypoint\_index\_@{current\_waypoint\_index\_}}
+\index{current\_waypoint\_index\_@{current\_waypoint\_index\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{current\_waypoint\_index\_}{current\_waypoint\_index\_}}
+{\footnotesize\ttfamily size\+\_\+t UINavigation\+Bridge\+::current\+\_\+waypoint\+\_\+index\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a18fed180c0f447759f3f1326bbb8742c}\label{classUINavigationBridge_a18fed180c0f447759f3f1326bbb8742c}} 
+\index{UINavigationBridge@{UINavigationBridge}!has\_last\_position\_@{has\_last\_position\_}}
+\index{has\_last\_position\_@{has\_last\_position\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{has\_last\_position\_}{has\_last\_position\_}}
+{\footnotesize\ttfamily bool UINavigation\+Bridge\+::has\+\_\+last\+\_\+position\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_ac5455b0a64574f2a930972450a4124b4}\label{classUINavigationBridge_ac5455b0a64574f2a930972450a4124b4}} 
+\index{UINavigationBridge@{UINavigationBridge}!is\_paused\_@{is\_paused\_}}
+\index{is\_paused\_@{is\_paused\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{is\_paused\_}{is\_paused\_}}
+{\footnotesize\ttfamily bool UINavigation\+Bridge\+::is\+\_\+paused\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_aced17e5f820b05995e4fd3f42ca711b6}\label{classUINavigationBridge_aced17e5f820b05995e4fd3f42ca711b6}} 
+\index{UINavigationBridge@{UINavigationBridge}!last\_position\_@{last\_position\_}}
+\index{last\_position\_@{last\_position\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{last\_position\_}{last\_position\_}}
+{\footnotesize\ttfamily geometry\+\_\+msgs\+::msg\+::\+Point UINavigation\+Bridge\+::last\+\_\+position\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a9c76afa7e64d8e6307f2ab06499361f7}\label{classUINavigationBridge_a9c76afa7e64d8e6307f2ab06499361f7}} 
+\index{UINavigationBridge@{UINavigationBridge}!max\_speed\_@{max\_speed\_}}
+\index{max\_speed\_@{max\_speed\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{max\_speed\_}{max\_speed\_}}
+{\footnotesize\ttfamily double UINavigation\+Bridge\+::max\+\_\+speed\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_aa2ac94f19bab245af195788f023faece}\label{classUINavigationBridge_aa2ac94f19bab245af195788f023faece}} 
+\index{UINavigationBridge@{UINavigationBridge}!mission\_active\_@{mission\_active\_}}
+\index{mission\_active\_@{mission\_active\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{mission\_active\_}{mission\_active\_}}
+{\footnotesize\ttfamily bool UINavigation\+Bridge\+::mission\+\_\+active\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_af4aa6d04937883d3ddc98ac7626756b4}\label{classUINavigationBridge_af4aa6d04937883d3ddc98ac7626756b4}} 
+\index{UINavigationBridge@{UINavigationBridge}!mission\_end\_time\_@{mission\_end\_time\_}}
+\index{mission\_end\_time\_@{mission\_end\_time\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{mission\_end\_time\_}{mission\_end\_time\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Time UINavigation\+Bridge\+::mission\+\_\+end\+\_\+time\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a2406b781a8bc3661aa59c190ad206723}\label{classUINavigationBridge_a2406b781a8bc3661aa59c190ad206723}} 
+\index{UINavigationBridge@{UINavigationBridge}!mission\_start\_time\_@{mission\_start\_time\_}}
+\index{mission\_start\_time\_@{mission\_start\_time\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{mission\_start\_time\_}{mission\_start\_time\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Time UINavigation\+Bridge\+::mission\+\_\+start\+\_\+time\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a95f73300ac8dd889b0bee7c3305133df}\label{classUINavigationBridge_a95f73300ac8dd889b0bee7c3305133df}} 
+\index{UINavigationBridge@{UINavigationBridge}!nav\_obstacle\_sub\_@{nav\_obstacle\_sub\_}}
+\index{nav\_obstacle\_sub\_@{nav\_obstacle\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{nav\_obstacle\_sub\_}{nav\_obstacle\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::nav\+\_\+obstacle\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_abaeda788136ee49cea36da51d3d5253b}\label{classUINavigationBridge_abaeda788136ee49cea36da51d3d5253b}} 
+\index{UINavigationBridge@{UINavigationBridge}!nav\_odom\_sub\_@{nav\_odom\_sub\_}}
+\index{nav\_odom\_sub\_@{nav\_odom\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{nav\_odom\_sub\_}{nav\_odom\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$nav\+\_\+msgs\+::msg\+::\+Odometry$>$\+::Shared\+Ptr UINavigation\+Bridge\+::nav\+\_\+odom\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a95cb621e4502cca718d6826955bd43da}\label{classUINavigationBridge_a95cb621e4502cca718d6826955bd43da}} 
+\index{UINavigationBridge@{UINavigationBridge}!nav\_waypoint\_pub\_@{nav\_waypoint\_pub\_}}
+\index{nav\_waypoint\_pub\_@{nav\_waypoint\_pub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{nav\_waypoint\_pub\_}{nav\_waypoint\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped$>$\+::Shared\+Ptr UINavigation\+Bridge\+::nav\+\_\+waypoint\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_abc35ca41bba58b17571d4ad70681f2c8}\label{classUINavigationBridge_abc35ca41bba58b17571d4ad70681f2c8}} 
+\index{UINavigationBridge@{UINavigationBridge}!nav\_waypoint\_reached\_sub\_@{nav\_waypoint\_reached\_sub\_}}
+\index{nav\_waypoint\_reached\_sub\_@{nav\_waypoint\_reached\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{nav\_waypoint\_reached\_sub\_}{nav\_waypoint\_reached\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::nav\+\_\+waypoint\+\_\+reached\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a3445e9a384c8820c28bceb3c671e5fd6}\label{classUINavigationBridge_a3445e9a384c8820c28bceb3c671e5fd6}} 
+\index{UINavigationBridge@{UINavigationBridge}!obstacle\_detected\_@{obstacle\_detected\_}}
+\index{obstacle\_detected\_@{obstacle\_detected\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{obstacle\_detected\_}{obstacle\_detected\_}}
+{\footnotesize\ttfamily bool UINavigation\+Bridge\+::obstacle\+\_\+detected\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_ab45a0947931fc86a18b5e188619b4a0a}\label{classUINavigationBridge_ab45a0947931fc86a18b5e188619b4a0a}} 
+\index{UINavigationBridge@{UINavigationBridge}!state\_timer\_@{state\_timer\_}}
+\index{state\_timer\_@{state\_timer\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{state\_timer\_}{state\_timer\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Timer\+Base\+::\+Shared\+Ptr UINavigation\+Bridge\+::state\+\_\+timer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_adadf7240031c4b14baffc7ae5b212fba}\label{classUINavigationBridge_adadf7240031c4b14baffc7ae5b212fba}} 
+\index{UINavigationBridge@{UINavigationBridge}!statistics\_initialized\_@{statistics\_initialized\_}}
+\index{statistics\_initialized\_@{statistics\_initialized\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{statistics\_initialized\_}{statistics\_initialized\_}}
+{\footnotesize\ttfamily bool UINavigation\+Bridge\+::statistics\+\_\+initialized\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a0b291770fce50f2c48fbf1e0081d237b}\label{classUINavigationBridge_a0b291770fce50f2c48fbf1e0081d237b}} 
+\index{UINavigationBridge@{UINavigationBridge}!total\_distance\_traveled\_@{total\_distance\_traveled\_}}
+\index{total\_distance\_traveled\_@{total\_distance\_traveled\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{total\_distance\_traveled\_}{total\_distance\_traveled\_}}
+{\footnotesize\ttfamily double UINavigation\+Bridge\+::total\+\_\+distance\+\_\+traveled\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a8cb219009e047a9abd98dbe1d2f95758}\label{classUINavigationBridge_a8cb219009e047a9abd98dbe1d2f95758}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_add\_waypoint\_sub\_@{ui\_add\_waypoint\_sub\_}}
+\index{ui\_add\_waypoint\_sub\_@{ui\_add\_waypoint\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_add\_waypoint\_sub\_}{ui\_add\_waypoint\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$geometry\+\_\+msgs\+::msg\+::\+Point$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+add\+\_\+waypoint\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a9a9c6bb6e135a1601118e56bfe3e03cf}\label{classUINavigationBridge_a9a9c6bb6e135a1601118e56bfe3e03cf}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_clear\_waypoints\_sub\_@{ui\_clear\_waypoints\_sub\_}}
+\index{ui\_clear\_waypoints\_sub\_@{ui\_clear\_waypoints\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_clear\_waypoints\_sub\_}{ui\_clear\_waypoints\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+clear\+\_\+waypoints\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_afe7eec8dafd07db5953af9cad4c1195b}\label{classUINavigationBridge_afe7eec8dafd07db5953af9cad4c1195b}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_goal\_sub\_@{ui\_goal\_sub\_}}
+\index{ui\_goal\_sub\_@{ui\_goal\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_goal\_sub\_}{ui\_goal\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$geometry\+\_\+msgs\+::msg\+::\+Pose\+Stamped$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+goal\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a4ebc836c0f94a8063a290c86e3f9eae9}\label{classUINavigationBridge_a4ebc836c0f94a8063a290c86e3f9eae9}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_odom\_pub\_@{ui\_odom\_pub\_}}
+\index{ui\_odom\_pub\_@{ui\_odom\_pub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_odom\_pub\_}{ui\_odom\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$nav\+\_\+msgs\+::msg\+::\+Odometry$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+odom\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a45150bc05e07579726744462a30b0f52}\label{classUINavigationBridge_a45150bc05e07579726744462a30b0f52}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_pause\_sub\_@{ui\_pause\_sub\_}}
+\index{ui\_pause\_sub\_@{ui\_pause\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_pause\_sub\_}{ui\_pause\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+pause\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a06f63966afced1401bc22f2acc4edd8b}\label{classUINavigationBridge_a06f63966afced1401bc22f2acc4edd8b}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_progress\_pub\_@{ui\_progress\_pub\_}}
+\index{ui\_progress\_pub\_@{ui\_progress\_pub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_progress\_pub\_}{ui\_progress\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+progress\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a91ee7f51bacafcdf1f6a5658df29a6ee}\label{classUINavigationBridge_a91ee7f51bacafcdf1f6a5658df29a6ee}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_resume\_sub\_@{ui\_resume\_sub\_}}
+\index{ui\_resume\_sub\_@{ui\_resume\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_resume\_sub\_}{ui\_resume\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+resume\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a0649ab2e134240f6d0d69a9a093e7191}\label{classUINavigationBridge_a0649ab2e134240f6d0d69a9a093e7191}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_start\_sub\_@{ui\_start\_sub\_}}
+\index{ui\_start\_sub\_@{ui\_start\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_start\_sub\_}{ui\_start\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+start\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a5e64696480a2a51f350278dc1a900989}\label{classUINavigationBridge_a5e64696480a2a51f350278dc1a900989}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_state\_pub\_@{ui\_state\_pub\_}}
+\index{ui\_state\_pub\_@{ui\_state\_pub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_state\_pub\_}{ui\_state\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+state\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a7c528eb42f5f9b2d28719872df4d5146}\label{classUINavigationBridge_a7c528eb42f5f9b2d28719872df4d5146}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_statistics\_pub\_@{ui\_statistics\_pub\_}}
+\index{ui\_statistics\_pub\_@{ui\_statistics\_pub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_statistics\_pub\_}{ui\_statistics\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+statistics\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a721012d1ca028ed7f0311c8168703e7d}\label{classUINavigationBridge_a721012d1ca028ed7f0311c8168703e7d}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_status\_pub\_@{ui\_status\_pub\_}}
+\index{ui\_status\_pub\_@{ui\_status\_pub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_status\_pub\_}{ui\_status\_pub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Publisher$<$std\+\_\+msgs\+::msg\+::\+String$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+status\+\_\+pub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a80b50159a14252c776c46e1700b33953}\label{classUINavigationBridge_a80b50159a14252c776c46e1700b33953}} 
+\index{UINavigationBridge@{UINavigationBridge}!ui\_stop\_sub\_@{ui\_stop\_sub\_}}
+\index{ui\_stop\_sub\_@{ui\_stop\_sub\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{ui\_stop\_sub\_}{ui\_stop\_sub\_}}
+{\footnotesize\ttfamily rclcpp\+::\+Subscription$<$std\+\_\+msgs\+::msg\+::\+Bool$>$\+::Shared\+Ptr UINavigation\+Bridge\+::ui\+\_\+stop\+\_\+sub\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_a79d5d11b689987d58352075686c2283a}\label{classUINavigationBridge_a79d5d11b689987d58352075686c2283a}} 
+\index{UINavigationBridge@{UINavigationBridge}!waypoint\_queue\_@{waypoint\_queue\_}}
+\index{waypoint\_queue\_@{waypoint\_queue\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{waypoint\_queue\_}{waypoint\_queue\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structWaypoint}{Waypoint}}$>$ UINavigation\+Bridge\+::waypoint\+\_\+queue\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classUINavigationBridge_ac9dd42e89f136122f81021cf428be587}\label{classUINavigationBridge_ac9dd42e89f136122f81021cf428be587}} 
+\index{UINavigationBridge@{UINavigationBridge}!waypoint\_reached\_@{waypoint\_reached\_}}
+\index{waypoint\_reached\_@{waypoint\_reached\_}!UINavigationBridge@{UINavigationBridge}}
+\doxysubsubsection{\texorpdfstring{waypoint\_reached\_}{waypoint\_reached\_}}
+{\footnotesize\ttfamily bool UINavigation\+Bridge\+::waypoint\+\_\+reached\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{drone__ui__navigation__bridge_8cpp}{drone\+\_\+ui\+\_\+navigation\+\_\+bridge.\+cpp}}\end{DoxyCompactItemize}

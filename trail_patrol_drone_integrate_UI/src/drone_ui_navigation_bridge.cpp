@@ -204,20 +204,19 @@ private:
     
     void ui_clear_waypoints_callback(const std_msgs::msg::Bool::SharedPtr msg) {
         if (!msg->data) return;
-        
+
         size_t count = waypoint_queue_.size();
         waypoint_queue_.clear();
         current_waypoint_index_ = 0;
-        
-        if (mission_active_) {
-            mission_active_ = false;
-        }
-        
-        RCLCPP_INFO(this->get_logger(), "🗑️  Cleared %zu waypoints", count);
-        
-        publish_ui_state("IDLE");
-        publish_ui_status("All waypoints cleared (" + std::to_string(count) + " removed)");
-        publish_ui_progress("0 waypoints");
+
+        // Don't stop the mission when clearing queue - let it continue
+        // The mission node handles waypoint management
+
+        RCLCPP_INFO(this->get_logger(), "🗑️  Cleared %zu waypoints from queue", count);
+
+        // Don't publish state changes - let the mission node handle that
+        publish_ui_status("Queue cleared (" + std::to_string(count) + " removed)");
+        publish_ui_progress(std::to_string(waypoint_queue_.size()) + " waypoints queued");
     }
     
     void ui_goal_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {

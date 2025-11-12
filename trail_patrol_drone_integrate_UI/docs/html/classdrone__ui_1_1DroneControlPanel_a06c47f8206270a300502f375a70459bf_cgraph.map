@@ -1,0 +1,8 @@
+<map id="drone_ui::DroneControlPanel::onModeChanged" name="drone_ui::DroneControlPanel::onModeChanged">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,212,112"/>
+<area shape="rect" id="node2" href="$classdrone__ui_1_1DroneControlPanel.html#a2c748853817cf65ec8edddfa51bc0863" title=" " alt="" coords="260,5,467,47"/>
+<area shape="rect" id="node3" href="$classdrone__ui_1_1DroneControlPanel.html#ac74865957f8849dd2465b55069fe0c47" title=" " alt="" coords="260,71,467,112"/>
+<area shape="rect" id="node4" href="$classdrone__ui_1_1DroneControlPanel.html#a07a40541d7bb7cc38311bf5425f0d406" title=" " alt="" coords="260,136,467,177"/>
+<area shape="rect" id="node5" href="$classdrone__ui_1_1DroneControlPanel.html#ab6352c0140fe450ff940090709a07e27" title=" " alt="" coords="515,136,721,177"/>
+<area shape="rect" id="node6" href="$classdrone__ui_1_1DroneControlPanel.html#ac4738797821238e1139f0f11f3e89702" title=" " alt="" coords="769,136,976,177"/>
+</map>

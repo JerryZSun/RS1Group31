@@ -1,0 +1,13 @@
+<map id="Mission::publish_ui_state" name="Mission::publish_ui_state">
+<area shape="rect" id="node1" title=" " alt="" coords="657,253,804,295"/>
+<area shape="rect" id="node2" href="$classMission.html#a23a2e08ce31a98abce886bb968b727e9" title="Activates fly&#45;around obstacle avoidance protocol." alt="" coords="436,5,592,47"/>
+<area shape="rect" id="node4" href="$classMission.html#aa5a6ff4fc779338ab01b8f6dd470f4df" title=" " alt="" coords="5,290,136,317"/>
+<area shape="rect" id="node5" href="$classMission.html#a2d29b8445e75710276f496699e0c56a1" title="Activates fly&#45;over obstacle avoidance protocol." alt="" coords="436,71,592,112"/>
+<area shape="rect" id="node6" href="$classMission.html#a9c36210798552a6d5ec5ddff2c9b2171" title="Callback to clear custom waypoints from the queue." alt="" coords="184,188,371,229"/>
+<area shape="rect" id="node7" href="$classMission.html#aca35dd36d34d25c5f3edddff034725b8" title=" " alt="" coords="201,253,354,295"/>
+<area shape="rect" id="node8" href="$classMission.html#a430fb6a9d5e6bbac8a452549ad1d3db6" title=" " alt="" coords="194,319,361,346"/>
+<area shape="rect" id="node9" href="$classMission.html#aec7d21c4224e4e08c04aa1ef133e0b5f" title=" " alt="" coords="187,370,367,397"/>
+<area shape="rect" id="node10" href="$classMission.html#a0e0f7be47badf79e782b78743acffc6f" title=" " alt="" coords="419,413,609,439"/>
+<area shape="rect" id="node11" href="$classMission.html#af3de1d159a2ca9069d0585b7a1a65147" title="Callback to start or restart the mission." alt="" coords="430,464,598,505"/>
+<area shape="rect" id="node3" href="$classMission.html#a20726c8a069901a1921acb6f11102e13" title=" " alt="" coords="204,71,351,112"/>
+</map>

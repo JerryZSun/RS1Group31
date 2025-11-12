@@ -1,0 +1,5 @@
+<map id="Mission::activate_fly_over_protocol" name="Mission::activate_fly_over_protocol">
+<area shape="rect" id="node1" title="Activates fly&#45;over obstacle avoidance protocol." alt="" coords="379,5,535,47"/>
+<area shape="rect" id="node2" href="$classMission.html#a20726c8a069901a1921acb6f11102e13" title=" " alt="" coords="184,5,331,47"/>
+<area shape="rect" id="node3" href="$classMission.html#aa5a6ff4fc779338ab01b8f6dd470f4df" title=" " alt="" coords="5,13,136,39"/>
+</map>

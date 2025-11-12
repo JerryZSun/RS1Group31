@@ -1,0 +1,9 @@
+<map id="Mission::publish_waypoint" name="Mission::publish_waypoint">
+<area shape="rect" id="node1" title=" " alt="" coords="627,107,821,134"/>
+<area shape="rect" id="node2" href="$classMission.html#a23a2e08ce31a98abce886bb968b727e9" title="Activates fly&#45;around obstacle avoidance protocol." alt="" coords="411,5,567,47"/>
+<area shape="rect" id="node5" href="$classMission.html#a2d29b8445e75710276f496699e0c56a1" title="Activates fly&#45;over obstacle avoidance protocol." alt="" coords="411,71,567,112"/>
+<area shape="rect" id="node6" href="$classMission.html#a430fb6a9d5e6bbac8a452549ad1d3db6" title=" " alt="" coords="184,137,351,163"/>
+<area shape="rect" id="node7" href="$classMission.html#a31a901ccbee43aafd9fbc3d60029c474" title=" " alt="" coords="399,188,579,229"/>
+<area shape="rect" id="node3" href="$classMission.html#a20726c8a069901a1921acb6f11102e13" title=" " alt="" coords="194,71,341,112"/>
+<area shape="rect" id="node4" href="$classMission.html#aa5a6ff4fc779338ab01b8f6dd470f4df" title=" " alt="" coords="5,107,136,134"/>
+</map>

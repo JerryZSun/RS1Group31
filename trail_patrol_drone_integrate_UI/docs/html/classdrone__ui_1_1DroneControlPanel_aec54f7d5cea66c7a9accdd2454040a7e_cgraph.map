@@ -1,0 +1,11 @@
+<map id="drone_ui::DroneControlPanel::createSubscribers" name="drone_ui::DroneControlPanel::createSubscribers">
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,212,145"/>
+<area shape="rect" id="node2" href="$classdrone__ui_1_1DroneControlPanel.html#ae2169acda333ad84aa0f4f72190fa1c5" title=" " alt="" coords="260,5,467,47"/>
+<area shape="rect" id="node4" href="$classdrone__ui_1_1DroneControlPanel.html#ae8614013ec282d2f23c616c289573129" title=" " alt="" coords="260,71,467,112"/>
+<area shape="rect" id="node5" href="$classdrone__ui_1_1DroneControlPanel.html#afda6e24e6fc98effc1587d2a90126fcb" title=" " alt="" coords="260,136,467,177"/>
+<area shape="rect" id="node9" href="$classdrone__ui_1_1DroneControlPanel.html#a0c47be4b257c266df05a77fc10778588" title=" " alt="" coords="260,201,467,243"/>
+<area shape="rect" id="node3" href="$classdrone__ui_1_1DroneControlPanel.html#a7a2bf9a8819a04a7bac94d1d5e9ad4d6" title=" " alt="" coords="515,5,721,47"/>
+<area shape="rect" id="node6" href="$classdrone__ui_1_1DroneControlPanel.html#a2c748853817cf65ec8edddfa51bc0863" title=" " alt="" coords="515,103,721,144"/>
+<area shape="rect" id="node7" href="$classdrone__ui_1_1DroneControlPanel.html#a09873480b8a190419d85ed3ea7b43912" title=" " alt="" coords="515,168,721,209"/>
+<area shape="rect" id="node8" href="$classdrone__ui_1_1DroneControlPanel.html#ac196f7441abae75f32110e174193afc2" title=" " alt="" coords="769,168,976,209"/>
+</map>

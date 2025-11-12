@@ -1,0 +1,81 @@
+\hypertarget{drone__control__panel_8hpp}{}\doxysection{src/drone\+\_\+control\+\_\+panel.hpp File Reference}
+\label{drone__control__panel_8hpp}\index{src/drone\_control\_panel.hpp@{src/drone\_control\_panel.hpp}}
+
+
+RViz2 panel for drone control and mission management.  
+
+
+{\ttfamily \#include $<$rviz\+\_\+common/panel.\+hpp$>$}\newline
+{\ttfamily \#include $<$rclcpp/rclcpp.\+hpp$>$}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/msg/bool.\+hpp$>$}\newline
+{\ttfamily \#include $<$std\+\_\+msgs/msg/string.\+hpp$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/msg/odometry.\+hpp$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/msg/point.\+hpp$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/msg/twist.\+hpp$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/msg/pose\+\_\+stamped.\+hpp$>$}\newline
+{\ttfamily \#include $<$QPush\+Button$>$}\newline
+{\ttfamily \#include $<$QLabel$>$}\newline
+{\ttfamily \#include $<$QVBox\+Layout$>$}\newline
+{\ttfamily \#include $<$QHBox\+Layout$>$}\newline
+{\ttfamily \#include $<$QTimer$>$}\newline
+{\ttfamily \#include $<$QDate\+Time$>$}\newline
+{\ttfamily \#include $<$QDouble\+Spin\+Box$>$}\newline
+{\ttfamily \#include $<$QList\+Widget$>$}\newline
+{\ttfamily \#include $<$QGroup\+Box$>$}\newline
+{\ttfamily \#include $<$QSlider$>$}\newline
+{\ttfamily \#include $<$QRadio\+Button$>$}\newline
+{\ttfamily \#include $<$QButton\+Group$>$}\newline
+{\ttfamily \#include $<$QScroll\+Area$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+Include dependency graph for drone\+\_\+control\+\_\+panel.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{drone__control__panel_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{drone__control__panel_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdrone__ui_1_1DroneControlPanel}{drone\+\_\+ui\+::\+Drone\+Control\+Panel}}
+\begin{DoxyCompactList}\small\item\em RViz2 panel widget for comprehensive drone control and monitoring. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespacedrone__ui}{drone\+\_\+ui}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+RViz2 panel for drone control and mission management. 
+
+This header defines the Drone\+Control\+Panel class which provides a Qt-\/based graphical user interface for controlling autonomous drone missions within RViz2.
+
+Features\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classMission}{Mission}} control (start, pause, resume, emergency stop)
+\item Custom waypoint queue management
+\item \mbox{\hyperlink{structWaypoint}{Waypoint}} library for click-\/to-\/go navigation
+\item Manual control mode with directional buttons
+\item Real-\/time telemetry display (position, altitude, speed)
+\item \mbox{\hyperlink{classMission}{Mission}} progress and status monitoring
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+RS1 Group 31 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025 
+\end{DoxyDate}

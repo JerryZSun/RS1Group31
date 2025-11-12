@@ -1,0 +1,5 @@
+<map id="Mission" name="Mission">
+<area shape="rect" id="node1" title="Main mission management class for autonomous drone navigation." alt="" coords="79,95,151,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node3" href="$structWaypoint.html" title="Waypoint structure representing a 3D position in space." alt="" coords="133,5,215,32"/>
+</map>

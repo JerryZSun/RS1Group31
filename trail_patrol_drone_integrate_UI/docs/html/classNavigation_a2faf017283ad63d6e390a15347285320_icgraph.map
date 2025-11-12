@@ -1,0 +1,5 @@
+<map id="Navigation::check_emergency_obstacle" name="Navigation::check_emergency_obstacle">
+<area shape="rect" id="node1" title="Checks for obstacles within emergency threshold (0.5m)" alt="" coords="465,5,684,47"/>
+<area shape="rect" id="node2" href="$classNavigation.html#a08b4e6f13a6bf5965814ccecf6a20651" title="Processes laser scan data for multi&#45;level obstacle detection." alt="" coords="225,13,417,39"/>
+<area shape="rect" id="node3" href="$classNavigation.html#a81fdffdefe46340da5fa6c570066b42b" title=" " alt="" coords="5,13,177,39"/>
+</map>

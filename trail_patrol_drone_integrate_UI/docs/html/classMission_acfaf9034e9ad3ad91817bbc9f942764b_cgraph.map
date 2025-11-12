@@ -1,0 +1,4 @@
+<map id="Mission::obstacle_detected_callback" name="Mission::obstacle_detected_callback">
+<area shape="rect" id="node1" title="Callback for obstacle detection events from navigation node." alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node2" href="$classMission.html#a6531a2b9cc98d99e60b2fd3095b7dfb9" title=" " alt="" coords="252,5,399,47"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="Mission::set_avoidance_mode" name="Mission::set_avoidance_mode">
+<area shape="rect" id="node1" title=" " alt="" coords="603,78,821,105"/>
+<area shape="rect" id="node2" href="$classMission.html#a23a2e08ce31a98abce886bb968b727e9" title="Activates fly&#45;around obstacle avoidance protocol." alt="" coords="399,5,555,47"/>
+<area shape="rect" id="node5" href="$classMission.html#a2d29b8445e75710276f496699e0c56a1" title="Activates fly&#45;over obstacle avoidance protocol." alt="" coords="399,71,555,112"/>
+<area shape="rect" id="node6" href="$classMission.html#a430fb6a9d5e6bbac8a452549ad1d3db6" title=" " alt="" coords="184,137,351,163"/>
+<area shape="rect" id="node3" href="$classMission.html#a20726c8a069901a1921acb6f11102e13" title=" " alt="" coords="194,71,341,112"/>
+<area shape="rect" id="node4" href="$classMission.html#aa5a6ff4fc779338ab01b8f6dd470f4df" title=" " alt="" coords="5,107,136,134"/>
+</map>

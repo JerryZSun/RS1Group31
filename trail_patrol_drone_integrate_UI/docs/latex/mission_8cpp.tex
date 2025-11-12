@@ -1,0 +1,113 @@
+\hypertarget{mission_8cpp}{}\doxysection{src/mission.cpp File Reference}
+\label{mission_8cpp}\index{src/mission.cpp@{src/mission.cpp}}
+
+
+\mbox{\hyperlink{classMission}{Mission}} management node for autonomous drone navigation.  
+
+
+{\ttfamily \#include \char`\"{}rclcpp/rclcpp.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/msg/pose\+\_\+stamped.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geometry\+\_\+msgs/msg/point.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}nav\+\_\+msgs/msg/odometry.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/msg/bool.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/msg/string.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}std\+\_\+msgs/msg/int32.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+Include dependency graph for mission.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mission_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structWaypoint}{Waypoint}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structWaypoint}{Waypoint}} structure representing a 3D position in space. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classMission}{Mission}}
+\begin{DoxyCompactList}\small\item\em Main mission management class for autonomous drone navigation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827f}{Mission\+State}} \{ \newline
+\mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827fa1e23852820b9154316c7c06e2b7ba051}{NORMAL}}
+, \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827faed9125b1c0f6a52a160875961bdd81ad}{FLY\+\_\+\+AROUND\+\_\+\+RIGHT}}
+, \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827fae2161e8fb7c3af5b1aacaa1fa4f3dc1a}{FLY\+\_\+\+AROUND\+\_\+\+LEFT}}
+, \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827fa459cec269fb8ccb06d787a6c2104c364}{FLY\+\_\+\+AROUND\+\_\+\+RETURN}}
+, \newline
+\mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827fa9899bbf2f9946e69371e85dd6e84557c}{FLY\+\_\+\+OVER\+\_\+\+UP}}
+, \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827fa357d3a9a172878810a65baf5b16ebafd}{FLY\+\_\+\+OVER\+\_\+\+ACROSS}}
+ \}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classMission}{Mission}} state enumeration for obstacle avoidance protocols. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{mission_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classMission}{Mission}} management node for autonomous drone navigation. 
+
+This file implements the \mbox{\hyperlink{classMission}{Mission}} class which manages waypoint-\/based drone navigation, including obstacle avoidance protocols (fly-\/over, fly-\/around), mission state management, and UI integration for real-\/time status updates and mission control.
+
+\begin{DoxyAuthor}{Author}
+RS1 Group 31 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025 
+\end{DoxyDate}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827f}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827f}} 
+\index{mission.cpp@{mission.cpp}!MissionState@{MissionState}}
+\index{MissionState@{MissionState}!mission.cpp@{mission.cpp}}
+\doxysubsubsection{\texorpdfstring{MissionState}{MissionState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{mission_8cpp_a41996d054b08274f9f7425838ce0827f}{Mission\+State}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+\mbox{\hyperlink{classMission}{Mission}} state enumeration for obstacle avoidance protocols. 
+
+Defines different states the mission can be in during normal navigation and obstacle avoidance maneuvers. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORMAL@{NORMAL}!mission.cpp@{mission.cpp}}\index{mission.cpp@{mission.cpp}!NORMAL@{NORMAL}}}\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827fa1e23852820b9154316c7c06e2b7ba051}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827fa1e23852820b9154316c7c06e2b7ba051}} 
+NORMAL&Normal waypoint navigation. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLY\_AROUND\_RIGHT@{FLY\_AROUND\_RIGHT}!mission.cpp@{mission.cpp}}\index{mission.cpp@{mission.cpp}!FLY\_AROUND\_RIGHT@{FLY\_AROUND\_RIGHT}}}\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827faed9125b1c0f6a52a160875961bdd81ad}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827faed9125b1c0f6a52a160875961bdd81ad}} 
+FLY\+\_\+\+AROUND\+\_\+\+RIGHT&Avoiding obstacle by flying around to the right. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLY\_AROUND\_LEFT@{FLY\_AROUND\_LEFT}!mission.cpp@{mission.cpp}}\index{mission.cpp@{mission.cpp}!FLY\_AROUND\_LEFT@{FLY\_AROUND\_LEFT}}}\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827fae2161e8fb7c3af5b1aacaa1fa4f3dc1a}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827fae2161e8fb7c3af5b1aacaa1fa4f3dc1a}} 
+FLY\+\_\+\+AROUND\+\_\+\+LEFT&Avoiding obstacle by flying around to the left. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLY\_AROUND\_RETURN@{FLY\_AROUND\_RETURN}!mission.cpp@{mission.cpp}}\index{mission.cpp@{mission.cpp}!FLY\_AROUND\_RETURN@{FLY\_AROUND\_RETURN}}}\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827fa459cec269fb8ccb06d787a6c2104c364}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827fa459cec269fb8ccb06d787a6c2104c364}} 
+FLY\+\_\+\+AROUND\+\_\+\+RETURN&Returning to mission path after fly-\/around. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLY\_OVER\_UP@{FLY\_OVER\_UP}!mission.cpp@{mission.cpp}}\index{mission.cpp@{mission.cpp}!FLY\_OVER\_UP@{FLY\_OVER\_UP}}}\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827fa9899bbf2f9946e69371e85dd6e84557c}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827fa9899bbf2f9946e69371e85dd6e84557c}} 
+FLY\+\_\+\+OVER\+\_\+\+UP&Climbing above obstacle (fly-\/over phase 1) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FLY\_OVER\_ACROSS@{FLY\_OVER\_ACROSS}!mission.cpp@{mission.cpp}}\index{mission.cpp@{mission.cpp}!FLY\_OVER\_ACROSS@{FLY\_OVER\_ACROSS}}}\mbox{\Hypertarget{mission_8cpp_a41996d054b08274f9f7425838ce0827fa357d3a9a172878810a65baf5b16ebafd}\label{mission_8cpp_a41996d054b08274f9f7425838ce0827fa357d3a9a172878810a65baf5b16ebafd}} 
+FLY\+\_\+\+OVER\+\_\+\+ACROSS&Traversing over obstacle (fly-\/over phase 2) \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mission_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}\label{mission_8cpp_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{mission.cpp@{mission.cpp}!main@{main}}
+\index{main@{main}!mission.cpp@{mission.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+

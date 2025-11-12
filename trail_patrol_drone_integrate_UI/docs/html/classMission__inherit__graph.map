@@ -1,0 +1,4 @@
+<map id="Mission" name="Mission">
+<area shape="rect" id="node1" title="Main mission management class for autonomous drone navigation." alt="" coords="21,80,93,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,108,32"/>
+</map>

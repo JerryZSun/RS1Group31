@@ -1,0 +1,4 @@
+<map id="Navigation::scan_for_clear_path" name="Navigation::scan_for_clear_path">
+<area shape="rect" id="node1" title="Scans left and right sides to determine best avoidance direction." alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node2" href="$classNavigation.html#ab48a3cc9b711f8c1342cf698e11505ac" title=" " alt="" coords="209,5,412,47"/>
+</map>
